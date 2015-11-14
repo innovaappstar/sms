@@ -1,8 +1,48 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme">
         <!-- Customize your theme here. -->
     </style>
+
+    <!--
+    ESTILOS CONFIGURACION DE CONTACTOS config_lista_contactos.xml
+    -->
+    <style name="StyleContentNumbers" parent="WidgetContentNumber">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="WidgetContentNumber">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:background">@android:color/darker_gray</item>
+        <item name="android:weightSum">6</item>
+    </style>
+
+    <style name="StyleInputTextNumber" parent="WidgetInputTextNumber">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="WidgetInputTextNumber">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">number</item>
+        <item name="android:ems">9</item>
+        <item name="android:enabled">false</item>
+    </style>
+
+    <style name="StyleInputButtonNumber" parent="WidgetInputButtonNumber">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="WidgetInputButtonNumber">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">listar</item>
+        <item name="android:onClick">onClickConfig</item>
+    </style>
+
 
 </resources>

@@ -13,5 +13,25 @@
         android:layout_centerInParent="true"
         android:id="@+id/btnEnviarSms"
         android:onClick="onClickSmsGps"/>
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:text="Bluetooth"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/btnEnviarSms"
+        android:layout_marginTop="20dp"
+        android:id="@+id/btnBluetooth"
+        android:onClick="onClickSmsGps"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtSalida"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="sss"
+        android:textSize="28sp"/>
 
 </RelativeLayout>

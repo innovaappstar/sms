@@ -1,0 +1,7 @@
+ActivityMenu-Configuracion  :
+                    - ConfigContactos       - v1
+                        - ConfigListaContactos  - v1
+                    - ActivityLoginFb       - v1
+                    - ActivityConfigBeeps   - v0
+ServicioSms     :
+                    -

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/contentContactosInput"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_above="@+id/linearBoton"
+            android:weightSum="8">
+
+            <LinearLayout
+                style="@style/StyleContentNumbers">
+                <EditText
+                    style="@style/StyleInputTextNumber"
+                    android:id="@+id/editContacto01" />
+                <Button
+                    style="@style/StyleInputButtonNumber"
+                    android:id="@+id/btnListar01"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/StyleContentNumbers">
+                <EditText
+                    style="@style/StyleInputTextNumber"
+                    android:id="@+id/editContacto02" />
+                <Button
+                    style="@style/StyleInputButtonNumber"
+                    android:id="@+id/btnListar02"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/StyleContentNumbers">
+                <EditText
+                    style="@style/StyleInputTextNumber"
+                    android:id="@+id/editContacto03" />
+                <Button
+                    style="@style/StyleInputButtonNumber"
+                    android:id="@+id/btnListar03"/>
+            </LinearLayout>
+            <LinearLayout
+                style="@style/StyleContentNumbers">
+                <EditText
+                    style="@style/StyleInputTextNumber"
+                    android:id="@+id/editContacto04" />
+                <Button
+                    style="@style/StyleInputButtonNumber"
+                    android:id="@+id/btnListar04"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/linearBoton">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Siguiente"
+                android:onClick="onClickConfig"
+                android:id="@+id/btnNextContactos"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
