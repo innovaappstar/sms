@@ -7,17 +7,11 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Binder;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.facebook.HttpMethod;
-import com.facebook.Request;
-import com.facebook.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,11 +20,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.UUID;
 
-import innova.smsgps.application.Globals;
 import innova.smsgps.beans.Coordenada;
 import innova.smsgps.controlador.ControladorUbicacion;
 import innova.smsgps.controlador.ControladorUbicacion.ControladorUbicacionCallback;
-import innova.smsgps.enums.ACTIONS;
 import innova.smsgps.utils.ManagerUtils;
 
 /**
@@ -114,94 +106,6 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
 
     //endregion
 
-    // AGREGA LA FUNCION DE POSTEAR ---ME COMI UNA TILDE
-    /**Enumrable para las acciones*/
-    private static ACTIONS pendingAction = ACTIONS.NONE;
-    private static final String PERMISOS = "publish_actions";
-    //static innova.smsgps.beans.Session sessionbeans = new innova.smsgps.beans.Session();
-
-
-
-    /**
-     * Comprueba si la session esta activa.
-     */
-    private static void performPublish(ACTIONS action, boolean allowNoSession) {
-        Globals.getSession();
-        if (Globals.getSession() != null) {
-            pendingAction = action;
-            if (hasPublishPermission()) {
-                // We can do the action right away.
-                handlePendingAction();
-                return;
-            } else if (Globals.getSession().isOpened()) {
-                // We need to get new permissions, then complete the action when we get called back.
-                //session.requestNewPublishPermissions(new Session.NewPermissionsRequest(mContext, PERMISOS));
-                //request.setPermissions(Arrays.asList("public_profile", "email", "user_birthday", "user_work_history"));
-                Toast.makeText(mContext, "session is opened", Toast.LENGTH_SHORT).show();
-
-                return;
-            }
-        }
-
-            pendingAction = action;
-            handlePendingAction();
-    }
-    /**Manejado para acciones pendientes.*/
-
-    @SuppressWarnings("incomplete-switch")
-    private static void handlePendingAction() {
-        ACTIONS previouslyPendingAction = pendingAction;
-        // These actions may re-set pendingAction if they are still pending, but we assume they
-        // will succeed.
-        pendingAction = ACTIONS.NONE;
-
-        switch (previouslyPendingAction) {
-            case POST_PHOTO:
-                //postPhoto();
-                break;
-            case POST_STATUS_UPDATE:
-                postStatusUpdate();
-                break;
-        }
-    }
-    /**M?todo post status*/
-    private static void postStatusUpdate() {
-
-            Bundle params = new Bundle();
-            params.putString("caption", coordenada._getLatitud() + "|" + coordenada._getLongitud());
-            params.putString("message", "Alerta SMS GPS.");
-            params.putString("link", "https://www.youtube.com/watch?v=1uQG9yc-raQ");
-            params.putString("picture", "http://www.nvtl.com/files/8713/6210/9612/map_gps_NVTL.jpg");
-            //params.putString("picture", "https://www.google.com.pe/maps/place/Independencia/@-11.9912498,-77.0621203,14.5z/data=!4m2!3m1!1s0x9105cfaeef4c292f:0xee8dfbf42a8ee7da?hl=es-419");
-
-            Request request = new Request(Globals.getSession().getActiveSession(), "me/feed", params, HttpMethod.POST);
-            request.setCallback(new Request.Callback() {
-                @Override
-                public void onCompleted(Response response) {
-                    if (response.getError() == null) {
-                        // Tell the user success!
-                    } else if (response.getError().getErrorCode() == 2500)    // session null
-                    {
-                        Toast.makeText(mContext, response.getError().toString(), Toast.LENGTH_SHORT).show();
-                        //managerUtils.showNotificacionSimple();
-                    }
-                }
-            });
-            request.executeAsync();
-
-    }
-
-    public static void PostearSegundoPlano()
-    {
-        performPublish(ACTIONS.POST_STATUS_UPDATE, false);
-        Toast.makeText(mContext, "POST STATUS", Toast.LENGTH_SHORT).show();
-
-    }
-    /**Comprobamos si tenemos permiso de publicar */
-    private static boolean hasPublishPermission() {
-        return Globals.getSession() != null && Globals.getSession().getPermissions().contains(PERMISOS);
-    }
-
 
 
 
@@ -210,9 +114,9 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
         super.onCreate(); // if you override onCreate(), make sure to call super().
         // If a Context object is needed, call getApplicationContext() here.
         TimerTarea objTimer = new TimerTarea(this);
-        managerUtils    = new ManagerUtils();
-        mContext = getApplicationContext();
-        instanciaServicio = this;
+        managerUtils        = new ManagerUtils();
+        mContext            = getApplicationContext();
+        instanciaServicio   = this;
         IniciarLocalizacion();
     }
 
@@ -342,50 +246,6 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
         }).start();
     }
 
-    static class AsynTaskOrden extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params)  {
 
-            BufferedReader r = null;
-            String mSalida="";
-            try {
-                mmOutputStream.write(params[0].getBytes());
-                Log.i("smsgps", "1");
-                r = new BufferedReader(new InputStreamReader(mmInputStream));
-                Log.i("smsgps", "2");
-                mSalida = r.readLine().toString();
-                Log.i("smsgps", "3");
-    	   		/*
-    	   		while ((mSalida = r.readLine()) != null) {
-    	   			Log.i("Socket Bluetooth ", "Respuesta Bluetoth "+r.readLine());
-                }
-    	   		*/
-            }
-            catch (Exception e) {
-                Log.i("smsgps ", "Error "+e);
-            }
-            return mSalida;
-        }
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if(result.equals(""))
-            {
-                try {
-                    findBT(MacAddress);
-                    openBT();
-                } catch (Exception e) {}
-            }
-            Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
-            SmsActivity.Contador = 0;
-            super.onPostExecute(result);
-        }
-
-    }
     //endregion
 }

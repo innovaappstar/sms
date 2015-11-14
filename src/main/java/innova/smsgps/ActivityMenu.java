@@ -19,6 +19,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import innova.smsgps.application.Globals;
+import innova.smsgps.beans.Coordenada;
 import innova.smsgps.beans.RegistroAlerta;
 import innova.smsgps.managerhttp.Httppostaux;
 
@@ -72,10 +74,13 @@ public class ActivityMenu extends Activity {
 //                finish();
                 break;
             case R.id.btnPostearUbicacion:
-                //ServicioSms.PostearSegundoPlano();
+                Coordenada coordenada = new Coordenada();
+                Globals.PostearSegundoPlano(coordenada);
+
                 registroAlerta.setIdFacebook("12345678910112");
                 registroAlerta.setIdTipoAlerta(1);
                 new asynRegistroAlerta().execute();
+                
                 break;
         }
     }

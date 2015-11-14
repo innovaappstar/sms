@@ -25,7 +25,11 @@ import innova.smsgps.interfaces.IUtils;
 public class Utils implements IUtils {
     public static String TAG = "PrintReader";
 
-
+    /**
+     * Simple mEtodo que genera una notificación
+     * en caso de haber perdido la sesión.
+     * @param context
+     */
     public void showNotificacionSimple(Context context)
     {
         int icon = R.drawable.ic_contacts;
