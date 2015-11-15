@@ -8,6 +8,9 @@ import java.util.ArrayList;
 public class ListRegistrosAlertas
 {
 
+    public static ArrayList<HistorialRegistros> listHistorial   = new ArrayList<HistorialRegistros>();
+
+    public static ArrayList<RegistroAlerta> listRegistrosAlertas = new ArrayList<RegistroAlerta>();
 
     public static ArrayList<RegistroAlerta> getListRegistrosAlertas() {
         return listRegistrosAlertas;
@@ -17,8 +20,14 @@ public class ListRegistrosAlertas
         ListRegistrosAlertas.listRegistrosAlertas = listRegistrosAlertas;
     }
 
-    public static ArrayList<RegistroAlerta> listRegistrosAlertas = new ArrayList<RegistroAlerta>();
 
+    public static ArrayList<HistorialRegistros> getListHistorial() {
+        return listHistorial;
+    }
+
+    public static void setListHistorial(ArrayList<HistorialRegistros> listHistorial) {
+        ListRegistrosAlertas.listHistorial = listHistorial;
+    }
 
 
 }

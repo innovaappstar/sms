@@ -6,7 +6,7 @@ package innova.smsgps.beans;
 public class RegistroAlerta extends Ubicacion
 {
 
-    // SOLO SE USARÁ PARA LA SERIALIZACIÓN EN SQLITE
+    // SOLO SE USARAAA PARA LA SERIALIZACIoN EN SQLITE
     String FechaHoraSqlite;
     String FlagServidorSqlite;
 

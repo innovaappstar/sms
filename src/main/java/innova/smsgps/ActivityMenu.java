@@ -88,8 +88,16 @@ public class ActivityMenu extends Activity {
                 }
                 break;
             case R.id.btnListarRegistrosAlertas:
+                // SALTAR A LA OTRA ACTIVIDAD
                 Intent i2 = new Intent(this, ActivityListaRegistroAlertas.class);
                 startActivity(i2);
+//                finish();
+                break;
+            case R.id.btnMostrarMap:
+                // SALTAR A LA OTRA ACTIVIDAD
+                Intent i3 = new Intent(this, ActivityMap.class);
+                startActivity(i3);
+//                finish();
                 break;
         }
     }

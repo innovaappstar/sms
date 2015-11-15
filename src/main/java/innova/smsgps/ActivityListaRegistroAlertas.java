@@ -60,7 +60,7 @@ public class ActivityListaRegistroAlertas extends Activity {
                 });
             }else
             {
-                imprimitToast("<<Excepción Code 01>>");
+                imprimitToast("<<Excepcion Code 01>>");
             }
 
     }

@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import innova.smsgps.application.Globals;
+import innova.smsgps.beans.HistorialRegistros;
 import innova.smsgps.beans.ListRegistrosAlertas;
 import innova.smsgps.beans.RegistroAlerta;
 import innova.smsgps.enums.IDSP2;
@@ -167,10 +168,21 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                     db.close();
                     return result;
                 }
-            case 61:
+            case 61:    // LISTA REGISTROS PARA MOSTRARLOS EN UN LISTVIEW
                 try
                 {
                     if(ObtenerRegistro(2).equals("1"))
+                    {
+                        result = 1;
+                    }
+                }finally
+                {
+                    return result;
+                }
+            case 62:    // LISTA REGISTROS LOCALES PARA MOSTRARLOS EN EL MAPA
+                try
+                {
+                    if(ObtenerRegistro(3).equals("1"))
                     {
                         result = 1;
                     }
@@ -238,9 +250,39 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                 {
                     return result;
                 }
-            case 3:// Obtener Cantidad de Reinicios que tengan razon de GPS o BUG SIM
-                break;
+            case 3:
+                try
+                {
+                    ListRegistrosAlertas listRegistrosAlertas   = new ListRegistrosAlertas();
+                    ArrayList<HistorialRegistros> list          = new ArrayList<HistorialRegistros>();
 
+                    sql = "SELECT " + KeyIdFacebook + "," + KeyIdTipoAlerta + "," + KeyLat + "," + KeyLng + "," + KeyFechaHora + " FROM " + TbRegistroAlerta;
+                    cursor = db.rawQuery(sql, null);
+                    if(cursor.getCount() > 0)
+                    {
+                        int NumeroFila = 0;
+                        cursor.moveToFirst();
+                        while ((!cursor.isAfterLast()) && NumeroFila < cursor.getCount())
+                        {
+                            NumeroFila++;
+                            HistorialRegistros historial = new HistorialRegistros();               // BAD PRACTICE
+                            historial.setIdFacebook(cursor.getString(0));
+                            historial.setIdTipoAlerta(cursor.getString(1));
+                            historial.setLatitud(cursor.getString(2));
+                            historial.setLongitud(cursor.getString(3));
+                            historial.setFechaHora(cursor.getString(4));
+                            list.add(historial);
+                            cursor.moveToNext();
+                        }
+                        cursor.close();
+                        result = "1";
+                        // ENVIAMOS ARRAYLIST AL BEAN , PARA OBTENERLO DESDE OTRAS CLASES
+                        listRegistrosAlertas.setListHistorial(list);
+                    }
+                }finally
+                {
+                    return result;
+                }
         }
         return result;
     }

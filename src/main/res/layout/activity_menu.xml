@@ -28,6 +28,14 @@
         android:text="Listar Registros de Alertas"
         android:layout_centerInParent="true"
         android:onClick="onClickConfig"/>
+    <Button
+        android:id="@+id/btnMostrarMap"
+        android:layout_below="@+id/btnListarRegistrosAlertas"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Mostrar Mapa"
+        android:layout_centerInParent="true"
+        android:onClick="onClickConfig"/>
 
 
 </RelativeLayout>
