@@ -110,6 +110,9 @@ public class InfoMovil implements IInfoMovil
             case IDFACEBOOK:
                 editorspf.putString("IDFACEBOOK", s);
                 break;
+            case IDREGISTROALERTASMOVIL:
+                editorspf.putString("IDREGISTROALERTASMOVIL", s);
+                break;
         }
         editorspf.commit();
     }
@@ -138,6 +141,8 @@ public class InfoMovil implements IInfoMovil
                 return spf.getString("NUMERO04", "");
             case IDFACEBOOK:
                 return spf.getString("IDFACEBOOK", "");
+            case IDREGISTROALERTASMOVIL:
+                return spf.getString("IDREGISTROALERTASMOVIL", "");
             default:
                 return "";
         }

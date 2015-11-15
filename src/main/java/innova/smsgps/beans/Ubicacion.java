@@ -1,5 +1,7 @@
 package innova.smsgps.beans;
 
+import innova.smsgps.application.Globals;
+import innova.smsgps.enums.IDSP2;
 import innova.smsgps.enums.IDUTILS;
 import innova.smsgps.utils.ManagerUtils;
 
@@ -8,9 +10,6 @@ import innova.smsgps.utils.ManagerUtils;
  */
 public class Ubicacion
 {
-    String Latitud;
-    String Longitud;
-    String FechaHora;
     ManagerUtils managerUtils = new ManagerUtils();
     Coordenada coordenada = new Coordenada();
 
@@ -29,6 +28,9 @@ public class Ubicacion
         return managerUtils.getFechaHora(IDUTILS.DDHHMMSS);
     }
 
-
+    public String getIdRegistroAlertasMovil()
+    {
+        return Globals.getInfoMovil().getSPF2(IDSP2.IDREGISTROALERTASMOVIL);
+    }
 
 }

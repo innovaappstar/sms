@@ -19,10 +19,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import innova.smsgps.application.Globals;
-import innova.smsgps.beans.Coordenada;
 import innova.smsgps.beans.RegistroAlerta;
 import innova.smsgps.managerhttp.Httppostaux;
+import innova.smsgps.sqlite.ManagerSqlite;
 
 /**
  * Created by USUARIO on 10/11/2015.
@@ -74,13 +73,23 @@ public class ActivityMenu extends Activity {
 //                finish();
                 break;
             case R.id.btnPostearUbicacion:
-                Coordenada coordenada = new Coordenada();
-                Globals.PostearSegundoPlano(coordenada);
+                //Coordenada coordenada = new Coordenada();
+                //Globals.PostearSegundoPlano(coordenada);
 
+
+                // EJECUTAMOS ASYNTASK PARA REGISTRAR EN WEBSERVICE
                 registroAlerta.setIdFacebook("12345678910112");
                 registroAlerta.setIdTipoAlerta(1);
-                new asynRegistroAlerta().execute();
-                
+                ManagerSqlite managerSqlite = new ManagerSqlite(getApplicationContext());
+                if (managerSqlite.ejecutarConsulta(1, registroAlerta) == 1)
+                {
+                    imprimitToast("SE INSERTÓ CORRECTAMENTE");
+                    new asynRegistroAlerta().execute();
+                }
+                break;
+            case R.id.btnListarRegistrosAlertas:
+                Intent i2 = new Intent(this, ActivityListaRegistroAlertas.class);
+                startActivity(i2);
                 break;
         }
     }
@@ -89,17 +98,18 @@ public class ActivityMenu extends Activity {
         Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
     }
 
-
+    //region REGISTRAR EN POR WEB SERVICES
     private boolean registroCorrecto()
     {
         int status = -1;
         ArrayList<NameValuePair> postparameters2send= new ArrayList<NameValuePair>();
 
-        postparameters2send.add(new BasicNameValuePair("idFacebook"     ,registroAlerta.getIdFacebook()));
-        postparameters2send.add(new BasicNameValuePair("idTipoAlerta"   ,registroAlerta.getIdTipoAlerta() + ""));
-        postparameters2send.add(new BasicNameValuePair("lat"            ,registroAlerta.getLatitud()));
-        postparameters2send.add(new BasicNameValuePair("lng"            ,registroAlerta.getLongitud()));
-        postparameters2send.add(new BasicNameValuePair("fechaHora"      ,registroAlerta.getFechaHora()));
+        postparameters2send.add(new BasicNameValuePair("idFacebook"             ,registroAlerta.getIdFacebook()));
+        postparameters2send.add(new BasicNameValuePair("idTipoAlerta"           ,registroAlerta.getIdTipoAlerta() + ""));
+        postparameters2send.add(new BasicNameValuePair("lat"                    ,registroAlerta.getLatitud()));
+        postparameters2send.add(new BasicNameValuePair("lng"                    ,registroAlerta.getLongitud()));
+        postparameters2send.add(new BasicNameValuePair("fechaHora"              ,registroAlerta.getFechaHora()));
+        postparameters2send.add(new BasicNameValuePair("IdRegistroAlertasMovil" ,registroAlerta.getIdRegistroAlertasMovil()));
 
         JSONArray jdata =   post.getserverdata(postparameters2send, URL_connect);
 
@@ -118,8 +128,9 @@ public class ActivityMenu extends Activity {
             {
                 return false;
             }
-            else                // [{"status":"1"}]
+            else                // [{"status":"1"}] ACTUALIZAMOS FLAG
             {
+
                 return true;
             }
 
@@ -155,10 +166,20 @@ public class ActivityMenu extends Activity {
         o mostramos error*/
         protected void onPostExecute(String result)
         {
+            if(result.equals("ok"))
+            {
+                ManagerSqlite managerSqlite = new ManagerSqlite(getApplicationContext());
+                if (managerSqlite.ejecutarConsulta(21, registroAlerta) == 1)
+                {
+                    imprimitToast("SE actualizo");
+                }
+            }
             imprimitToast(result);
         }
 
     }
+    //endregion
+
 
 }
 

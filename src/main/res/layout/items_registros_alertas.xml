@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:id="@+id/icon_alerta"
+        android:background="@drawable/ic_alerta"/>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_toRightOf="@+id/icon_alerta">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp"
+            android:textColor="@android:color/white"
+            android:id="@+id/lblTipoAlerta"
+            android:layout_alignParentTop="true"
+            android:text="Tipo de Alerta" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp"
+            android:textColor="@android:color/white"
+            android:id="@+id/txtTipoAlerta"
+            android:layout_below="@+id/lblTipoAlerta"
+            android:text="Denuncia"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@android:color/white"
+            android:id="@+id/txtEntregado"
+            android:layout_alignParentRight="true"
+            android:text="Entregado"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@android:color/white"
+            android:id="@+id/txtFechaHora"
+            android:layout_below="@+id/txtTipoAlerta"
+            android:layout_alignParentRight="true"
+            android:text="14/11/2015 20:56:00"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

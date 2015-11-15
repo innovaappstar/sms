@@ -26,6 +26,7 @@
         <activity android:name=".ActivityConfigListaContactos"/>
         <activity android:name=".ActivityLoginFb"/>
         <activity android:name=".ActivityConfigContactos"/>
+        <activity android:name=".ActivityListaRegistroAlertas"/>
 
         <activity android:name=".ActivityMenu">
             <intent-filter>

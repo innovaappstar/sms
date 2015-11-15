@@ -10,6 +10,7 @@ import com.facebook.Request;
 import com.facebook.Response;
 
 import innova.smsgps.beans.Coordenada;
+import innova.smsgps.infomovil.ManagerInfoMovil;
 import innova.smsgps.utils.ManagerUtils;
 
 /**
@@ -18,11 +19,13 @@ import innova.smsgps.utils.ManagerUtils;
 public class Globals extends Application {
 
 
-    /**Contexto Clobal (m)*/
+    /**Contexto Global (m)*/
     private static Context mAppContext;
     public static com.facebook.Session session;
     /**IUtils*/
     private static ManagerUtils managerUtils;
+
+    private static ManagerInfoMovil managerInfoMovil ;
 
     @Override
     public void onCreate()
@@ -30,6 +33,7 @@ public class Globals extends Application {
         super.onCreate();
         mAppContext = getApplicationContext();
         managerUtils = new ManagerUtils();
+        managerInfoMovil = new ManagerInfoMovil(mAppContext);
      }
 
     /**
@@ -83,7 +87,13 @@ public class Globals extends Application {
         request.executeAsync();
     }
 
-
+    /**
+     * Instancian Info Movil
+     **/
+    public static ManagerInfoMovil getInfoMovil()
+    {
+        return managerInfoMovil;
+    }
 
 
 //    // public static ManagerUtils getManagerUtils()
