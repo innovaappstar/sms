@@ -1,13 +1,20 @@
 package innova.smsgps.utils;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -100,5 +107,46 @@ public class Utils implements IUtils {
     {
         return context.getResources().getString(idRecurso);
     }
+
+    /**
+     * Simple void que devolverA un objeto de tipo DRAWABLE de
+     * acuerdo al SO del equipo para las vistas
+     * marcadores , etc.
+     * @param context Contexto de la actividad
+     * @param id Int identificador del recurso.
+     */
+    public Drawable getDrawable(Context context, int id)
+    {
+        Drawable d;
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
+        {
+            d = context.getDrawable(id);
+        } else
+        {
+            d = context.getResources().getDrawable(id);
+        }
+        return d;
+    }
+
+    /**
+     * Simple void que devolverA un objeto de tipo BITMAP de
+     * un layout.xml .
+     * @param activity Actividad que la requiera.
+     * @param view View que se convertira a bitmap.
+     */
+    public Bitmap getBitmapCanvas(Activity activity, View view) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        return bitmap;
+    }
+
 
 }

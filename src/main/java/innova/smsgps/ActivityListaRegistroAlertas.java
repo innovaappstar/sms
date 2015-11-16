@@ -123,7 +123,7 @@ public class ActivityListaRegistroAlertas extends Activity {
 
         private class MyViewHolder {
             TextView txtTipoAlerta, txtFechaHora, txtEntregado;
-            ImageView ivIcon;
+            ImageView iconAlerta;
 
             public MyViewHolder(View item) {
                 txtTipoAlerta      = (TextView) item.findViewById(R.id.txtTipoAlerta);

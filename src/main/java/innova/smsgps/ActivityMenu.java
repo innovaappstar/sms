@@ -99,6 +99,9 @@ public class ActivityMenu extends Activity {
                 startActivity(i3);
 //                finish();
                 break;
+            case R.id.btnPostDenuncia:
+                startActivity(new Intent(this, ActivityPostDenuncia.class));
+                break;
         }
     }
     private void imprimitToast(String data)
@@ -156,15 +159,10 @@ public class ActivityMenu extends Activity {
 
 //        String user,pass;
         protected String doInBackground(String... params) {
-//            //obtnemos usr y pass
-//            user=params[0];
-//            pass=params[1];
-
-            //enviamos y recibimos y analizamos los datos en segundo plano.
             if (registroCorrecto() == true){
-                return "ok"; //login valido
+                return "ok";
             }else{
-                return "err"; //login invalido
+                return "err";
             }
 
         }

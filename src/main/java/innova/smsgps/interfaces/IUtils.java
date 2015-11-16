@@ -1,6 +1,10 @@
 package innova.smsgps.interfaces;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import innova.smsgps.enums.IDUTILS;
 
@@ -16,5 +20,7 @@ public interface IUtils
     public String getFechaHora(IDUTILS idutils);
     public String getRecursos(Context context, int idRecurso);
     public void showNotificacionSimple(Context context);
+    public Drawable getDrawable(Context context, int id);
+    public Bitmap getBitmapCanvas(Activity activity, View view);
 
 }

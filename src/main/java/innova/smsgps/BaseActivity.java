@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import innova.smsgps.infomovil.ManagerInfoMovil;
+import innova.smsgps.managerhttp.Httppostaux;
 import innova.smsgps.sqlite.ManagerSqlite;
 import innova.smsgps.utils.ManagerUtils;
 
@@ -20,6 +21,7 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
     ManagerInfoMovil managerInfoMovil           = null;     // MANEJADOR SE SPF's.
     ManagerUtils managerUtils                   = null;     // MANEJADOR DE FUNCIONES TIPO UTILS.
     ManagerSqlite managerSqlite                 = null;     // MANEJADOR DE FUNCIONES C.R.U.D. SQLITE.
+    Httppostaux post;
 
     /**
      * Habilita sistema NFC en primer plano.
@@ -39,6 +41,7 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
         managerInfoMovil    = new ManagerInfoMovil(this);
         managerUtils        = new ManagerUtils();
         managerSqlite       = new ManagerSqlite(this);
+        post                = new Httppostaux();
     }
 
 

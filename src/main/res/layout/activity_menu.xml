@@ -36,6 +36,14 @@
         android:text="Mostrar Mapa"
         android:layout_centerInParent="true"
         android:onClick="onClickConfig"/>
+    <Button
+        android:id="@+id/btnPostDenuncia"
+        android:layout_below="@+id/btnMostrarMap"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Postear Denuncia"
+        android:layout_centerInParent="true"
+        android:onClick="onClickConfig"/>
 
 
 </RelativeLayout>

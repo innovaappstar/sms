@@ -1,6 +1,10 @@
 package innova.smsgps.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.view.View;
 
 import innova.smsgps.enums.IDUTILS;
 import innova.smsgps.interfaces.IUtils;
@@ -45,6 +49,15 @@ public class ManagerUtils implements IUtils {
         iUtils.showNotificacionSimple(context);
     }
 
+    @Override
+    public Drawable getDrawable(Context context, int id) {
+        return iUtils.getDrawable(context, id);
+    }
+
+    @Override
+    public Bitmap getBitmapCanvas(Activity activity, View view) {
+        return iUtils.getBitmapCanvas(activity, view);
+    }
 
 
 }

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content" >
 
     <TextView
-        android:id="@+id/num_servicio"
+        android:id="@+id/txtTipoAlerta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="23"
@@ -16,9 +16,9 @@
         />
 
     <ImageView
-        android:id="@+id/img_marcador"
+        android:id="@+id/iconAlerta"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        android:layout_below="@+id/num_servicio" />
+        android:layout_below="@+id/txtTipoAlerta" />
 
 </RelativeLayout>

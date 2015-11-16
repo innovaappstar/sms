@@ -38,7 +38,7 @@
         <activity android:name=".ActivityConfigContactos"/>
         <activity android:name=".ActivityListaRegistroAlertas"/>
         <activity android:name=".ActivityMap"/>
-
+        <activity android:name=".ActivityPostDenuncia"/>
         <activity android:name=".ActivityMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

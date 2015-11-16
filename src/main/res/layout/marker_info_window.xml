@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@drawable/item_view_border_content">
+        <TextView
+            android:id="@+id/lblTipoAlerta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo de Alerta"/>
+        <TextView
+            android:id="@+id/txtTipoAlerta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblTipoAlerta"
+            android:text="Denuncia"/>
+
+        <TextView
+            android:id="@+id/lblFechaHora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtTipoAlerta"
+            android:text="Fecha Hora"/>
+        <TextView
+            android:id="@+id/txtTipoFechaHora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblFechaHora"
+            android:text="15/11/2015"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
