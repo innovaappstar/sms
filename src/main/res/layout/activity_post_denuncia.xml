@@ -27,14 +27,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="0"
-        android:onClick="loadImagefromGallery"
+        android:onClick="onClickConfig"
         android:text="Load Picture" >
     </Button>
     <Button
+        android:id="@+id/btnSubir"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:onClick="uploadImage"
+        android:onClick="onClickConfig"
         android:text="Upload" />
 
 </LinearLayout>
