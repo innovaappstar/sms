@@ -3,6 +3,7 @@ package innova.smsgps.sqlite;
 import android.content.Context;
 
 import innova.smsgps.beans.RegistroAlerta;
+import innova.smsgps.beans.RegistroDenuncias;
 import innova.smsgps.interfaces.ISqlite;
 
 /**
@@ -32,8 +33,8 @@ public class ManagerSqlite implements ISqlite
 
 
     @Override
-    public int ejecutarConsulta(int Indice, RegistroAlerta registroAlerta)
+    public int ejecutarConsulta(int Indice, RegistroAlerta registroAlerta, RegistroDenuncias registroDenuncias)
     {
-        return managerSqlite.ejecutarConsulta(Indice, registroAlerta);
+        return managerSqlite.ejecutarConsulta(Indice, registroAlerta, registroDenuncias);
     }
 }

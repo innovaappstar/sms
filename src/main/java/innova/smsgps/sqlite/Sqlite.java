@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import innova.smsgps.application.Globals;
 import innova.smsgps.beans.HistorialRegistros;
 import innova.smsgps.beans.ListRegistrosAlertas;
+import innova.smsgps.beans.ListRegistrosDenuncias;
 import innova.smsgps.beans.RegistroAlerta;
+import innova.smsgps.beans.RegistroDenuncias;
 import innova.smsgps.enums.IDSP2;
 import innova.smsgps.interfaces.CRUD;
 import innova.smsgps.interfaces.ISqlite;
@@ -32,7 +34,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
     /**
      * DETALLES DATABASE
      **/
-    private static int mVersionBD   =   2;
+    private static int mVersionBD   =   4;
     private static String mNombreBD = "BDSMSGPS";
     private static Context mContext = null;
     private String mDirectorioBD    = "BD";
@@ -41,6 +43,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
      * NOMBRES DE TABLAS
      **/
     private String TbRegistroAlerta     =   "TbRegistroAlerta";
+    private String TbRegistroDenuncia   =   "TbRegistroDenuncia";
 
     /**
      * Campos TbRegistroAlerta
@@ -53,7 +56,16 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
     private String KeyFechaHora         = "FechaHora";
     private String KeyFlagServidor      = "Enviado";
 
+    private String KeyIdRegistroDenuncias   = "IdRegistroDenuncias";
+//    private String KeyLat                   = "Latitud";
+//    private String KeyLng                   = "Longitud";
+//    private String KeyFechaHora             = "FechaHora";
+    private String KeyDescripcion           = "Descripcion";
+    private String KeyIdTipoDenuncia        = "IdTipoDenuncia";
+    private String KeyImagenDenuncia        = "Imagen";
 
+//    private String KeyIdFacebook            = "IdFacebook";
+//    private String KeyFlagServidor          = "Enviado";
 
     //region -------DEFINICIÓN DE TABLAS------
     private String mCrearTbRegistroAlertas  = "CREATE TABLE " + TbRegistroAlerta + "("
@@ -65,6 +77,20 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
             + KeyFechaHora              + " TEXT NOT NULL,"
             + KeyFlagServidor           + " INTEGER DEFAULT '0'"
             + ")";
+
+    private String mCrearTbRegistroDenuncia  = "CREATE TABLE " + TbRegistroDenuncia + "("
+            + KeyIdRegistroDenuncias    + " INTEGER PRIMARY KEY,"
+            + KeyLat                    + " TEXT NOT NULL,"
+            + KeyLng                    + " TEXT NOT NULL,"
+            + KeyFechaHora              + " TEXT NOT NULL,"
+            + KeyDescripcion            + " TEXT NOT NULL,"
+            + KeyIdTipoDenuncia         + " INTEGER NOT NULL,"
+            + KeyIdFacebook             + " TEXT NOT NULL,"
+            + KeyImagenDenuncia         + " BLOB,"
+            + KeyFlagServidor           + " INTEGER DEFAULT '0'"
+            + ")";
+
+
     //endregion
 
     public Sqlite(Context context) {
@@ -76,11 +102,13 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(mCrearTbRegistroAlertas);
+        db.execSQL(mCrearTbRegistroDenuncia);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TbRegistroAlerta);
+        db.execSQL("DROP TABLE IF EXISTS " + TbRegistroDenuncia);
         onCreate(db);
     }
 
@@ -100,7 +128,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
      * </ul>
      **/
     @Override
-    public int ejecutarConsulta(int Indice, RegistroAlerta registroAlerta)
+    public int ejecutarConsulta(int Indice, RegistroAlerta registroAlerta, RegistroDenuncias registroDenuncias)
     {
         SQLiteDatabase  db          = this.getWritableDatabase();   // ABRIENDO CONEXIÓN
         SQLiteStatement stmt        = null;                         // DECLARACIÓN PREPARADA
@@ -140,8 +168,34 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                     db.close();
                     return result;
                 }
-            case 2 :    // INSERTAR REGISTRO DE BOLETAJE
-                break;
+            case 2 :    // INSERTAR REGISTRO DE DENUNCIA
+                try
+                {
+                    sql = getStmtSql(CRUD.INSERT, new String[]{KeyLat, KeyLng, KeyFechaHora, KeyDescripcion, KeyIdTipoDenuncia, KeyImagenDenuncia, KeyIdFacebook}, TbRegistroDenuncia);
+
+                    // INICIAMOS TRANSACCIÓN Y COMPILAMOS CONSULTA ........................ aqui
+                    db.beginTransactionNonExclusive();
+                    stmt = db.compileStatement(sql);
+
+                    stmt.bindString (1, registroDenuncias.getLatitud());
+                    stmt.bindString (2, registroDenuncias.getLongitud());
+                    stmt.bindString (3, registroDenuncias.getFechaHora());
+                    stmt.bindString (4, registroDenuncias.getDescripcion());
+                    stmt.bindLong(5, Integer.valueOf(registroDenuncias.getIdTipoDenuncia()));
+                    stmt.bindBlob(6, registroDenuncias.getImgDenuncia());
+                    stmt.bindString (7, registroDenuncias.getIdFacebook());
+                    stmt.execute();
+                    stmt.clearBindings();
+                    // SI LA INSTRUCCIÓN LLEGA HASTA AQUI , INDICAMOS QUE FUE UN ÉXITO
+                    db.setTransactionSuccessful();
+                    BackUpDataBase();
+                    result = 1;
+                }finally
+                {
+                    db.endTransaction();    // CERRAMOS TRANSACCIÓN
+                    db.close();
+                    return result;
+                }
             case 3: // INSERTAR EN CONSUMO ELECTRÓNICO
 
                 break;
@@ -183,6 +237,17 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                 try
                 {
                     if(ObtenerRegistro(3).equals("1"))
+                    {
+                        result = 1;
+                    }
+                }finally
+                {
+                    return result;
+                }
+            case 63:    // LISTA REGISTROS PARA MOSTRARLOS EN UN LISTADO
+                try
+                {
+                    if(ObtenerRegistro(4).equals("1"))
                     {
                         result = 1;
                     }
@@ -256,7 +321,8 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                     ListRegistrosAlertas listRegistrosAlertas   = new ListRegistrosAlertas();
                     ArrayList<HistorialRegistros> list          = new ArrayList<HistorialRegistros>();
 
-                    sql = "SELECT " + KeyIdFacebook + "," + KeyIdTipoAlerta + "," + KeyLat + "," + KeyLng + "," + KeyFechaHora + " FROM " + TbRegistroAlerta;
+                    //sql = "SELECT " + KeyIdFacebook + "," + KeyIdTipoAlerta + "," + KeyLat + "," + KeyLng + "," + KeyFechaHora + " FROM " + TbRegistroAlerta;
+                    sql = getStmtSql(CRUD.SELECT, new String[]{KeyIdFacebook, KeyIdTipoAlerta, KeyLat, KeyLng, KeyFechaHora}, TbRegistroAlerta);
                     cursor = db.rawQuery(sql, null);
                     if(cursor.getCount() > 0)
                     {
@@ -278,6 +344,41 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                         result = "1";
                         // ENVIAMOS ARRAYLIST AL BEAN , PARA OBTENERLO DESDE OTRAS CLASES
                         listRegistrosAlertas.setListHistorial(list);
+                    }
+                }finally
+                {
+                    return result;
+                }
+
+            case 4: // LISTA REGISTROS DE LA TABLA DENUNCIA PARA MOSTRARLOS EN UN LISTADO
+                try
+                {
+                    ListRegistrosDenuncias listRegistrosDenuncias   = new ListRegistrosDenuncias();
+                    ArrayList<RegistroDenuncias> list              = new ArrayList<RegistroDenuncias>();
+
+                    sql = getStmtSql(CRUD.SELECT, new String[]{KeyFechaHora, KeyDescripcion, KeyIdTipoDenuncia, KeyIdFacebook, KeyImagenDenuncia, KeyFlagServidor}, TbRegistroDenuncia);
+                    cursor = db.rawQuery(sql, null);
+                    if(cursor.getCount() > 0)
+                    {
+                        int NumeroFila = 0;
+                        cursor.moveToFirst();
+                        while ((!cursor.isAfterLast()) && NumeroFila < cursor.getCount())
+                        {
+                            NumeroFila++;
+                            RegistroDenuncias registroDenuncias = new RegistroDenuncias();               // BAD PRACTICE
+                            registroDenuncias.setFechaHoraSqlite(cursor.getString(0));
+                            registroDenuncias.setDescripcion(cursor.getString(1));
+                            registroDenuncias.setIdTipoDenuncia(cursor.getString(2));
+                            registroDenuncias.setIdFacebookSqlite(cursor.getString(3));
+                            registroDenuncias.setImgDenuncia(cursor.getBlob(4));    // byte
+                            registroDenuncias.setFlagServidorSqlite(cursor.getString(5));
+                            list.add(registroDenuncias);
+                            cursor.moveToNext();
+                        }
+                        cursor.close();
+                        result = "1";
+                        // ENVIAMOS ARRAYLIST AL BEAN , PARA OBTENERLO DESDE OTRAS CLASES
+                        listRegistrosDenuncias.setListRegistrosDenuncias(list);
                     }
                 }finally
                 {
@@ -314,7 +415,8 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
             sql = "INSERT OR REPLACE INTO " + tabla + "( ";
         if(indiceCRUD == indiceCRUD.UPDATE)
             sql = "UPDATE " + tabla + " SET ";
-
+        if(indiceCRUD == indiceCRUD.SELECT)
+            sql = "SELECT ";
 
         for (int i= 0; i < params.length ; i++)
         {
@@ -338,6 +440,17 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                 else if(i == params.length -1)//  ÚLTIMO REGISTRO
                 {
                     sql = sql.substring(0, sql.length() -1) + " WHERE " + params[i] + " = ?" ;
+                }
+            }else if(indiceCRUD == indiceCRUD.SELECT)
+            {
+                if (i < params.length -1)       //  REGISTRO COMÚN
+                {
+                    sql = sql + params[i] + ",";
+                }
+                else if(i == params.length -1)  //  ÚLTIMO REGISTRO
+                {
+                    //sql = sql.substring(0, sql.length() -1) + " FROM " + tabla ;
+                    sql = sql + params[i] + " FROM " + tabla ;
                 }
             }
 

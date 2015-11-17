@@ -33,7 +33,6 @@ import java.util.HashMap;
 import innova.smsgps.beans.Coordenada;
 import innova.smsgps.beans.HistorialRegistros;
 import innova.smsgps.beans.ListRegistrosAlertas;
-import innova.smsgps.beans.RegistroAlerta;
 
 /**
  * Created by USUARIO on 01/11/2015.
@@ -90,7 +89,7 @@ public class ActivityMap extends BaseActivity
     public void pendingPintarMarcadores()
     {
         // INDICE
-        if (managerSqlite.ejecutarConsulta(62, new RegistroAlerta()) == 1)  // Si por lo menos hay un registro o no ocurrió algún error..
+        if (managerSqlite.ejecutarConsulta(62, null, null) == 1)  // Si por lo menos hay un registro o no ocurrió algún error.. NULL > BAD PRACTICE
         {
             pintarMarcadores();
         }

@@ -78,10 +78,9 @@ public class ActivityMenu extends Activity {
 
 
                 // EJECUTAMOS ASYNTASK PARA REGISTRAR EN WEBSERVICE
-                registroAlerta.setIdFacebook("12345678910112");
                 registroAlerta.setIdTipoAlerta(1);
                 ManagerSqlite managerSqlite = new ManagerSqlite(getApplicationContext());
-                if (managerSqlite.ejecutarConsulta(1, registroAlerta) == 1)
+                if (managerSqlite.ejecutarConsulta(1, registroAlerta, null) == 1)   // NULL = BAD PRACTICE
                 {
                     imprimitToast("SE INSERTÓ CORRECTAMENTE");
                     new asynRegistroAlerta().execute();
@@ -175,7 +174,7 @@ public class ActivityMenu extends Activity {
             if(result.equals("ok"))
             {
                 ManagerSqlite managerSqlite = new ManagerSqlite(getApplicationContext());
-                if (managerSqlite.ejecutarConsulta(21, registroAlerta) == 1)
+                if (managerSqlite.ejecutarConsulta(21, registroAlerta, null ) == 1) // BAD PRACTICE
                 {
                     imprimitToast("SE actualizo");
                 }

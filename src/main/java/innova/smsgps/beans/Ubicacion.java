@@ -32,5 +32,12 @@ public class Ubicacion
     {
         return Globals.getInfoMovil().getSPF2(IDSP2.IDREGISTROALERTASMOVIL);
     }
+    public String getIdFacebook()
+    {
+        return Globals.getInfoMovil().getSPF2(IDSP2.IDFACEBOOK);
+    }
+
+
+
 
 }

@@ -14,6 +14,16 @@ public class HistorialRegistros
     public String Longitud ;
     public String FechaHora ;
 
+    // IMAGE SoLO PARA DENUNCIAS
+    byte[] ImgDenuncia;
+
+    public byte[] getImgDenuncia() {
+        return ImgDenuncia;
+    }
+
+    public void setImgDenuncia(byte[] imgDenuncia) {
+        ImgDenuncia = imgDenuncia;
+    }
     public String getIdFacebook() {
         return IdFacebook;
     }

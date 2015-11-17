@@ -140,7 +140,7 @@ public class InfoMovil implements IInfoMovil
             case NUMERO04:
                 return spf.getString("NUMERO04", "");
             case IDFACEBOOK:
-                return spf.getString("IDFACEBOOK", "");
+                return spf.getString("IDFACEBOOK", "12345678910112");
             case IDREGISTROALERTASMOVIL:
                 return spf.getString("IDREGISTROALERTASMOVIL", "");
             default:

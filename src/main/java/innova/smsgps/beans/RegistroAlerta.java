@@ -10,18 +10,8 @@ public class RegistroAlerta extends Ubicacion
     String FechaHoraSqlite;
     String FlagServidorSqlite;
 
-    String IdFacebook;
     int IdTipoAlerta;
 
-    public String getIdFacebook()
-    {
-        return IdFacebook;
-    }
-
-    public void setIdFacebook(String idFacebook)
-    {
-        IdFacebook = idFacebook;
-    }
 
     public int getIdTipoAlerta()
     {

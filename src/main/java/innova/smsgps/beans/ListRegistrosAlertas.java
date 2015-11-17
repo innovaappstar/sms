@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public class ListRegistrosAlertas
 {
 
-    public static ArrayList<HistorialRegistros> listHistorial   = new ArrayList<HistorialRegistros>();
+    public static ArrayList<HistorialRegistros> listHistorial   = new ArrayList<HistorialRegistros>();  // MAPA
 
-    public static ArrayList<RegistroAlerta> listRegistrosAlertas = new ArrayList<RegistroAlerta>();
+    public static ArrayList<RegistroAlerta> listRegistrosAlertas = new ArrayList<RegistroAlerta>(); // LISTADO
 
     public static ArrayList<RegistroAlerta> getListRegistrosAlertas() {
         return listRegistrosAlertas;
