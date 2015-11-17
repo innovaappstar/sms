@@ -24,6 +24,9 @@ import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -118,8 +121,8 @@ public class ActivityPostDenuncia extends BaseActivity
 
         File file1 = new File(selectedPath1);
         //File file2 = new File(selectedPath2);
-        //String urlString = "http://smsgps.comli.com/ws_android/ws_sms_gps/ws_upload_img.php";
-        String urlString = "http://smd407.comxa.com/ws_android/ws_sms_gps/ws_upload_img.php";
+        String urlString = "http://smsgps.comli.com/ws_android/ws_sms_gps/ws_upload_img.php";
+        //String urlString = "http://smd407.comxa.com/ws_android/ws_sms_gps/ws_upload_img.php";
         try
         {
 
@@ -139,18 +142,40 @@ public class ActivityPostDenuncia extends BaseActivity
             MultipartEntity reqEntity = new MultipartEntity();
             reqEntity.addPart("uploadedfile1", bab);
             //reqEntity.addPart("uploadedfile2", bin2);
-            reqEntity.addPart("user", new StringBody("User"));
+            reqEntity.addPart("Lat", new StringBody("Lat"));
+            reqEntity.addPart("Lng", new StringBody("Lng"));
+            reqEntity.addPart("FechaHora", new StringBody("FechaHora"));
+            reqEntity.addPart("IdRegistroAlertasMovil", new StringBody("IdRegistroAlertasMovil"));
+            reqEntity.addPart("Descripcion", new StringBody("Descripcion"));
+            reqEntity.addPart("IdTipoAlerta", new StringBody("IdTipoAlerta"));
+            reqEntity.addPart("IdFacebook", new StringBody("IdFacebook"));
+            reqEntity.addPart("ImgPath", new StringBody("ImgPath"));
+
             post.setEntity(reqEntity);
             HttpResponse response = client.execute(post);
             resEntity = response.getEntity();
             final String response_str = EntityUtils.toString(resEntity);
             if (resEntity != null) {
                 Log.i("RESPONSE", response_str);
-                runOnUiThread(new Runnable(){
-                    public void run() {
+                runOnUiThread(new Runnable()
+                {
+                    public void run()
+                    {
                         try {
-                            Toast.makeText(getApplicationContext(), "Upload Complete. Check the server uploads directory.\n" + response_str, Toast.LENGTH_LONG).show();
-                        } catch (Exception e) {
+                            JSONArray jdata = new JSONArray(response_str);
+                            JSONObject jsonData =   jdata.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
+                            String result = "";
+                            if (jsonData.getInt("status") == 1)
+                            {
+                                result = "Subida de archivo exitosa.";
+                            }else
+                            {
+                                result = "Ocurrio un error al subir el archivo.";
+                            }
+                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+
+                        } catch (JSONException e)
+                        {
                             e.printStackTrace();
                         }
                     }
