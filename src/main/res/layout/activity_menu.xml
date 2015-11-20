@@ -44,6 +44,14 @@
         android:text="Postear Denuncia"
         android:layout_centerInParent="true"
         android:onClick="onClickConfig"/>
+    <Button
+        android:id="@+id/btnListarDispositivosBluetooth"
+        android:layout_below="@+id/btnPostDenuncia"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="ListarDispositivosBlueooth"
+        android:layout_centerInParent="true"
+        android:onClick="onClickConfig"/>
 
 
 </RelativeLayout>

@@ -101,6 +101,9 @@ public class ActivityMenu extends Activity {
             case R.id.btnPostDenuncia:
                 startActivity(new Intent(this, ActivityPostDenuncia.class));
                 break;
+            case R.id.btnListarDispositivosBluetooth:
+                startActivity(new Intent(this, ActivityListaDispositivosBluetooth.class));
+                break;
         }
     }
     private void imprimitToast(String data)
