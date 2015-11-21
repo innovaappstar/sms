@@ -65,7 +65,7 @@ public class ActivityListaDispositivosBluetooth extends Activity {
         super.onDestroy();
     }
     /**
-     * Evento que se ejecutará al dar click
+     * Evento que se ejecutarA al dar click
      * en los botones.
      * @param view View que identificaremos ..
      */

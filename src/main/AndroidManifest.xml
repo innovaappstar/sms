@@ -42,11 +42,14 @@
         <activity android:name=".ActivityPostDenuncia"/>
         <activity android:name=".ActivityListaRegistroDenuncias"/>
         <activity android:name=".ActivityListaDispositivosBluetooth"/>
-        <activity android:name=".ActivityMenu">
+        <activity android:name=".ActivitySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ActivityMenu">
+
         </activity>
 
         <service

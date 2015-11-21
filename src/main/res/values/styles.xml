@@ -6,6 +6,87 @@
     </style>
 
     <!--
+    ESTILOS 21/11/2015
+    -->
+    <!--
+    ESTILOS SPLASH SCREEN
+    -->
+    <style name="StyleTextoSplash" parent="WidgetTextSplash">
+    </style>
+
+    <style name="WidgetTextSplash">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
+
+    <style name="StyleImageSplash" parent="WidgetImageSplash">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="WidgetImageSplash">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_view_selector_fb</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">onClickSplash</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+    <!--
+    ESTILOS BIENVENIDA
+    -->
+    <style name="StyleImageBienvenidaDetalle" parent="WidgetImageDetalle">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="WidgetImageDetalle">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@drawable/ic_sms</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+    <style name="StyleTextoBienvenida" parent="WidgetTextBienvenida">
+    </style>
+
+    <style name="WidgetTextBienvenida">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="StyleButtonAceptar" parent="WidgetButtonAceptar">
+    </style>
+
+    <style name="WidgetButtonAceptar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_view_selector_button_general</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">onClick</item>
+    </style>
+
+
+
+
+
+
+
+
+
+    <!--
     ESTILOS CONFIGURACION DE CONTACTOS config_lista_contactos.xml
     -->
     <style name="StyleContentNumbers" parent="WidgetContentNumber">

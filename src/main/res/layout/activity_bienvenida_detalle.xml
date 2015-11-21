@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_suave_fondo">
+
+    <TextView
+        style="@style/StyleTextoSplash"
+        android:id="@+id/txtTituloApp"
+        android:layout_marginTop="50dp"
+        android:textSize="44sp"
+        android:textColor="@color/gris_fuerte"
+        android:text="Alerta SMS"/>
+    <ImageView
+        style="@style/StyleImageBienvenidaDetalle"
+        android:layout_below="@+id/txtTituloApp"
+        />
+    <TextView
+        style="@style/StyleTextoBienvenida"
+        android:id="@+id/txtSloganAplicativo"
+        android:layout_centerInParent="true"
+        android:textColor="@color/gris_fuerte"
+        android:text="Sms tiene una forma de brindarte seguridad"/>
+
+    <TextView
+        style="@style/StyleTextoBienvenida"
+        android:id="@+id/txtDetalleAplicativo"
+        android:layout_below="@+id/txtSloganAplicativo"
+        android:textColor="@color/gris_suave_texto"
+        android:text="Envía sms a tus contactos en casos de alguna emergencia de forma rápida sin necesidad de tener tu dispositivo a la mano."/>
+    <Button
+        style="@style/StyleButtonAceptar"
+        android:id="@+id/btnAceptar"
+        android:text="Siguiente"/>
+
+</RelativeLayout>
