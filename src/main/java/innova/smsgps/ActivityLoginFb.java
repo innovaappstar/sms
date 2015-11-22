@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.facebook.AppEventsLogger;
 import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookOperationCanceledException;
-import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -196,23 +195,6 @@ public class ActivityLoginFb extends Activity
     private void postStatusUpdate() {
         if (hasPublishPermission()) {
 
-            Bundle params = new Bundle();
-            params.putString("caption", "Cap�tulo 10");
-            params.putString("message", "Integracion basica de red social.");
-            params.putString("link", "https://www.youtube.com/watch?v=1uQG9yc-raQ");
-            params.putString("picture", "http://i718.photobucket.com/albums/ww188/nogoodforyou/img087.jpg");
-            //params.putString("picture", "https://www.google.com.pe/maps/place/Independencia/@-11.9912498,-77.0621203,14.5z/data=!4m2!3m1!1s0x9105cfaeef4c292f:0xee8dfbf42a8ee7da?hl=es-419");
-
-            Request request = new Request(Session.getActiveSession(), "me/feed", params, HttpMethod.POST);
-            request.setCallback(new Request.Callback() {
-                @Override
-                public void onCompleted(Response response) {
-                    if (response.getError() == null) {
-                        // Tell the user success!
-                    }
-                }
-            });
-            request.executeAsync();
 
         } else {
             pendingAction = ACTIONS.POST_STATUS_UPDATE;

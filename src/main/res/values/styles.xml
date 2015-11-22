@@ -28,11 +28,11 @@
     </style>
 
     <style name="WidgetImageSplash">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
         <item name="android:background">@drawable/shape_view_selector_fb</item>
         <item name="android:clickable">true</item>
-        <item name="android:onClick">onClickSplash</item>
+        <item name="android:onClick">onClick</item>
         <item name="android:layout_margin">20dp</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>

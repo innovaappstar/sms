@@ -43,11 +43,22 @@
         <activity android:name=".ActivityListaRegistroDenuncias"/>
         <activity android:name=".ActivityListaDispositivosBluetooth"/>
         <activity android:name=".ActivitySplash">
+
+        </activity>
+        <activity android:name=".ActivityBienvenidaInfoAplicativo"/>
+        <activity android:name=".ActivityBienvenidaInfoGps"/>
+        <activity android:name=".ActivityDenunciaRegistroUpload"/>
+
+        <activity android:name=".ManagerFragmentsConfiguracion">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".ManagerFragmentsSms"/>
+
+
+
         <activity android:name=".ActivityMenu">
 
         </activity>
