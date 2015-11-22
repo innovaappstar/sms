@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_suave_fondo">
+    <RelativeLayout
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:layout_above="@+id/view_medio"
+            android:id="@+id/txtDetallePaso"
+            android:layout_centerInParent="true"
+            android:textColor="@color/gris_fuerte"
+            android:text="Configuraciòn Finalizada"/>
+        <View
+            android:id="@+id/view_medio"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:id="@+id/txtDetalleAplicativo"
+            android:layout_below="@+id/view_medio"
+            android:textColor="@color/gris_suave_texto"
+            android:text="Felicidades el dispositivo MIP en conjunto con Alerta SMS ya se encuentran listos para ser utilizados."/>
+
+        <Button
+            style="@style/StyleButtonAceptar"
+            android:id="@+id/btnAceptar"
+            android:text="Aceptar"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

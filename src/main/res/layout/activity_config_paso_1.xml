@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_suave_fondo">
+    <RelativeLayout
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TextView
+            style="@style/StyleTextoSplash"
+            android:id="@+id/txtPaso"
+            android:layout_marginTop="30dp"
+            android:textSize="34sp"
+            android:textColor="@color/black"
+            android:text="Primer Paso"/>
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:layout_below="@+id/txtPaso"
+            android:id="@+id/txtDetallePaso"
+            android:layout_centerInParent="true"
+            android:textColor="@color/gris_fuerte"
+            android:text="Comprobar tu sesión"/>
+
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:id="@+id/txtDetalleAplicativo"
+            android:layout_below="@+id/txtDetallePaso"
+            android:textColor="@color/gris_suave_texto"
+            android:text="Recuerda que Alerta SMS tambièn publicarà en tu muro."/>
+
+        <com.facebook.widget.ProfilePictureView
+            android:layout_below="@id/txtDetalleAplicativo"
+            android:id="@+id/profilePicture"
+            android:layout_height="180dp"
+            android:layout_width="180dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:id="@+id/txtSaludo"
+            android:layout_below="@+id/profilePicture"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/gris_suave_texto"
+            android:text="Hola Pablo Alboran."/>
+
+
+        <Button
+            style="@style/StyleButtonAceptar"
+            android:id="@+id/btnAceptar"
+            android:text="Siguiente"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -18,7 +18,7 @@ public class ActivitySplash extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_bienvenida_detalle);
+        setContentView(R.layout.activity_config_finalizada);
     }
     /**
      * Evento que se ejecutará al dar click

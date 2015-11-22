@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_suave_fondo">
+    <!--
+    PRIMER CONTENEDOR - REGISTRO DENUNCIA
+    -->
+    <RelativeLayout
+        android:id="@+id/contenedor_contactos_vacios"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/img_gps"
+            android:layout_above="@+id/view_medio"
+            android:background="@drawable/img_background_sms"
+            />
+        <View
+            android:id="@+id/view_medio"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:padding="20dp"
+            android:id="@+id/txtDetalleAplicativo"
+            android:layout_below="@+id/view_medio"
+            android:textColor="@color/gris_suave_texto"
+            android:text="¿Deseas registrar una denuncia nueva y compartirla?"/>
+
+    </RelativeLayout>
+
+    <Button
+        style="@style/StyleButtonAceptar"
+        android:id="@+id/btnAceptar"
+        android:text="Adelante"/>
+</RelativeLayout>

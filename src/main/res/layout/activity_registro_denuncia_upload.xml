@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_suave_fondo"
+    android:padding="10dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="@color/white"
+        >
+        <RelativeLayout
+            android:id="@+id/contenedor_imagen"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:padding="10dp" >
+            <ImageView
+                android:id="@+id/imgDenuncia"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="fitXY"
+                android:background="@drawable/img_foto_denuncia"
+                />
+        </RelativeLayout>
+        <!--
+        SEGUNDO CONTENEDOR DONDE SELECCIONARÁ LA CATEGORÍA
+        E INGRESARÁ LA DESCRIPCIÓN DE LA DENUNCIA.
+        -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_below="@+id/contenedor_imagen"
+            android:layout_above="@+id/btnAceptar"
+            android:gravity="center_horizontal"
+            android:id="@+id/contenedorFecha">
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner"
+                android:layout_gravity="center_horizontal" />
+
+            <EditText
+                style="@style/StyleEdittextRegistro"
+                android:id="@+id/editDescripcionDenuncia" />
+
+        </LinearLayout>
+        <Button
+            style="@style/StyleButtonAceptar"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/btnAceptar"
+            android:text="Registrar"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

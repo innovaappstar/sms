@@ -8,7 +8,7 @@
         <!-- Borde -->
         <stroke
             android:width="1dip"
-            android:color="@android:color/black"/>
+            android:color="@color/gris_suave_fondo"/>
     </shape>
 
 </inset>

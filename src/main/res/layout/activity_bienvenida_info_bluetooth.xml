@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_suave_fondo">
+
+    <ImageView
+        style="@style/StyleImageCentro"
+        android:id="@+id/img_gps"
+        android:layout_above="@+id/view_medio"
+        android:background="@drawable/ic_bluetooth"
+    />
+    <View
+        android:id="@+id/view_medio"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        style="@style/StyleTextoBienvenida"
+        android:id="@+id/txtDetalleAplicativo"
+        android:layout_below="@+id/view_medio"
+        android:textColor="@color/gris_suave_texto"
+        android:text="Esta aplicación utiliza el bluetooth del dispositivo para poder comunicarse con el hardware MIP"/>
+
+    <TextView
+        style="@style/StyleTextoBienvenida"
+        android:id="@+id/txtLeerMas"
+        android:layout_below="@+id/txtDetalleAplicativo"
+        android:textColor="@color/celeste_boton_default"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:text="Leer Más"/>
+
+    <Button
+        style="@style/StyleButtonAceptar"
+        android:id="@+id/btnAceptar"
+        android:text="Siguiente"/>
+
+</RelativeLayout>

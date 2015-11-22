@@ -14,6 +14,7 @@
     <color name="celeste_boton_default">#33b5e5</color>
     <color name="celeste_boton_press">#2691b9</color>
     <color name="white">@android:color/white</color>
+    <color name="black">@android:color/black</color>
 
     <color name="gris_fuerte">#707070</color>
 </resources>

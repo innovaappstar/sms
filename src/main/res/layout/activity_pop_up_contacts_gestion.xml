@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        style="@style/StyleTextoBienvenida"
+        android:id="@+id/txtDetalleAplicativo"
+        android:textColor="@color/gris_suave_texto"
+        android:text="Ha seleccionado al contacto \n........ \n¿Que acción desea realizar?."/>
+    <LinearLayout
+        android:layout_below="@+id/txtDetalleAplicativo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:weightSum="2">
+        <Button
+            style="@style/StyleButtonGestion"
+            android:id="@+id/btnSustituirContacto"
+            android:text="Sustituir"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_weight=".01"/>
+        <Button
+            style="@style/StyleButtonGestion"
+            android:id="@+id/btnEliminarContacto"
+            android:text="Eliminar"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

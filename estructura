@@ -10,3 +10,26 @@ ServicioSms     :
 
 
 <<Excepción Code 01>>   : ERROR AL LISTAR LOS REGISTROS DE ALERTAS
+
+
+
+
+
+activity_splash
+activity_bienvenida
+activity_bienvenida_info_bluetooth
+activity_bienvenida_info_gps
+activity_contactos
+items_list_contacts
+activity_pop_up_contacts_gestion
+activity_alertas
+items_list_alertas
+activity_denuncias
+items_list_denuncias
+activity_map
+activity_denuncias_registro
+activity_registro_denuncia_upload
+activity_config_paso_1
+activity_config_paso_2
+activity_config_finalizada
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_suave_fondo">
+    <RelativeLayout
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TextView
+            style="@style/StyleTextoSplash"
+            android:id="@+id/txtPaso"
+            android:layout_marginTop="30dp"
+            android:textSize="34sp"
+            android:textColor="@color/black"
+            android:text="Tercer Paso"/>
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:layout_below="@+id/txtPaso"
+            android:id="@+id/txtDetallePaso"
+            android:layout_centerInParent="true"
+            android:textColor="@color/gris_fuerte"
+            android:text="Configurar Bluetooth"/>
+
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:id="@+id/txtDetalleAplicativo"
+            android:layout_below="@+id/txtDetallePaso"
+            android:textColor="@color/gris_suave_texto"
+            android:text="Busca el dispositivo bluetooth MIP y seleccionalo para conectarte."/>
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/txtDetalleAplicativo"
+            android:layout_above="@+id/btnAceptar"
+            android:id="@+id/list"/>
+
+        <Button
+            style="@style/StyleButtonAceptar"
+            android:id="@+id/btnAceptar"
+            android:text="Buscar Dispositivos"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

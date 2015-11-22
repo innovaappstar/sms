@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gris_suave_fondo">
+    <RelativeLayout
+        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TextView
+            style="@style/StyleTextoSplash"
+            android:id="@+id/txtPaso"
+            android:layout_marginTop="30dp"
+            android:textSize="34sp"
+            android:textColor="@color/black"
+            android:text="Segundo Paso"/>
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:layout_below="@+id/txtPaso"
+            android:id="@+id/txtDetallePaso"
+            android:layout_centerInParent="true"
+            android:textColor="@color/gris_fuerte"
+            android:text="Configurar Pulsaciones"/>
+
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:id="@+id/txtDetalleAplicativo"
+            android:layout_below="@+id/txtDetallePaso"
+            android:textColor="@color/gris_suave_texto"
+            android:text="Selecciona la acciòn de acuerdo al tipo de pulsaciòn."/>
+
+
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
+            android:layout_below="@+id/txtDetalleAplicativo"
+            android:layout_above="@+id/btnAceptar">
+
+            <FrameLayout
+                android:id="@+id/scroll_view_frame"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+                    <!--
+                    PRIMERA CONFIGURACIÒN DISPOSITIVO
+                    -->
+                    <TextView
+                        style="@style/StyleTextoBienvenida"
+                        android:id="@+id/txt_pulsacion_1"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/gris_suave_texto"
+                        android:text="1 Pulsaciòn"/>
+
+                    <Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_margin="10dp"
+                        android:id="@+id/spinner1"
+                        android:layout_below="@+id/txt_pulsacion_1"/>
+
+                    <!--
+                    PRIMERA CONFIGURACIÒN DISPOSITIVO
+                    -->
+                    <TextView
+                        style="@style/StyleTextoBienvenida"
+                        android:id="@+id/txt_pulsacion_2"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/gris_suave_texto"
+                        android:text="2 Pulsaciòn"/>
+
+                    <Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_margin="10dp"
+                        android:id="@+id/spinner2"  />
+
+                    <!--
+                    TERCERA CONFIGURACIÒN DISPOSITIVO
+                    -->
+                    <TextView
+                        style="@style/StyleTextoBienvenida"
+                        android:id="@+id/txt_pulsacion_3"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/gris_suave_texto"
+                        android:text="3 Pulsaciòn"/>
+
+                    <Spinner
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:layout_margin="10dp"
+                        android:id="@+id/spinner3" />
+
+                </LinearLayout>
+
+
+
+            </FrameLayout>
+
+
+
+        </ScrollView>
+
+
+
+        <Button
+            style="@style/StyleButtonAceptar"
+            android:id="@+id/btnAceptar"
+            android:text="Siguiente"/>
+
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
