@@ -92,7 +92,7 @@ public class ActivityPostDenuncia extends BaseActivity
                     }
                     */
 
-                    if( managerSqlite.ejecutarConsulta(63, null, null) == 1)
+                    if( managerSqlite.ejecutarConsulta(63, null, null, null) == 1)
                     {
                         Intent intent=new Intent(ActivityPostDenuncia.this, ActivityListaRegistroDenuncias.class);
                         startActivityForResult(intent, SHOW_LIST);
@@ -110,7 +110,7 @@ public class ActivityPostDenuncia extends BaseActivity
                         registroDenuncias.setDescripcion("Intento de robo en pro");
                         registroDenuncias.setIdTipoDenuncia("1");
                         registroDenuncias.setImgDenuncia(getImagenComprimida(selectedPath1));
-                        if (managerSqlite.ejecutarConsulta(2, null, registroDenuncias) == 1)
+                        if (managerSqlite.ejecutarConsulta(2, null, registroDenuncias, null) == 1)
                         {
                             managerUtils.imprimirToast(this, "Se insertó cortrectamente en la tbDenuncias :) ");
                         }

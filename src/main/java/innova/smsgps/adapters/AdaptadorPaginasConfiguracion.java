@@ -14,6 +14,7 @@ import innova.smsgps.FragmentTercerPaso;
  */
 public class AdaptadorPaginasConfiguracion extends FragmentStatePagerAdapter
 {
+    private String TITULOS[] = new String[] { "Paso1", "Paso2", "Paso3", "Finalizado" };
     Fragment[] FRAGMENTS = new Fragment[]{new FragmentPrimerPaso(),
             new FragmentSegundoPaso(),
             new FragmentTercerPaso(),
@@ -33,5 +34,11 @@ public class AdaptadorPaginasConfiguracion extends FragmentStatePagerAdapter
     @Override
     public int getCount() {
         return FRAGMENTS.length;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        // Generate title based on item position
+        return TITULOS[position];
     }
 }

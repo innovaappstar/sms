@@ -89,7 +89,7 @@ public class ActivityMap extends BaseActivity
     public void pendingPintarMarcadores()
     {
         // INDICE
-        if (managerSqlite.ejecutarConsulta(62, null, null) == 1)  // Si por lo menos hay un registro o no ocurrió algún error.. NULL > BAD PRACTICE
+        if (managerSqlite.ejecutarConsulta(62, null, null, null) == 1)  // Si por lo menos hay un registro o no ocurrió algún error.. NULL > BAD PRACTICE
         {
             pintarMarcadores();
         }

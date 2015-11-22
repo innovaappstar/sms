@@ -46,7 +46,7 @@ public class ActivityListaRegistroAlertas extends Activity {
 
     public void listarRegistros()
     {
-            if (managerSqlite.ejecutarConsulta(61, null, null) == 1)    // NULL = BAD PRACTICE
+            if (managerSqlite.ejecutarConsulta(61, null, null, null) == 1)    // NULL = BAD PRACTICE
             {
                 //imprimirToast(output.toString());
                 listView.setAdapter(new MyBaseAdapter(this, ListRegistrosAlertas.getListRegistrosAlertas()));

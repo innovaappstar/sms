@@ -20,9 +20,12 @@ activity_bienvenida
 activity_bienvenida_info_bluetooth
 activity_bienvenida_info_gps
 
+// EMPEZAMOS 10:55:00 AM
 activity_contactos
 items_list_contacts
 activity_pop_up_contacts_gestion
+
+
 
 activity_alertas
 items_list_alertas

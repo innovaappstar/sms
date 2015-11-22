@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,25 +27,38 @@ import innova.smsgps.infomovil.ManagerInfoMovil;
 /**
  * Created by USUARIO on 10/11/2015.
  */
-public class ActivityConfigListaContactos extends Activity {
+public class ActivityConfigListaContactos extends BaseActivity {
 
     // Info
     ManagerInfoMovil managerInfoMovil;
 
     ListView listView;
     ArrayList<Contactos> listContactos = new ArrayList<Contactos>();
-
-
+    String numeroContacto ;
+    String nombreContacto ;
+    String tipoContacto ;
+    int TIPO_ACCION = 0;
+    int CodContacto = 0;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.lista_contactos);
         managerInfoMovil = new ManagerInfoMovil(getApplicationContext());
-        listView = (ListView)findViewById(R.id.listContacts);
+        listView = (ListView)findViewById(R.id.list);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            TIPO_ACCION = extras.getInt(FragmentContactos.ID_PETICION);
+            CodContacto = extras.getInt(FragmentContactos.COD_PETICION);
+        }
 
         fetchContacts();
+    }
+
+    @Override
+    public void listenerTimer() {
+
     }
 
     public void fetchContacts() {
@@ -74,7 +86,7 @@ public class ActivityConfigListaContactos extends Activity {
 
                 String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
                 String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
-
+                String tipoContacto = "MOVIL";
                 int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex( HAS_PHONE_NUMBER )));
 
                 if (hasPhoneNumber > 0)
@@ -92,20 +104,45 @@ public class ActivityConfigListaContactos extends Activity {
 
                     Contactos contactos = new Contactos();
                     contactos.setNombreContacto(name);
+                    contactos.setTipoContacto(tipoContacto);
                     contactos.setNumeroContacto(phoneNumber);
                     listContactos.add(contactos);
                     phoneCursor.close();
                 }
             }
             //imprimirToast(output.toString());
-            listView.setAdapter(new MyBaseAdapter(this, listContactos));
+            listView.setAdapter(new ContactosAdapter(this, listContactos));
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                     TextView numero = (TextView) view.findViewById(R.id.txtNumeroContacto);
                     TextView nombre = (TextView) view.findViewById(R.id.txtNombreContacto);
-                    setContacto(numero.getText().toString());
-                    imprimitToast(nombre.getText().toString());
+                    TextView tipo   = (TextView) view.findViewById(R.id.txtTipoContacto);
+                    // INSERTAMOS
+                    nombreContacto  = nombre.getText().toString();
+                    numeroContacto  = numero.getText().toString();
+                    tipoContacto    = tipo.getText().toString();
+                    Contactos contactos = new Contactos();
+                    contactos.setNombreContacto(nombreContacto);
+                    contactos.setTipoContacto(tipoContacto);
+                    contactos.setNumeroContacto(numeroContacto);
+                    if (TIPO_ACCION == FragmentContactos.ID_INSERTAR_CONTACTO)
+                    {
+                        // INDICE 3 .. INSERTAR REGISTRO EN CONTACTOS
+                        if (managerSqlite.ejecutarConsulta(3, null, null, contactos) == 1)
+                        {
+                            setContacto(numeroContacto);
+                        }
+                    }else if (TIPO_ACCION == FragmentContactos.ID_EDITAR_CONTACTO)
+                    {
+                        contactos.setCodContacto(CodContacto);
+                        if (managerSqlite.ejecutarConsulta(22, null, null, contactos) == 1)
+                        {
+                            setContacto(numeroContacto);
+                        }
+                    }
+
+                    //imprimitToast(nombre.getText().toString());
                 }
             });
         }
@@ -114,14 +151,21 @@ public class ActivityConfigListaContactos extends Activity {
 
 
 
-    public class MyBaseAdapter extends BaseAdapter {
+
+
+    /**
+     * Clase Adaptador para inflar los items
+     * del listado de contactos..
+     **/
+    //region ADAPTADOR
+    public class ContactosAdapter extends BaseAdapter {
 
         ArrayList<Contactos> myList = new ArrayList<Contactos>();
         LayoutInflater inflater;
         Context context;
 
 
-        public MyBaseAdapter(Context context, ArrayList<Contactos> myList) {
+        public ContactosAdapter(Context context, ArrayList<Contactos> myList) {
             this.myList = myList;
             this.context = context;
             inflater = LayoutInflater.from(this.context);
@@ -147,17 +191,19 @@ public class ActivityConfigListaContactos extends Activity {
             final MyViewHolder mViewHolder;
 
             if (convertView == null) {
-                convertView = inflater.inflate(R.layout.items_config_contacts, parent, false);
+                convertView = inflater.inflate(R.layout.items_list_contacts, parent, false);
                 mViewHolder = new MyViewHolder(convertView);
                 convertView.setTag(mViewHolder);
             } else {
                 mViewHolder = (MyViewHolder) convertView.getTag();
             }
 
-            Contactos currentListData = getItem(position);
+            Contactos contactos = getItem(position);
 
-            mViewHolder.txtNombre.setText(currentListData.getNombreContacto());
-            mViewHolder.txtNumero.setText(currentListData.getNumeroContacto());
+            mViewHolder.txtNombreContacto.setText(contactos.getNombreContacto());
+            mViewHolder.txtTipoContacto.setText(contactos.getTipoContacto());
+            mViewHolder.txtTipoContacto.setTag(contactos.getCodContacto() + "");
+            mViewHolder.txtNumeroContacto.setText(contactos.getNumeroContacto());
 
 
             //mViewHolder.ivIcon.setImageResource(currentListData.getImgResId());
@@ -165,17 +211,26 @@ public class ActivityConfigListaContactos extends Activity {
             return convertView;
         }
 
-        private class MyViewHolder {
-            TextView txtNumero, txtNombre;
-            ImageView ivIcon;
+        private class MyViewHolder
+        {
+            TextView txtNombreContacto;
+            TextView txtTipoContacto;
+            TextView txtNumeroContacto ;
+            //ImageView ivIcon;
 
-            public MyViewHolder(View item) {
-                txtNumero       = (TextView) item.findViewById(R.id.txtNumeroContacto);
-                txtNombre       = (TextView) item.findViewById(R.id.txtNombreContacto);
+            public MyViewHolder(View item)
+            {
+                txtNombreContacto   = (TextView) item.findViewById(R.id.txtNombreContacto);
+                txtTipoContacto     = (TextView) item.findViewById(R.id.txtTipoContacto);
+                txtNumeroContacto   = (TextView) item.findViewById(R.id.txtNumeroContacto);
                 //iconContacto    = (ImageView) item.findViewById(R.id.ivIcon);
             }
         }
     }
+    //endregion
+
+
+
 
     public void setContacto(String data)
     {
@@ -184,6 +239,37 @@ public class ActivityConfigListaContactos extends Activity {
         setResult(Activity.RESULT_OK, intent);
         finish();//finishing activity
     }
+    /**
+     * Agrega cadena dependiendo de cual spf
+     * se encuentra vacIo , haciendo un simple
+     * orden de decendencia MENOR - MAYOR...
+     **/
+//    private void agregarContacto(String datoContacto)
+//    {
+//        String c1 = managerInfoMovil.getSPF2(IDSP2.NUMERO01);
+//        String c2 = managerInfoMovil.getSPF2(IDSP2.NUMERO02);
+//        String c3 = managerInfoMovil.getSPF2(IDSP2.NUMERO03);
+//        String c4 = managerInfoMovil.getSPF2(IDSP2.NUMERO04);
+//
+//        if (c1.length() < 1)
+//        {
+//            // NOMBRE - TIPO - NUMERO
+//            managerInfoMovil.setSpf2(IDSP2.NUMERO01, datoContacto);
+//        }else if (c2.length() < 1)
+//        {
+//            // NOMBRE - TIPO - NUMERO
+//            managerInfoMovil.setSpf2(IDSP2.NUMERO02, datoContacto);
+//        }else if (c3.length() < 1)
+//        {
+//            // NOMBRE - TIPO - NUMERO
+//            managerInfoMovil.setSpf2(IDSP2.NUMERO03, datoContacto);
+//        }else if (c4.length() < 1)
+//        {
+//            // NOMBRE - TIPO - NUMERO
+//            managerInfoMovil.setSpf2(IDSP2.NUMERO04, datoContacto);
+//        }
+//
+//    }
 
     private void imprimitToast(String data)
     {

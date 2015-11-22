@@ -80,7 +80,7 @@ public class ActivityMenu extends Activity {
                 // EJECUTAMOS ASYNTASK PARA REGISTRAR EN WEBSERVICE
                 registroAlerta.setIdTipoAlerta(1);
                 ManagerSqlite managerSqlite = new ManagerSqlite(getApplicationContext());
-                if (managerSqlite.ejecutarConsulta(1, registroAlerta, null) == 1)   // NULL = BAD PRACTICE
+                if (managerSqlite.ejecutarConsulta(1, registroAlerta, null , null) == 1)   // NULL = BAD PRACTICE
                 {
                     imprimitToast("SE INSERTÓ CORRECTAMENTE");
                     new asynRegistroAlerta().execute();
@@ -177,7 +177,7 @@ public class ActivityMenu extends Activity {
             if(result.equals("ok"))
             {
                 ManagerSqlite managerSqlite = new ManagerSqlite(getApplicationContext());
-                if (managerSqlite.ejecutarConsulta(21, registroAlerta, null ) == 1) // BAD PRACTICE
+                if (managerSqlite.ejecutarConsulta(21, registroAlerta, null , null) == 1) // BAD PRACTICE
                 {
                     imprimitToast("SE actualizo");
                 }

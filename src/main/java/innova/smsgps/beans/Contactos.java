@@ -5,6 +5,10 @@ package innova.smsgps.beans;
  */
 public class Contactos
 {
+
+
+    public static String ListaNumeros = "";
+
     public String getNombreContacto() {
         return nombreContacto;
     }
@@ -21,7 +25,35 @@ public class Contactos
         this.numeroContacto = numeroContacto;
     }
 
+    public String getTipoContacto() {
+        return tipoContacto;
+    }
+
+    public void setTipoContacto(String tipoContacto) {
+        this.tipoContacto = tipoContacto;
+    }
+
+    public static String getListaNumeros() {
+        return ListaNumeros;
+    }
+
+    public static void setListaNumeros(String listaNumeros) {
+        ListaNumeros = listaNumeros;
+    }
+
+    public int getCodContacto() {
+        return codContacto;
+    }
+
+    public void setCodContacto(int codContacto) {
+        this.codContacto = codContacto;
+    }
+
     String nombreContacto;
     String numeroContacto;
+    String tipoContacto;
 
+
+
+    int codContacto ;
 }

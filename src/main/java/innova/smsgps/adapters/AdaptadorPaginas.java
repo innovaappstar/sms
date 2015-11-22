@@ -14,6 +14,8 @@ import innova.smsgps.FragmentDenunciasRegistro;
  */
 public class AdaptadorPaginas extends FragmentStatePagerAdapter
 {
+
+    private String TITULOS[] = new String[] { "Contactos", "Denunciar", "Mis Alertas", "Mis Denuncias" };
     Fragment[] FRAGMENTS = new Fragment[]{new FragmentContactos(),
             new FragmentDenunciasRegistro(),
             new FragmentAlertas(),
@@ -33,5 +35,11 @@ public class AdaptadorPaginas extends FragmentStatePagerAdapter
     @Override
     public int getCount() {
         return FRAGMENTS.length;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        // Generate title based on item position
+        return TITULOS[position];
     }
 }

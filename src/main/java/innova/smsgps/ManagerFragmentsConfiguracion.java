@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.astuetz.PagerSlidingTabStrip;
+
 import innova.smsgps.adapters.AdaptadorPaginasConfiguracion;
 
 
@@ -30,11 +32,15 @@ public class ManagerFragmentsConfiguracion extends FragmentActivity
         // INICIAMOS LAS INSTANCIAS
         mViewPager = (ViewPager)findViewById(R.id.pager);
         mViewPager.setAdapter(new AdaptadorPaginasConfiguracion(getSupportFragmentManager()));
+        PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        // UNIMO TABS AL VIEW PAGER
+        tabsStrip.setViewPager(mViewPager);
+        tabsStrip.setVisibility(View.GONE);
     }
 
 
     /**
-     * Evento que se ejecutará al dar click
+     * Evento que se ejecutarA al dar click
      * en los botones.
      * @param view View que identificaremos ..
      */
@@ -45,7 +51,7 @@ public class ManagerFragmentsConfiguracion extends FragmentActivity
                 imprimitToast("agregar...");
                 break;
             case R.id.txtLeerMas:
-                imprimitToast("leer más...");
+                imprimitToast("leer mAs...");
                 break;
 
         }

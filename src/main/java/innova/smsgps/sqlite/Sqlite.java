@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import innova.smsgps.application.Globals;
+import innova.smsgps.beans.Contactos;
 import innova.smsgps.beans.HistorialRegistros;
 import innova.smsgps.beans.ListRegistrosAlertas;
 import innova.smsgps.beans.ListRegistrosDenuncias;
@@ -34,7 +35,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
     /**
      * DETALLES DATABASE
      **/
-    private static int mVersionBD   =   4;
+    private static int mVersionBD   =   5;
     private static String mNombreBD = "BDSMSGPS";
     private static Context mContext = null;
     private String mDirectorioBD    = "BD";
@@ -44,6 +45,17 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
      **/
     private String TbRegistroAlerta     =   "TbRegistroAlerta";
     private String TbRegistroDenuncia   =   "TbRegistroDenuncia";
+    private String TbRegistroContactos  =   "TbRegistroContactos";
+
+
+    /**
+     * Campos TbRegistroContactos
+     **/
+    private String KeyIdRegistroContacto    = "IdRegistroContacto";
+    private String KeyNombreContacto        = "NombreContacto";
+    private String KeyTipoContacto          = "TipoContacto";
+    private String KeyNumeroContacto        = "NumeroContacto";
+
 
     /**
      * Campos TbRegistroAlerta
@@ -90,7 +102,17 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
             + KeyFlagServidor           + " INTEGER DEFAULT '0'"
             + ")";
 
+    private String mCrearTbRegistroContactos  = "CREATE TABLE " + TbRegistroContactos + "("
+            + KeyIdRegistroContacto             + " INTEGER PRIMARY KEY,"
+            + KeyNombreContacto                 + " TEXT NOT NULL,"
+            + KeyTipoContacto                   + " TEXT NOT NULL,"
+            + KeyNumeroContacto                 + " TEXT NOT NULL"
+            + ")";
 
+//    private String mContactosDefault = "INSERT INTO " + TbRegistroContactos + "(" + KeyNombreContacto + "," + KeyTipoContacto + "," + KeyNumeroContacto + ") "
+//            + "VALUES ('AAAAA' , 'AAAAA', 'AAAAA') ";
+
+    //db.execSQL("INSERT INTO Usuarios (codigo,nombre) VALUES (6,'usuariopru') ");
     //endregion
 
     public Sqlite(Context context) {
@@ -103,12 +125,19 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(mCrearTbRegistroAlertas);
         db.execSQL(mCrearTbRegistroDenuncia);
+        db.execSQL(mCrearTbRegistroContactos);
+        // HACEMOS INSERT
+//        for (int i = 0; i < 4; i++)
+//        {
+//            db.execSQL(mContactosDefault);
+//        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TbRegistroAlerta);
         db.execSQL("DROP TABLE IF EXISTS " + TbRegistroDenuncia);
+        db.execSQL("DROP TABLE IF EXISTS " + TbRegistroContactos);
         onCreate(db);
     }
 
@@ -128,7 +157,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
      * </ul>
      **/
     @Override
-    public int ejecutarConsulta(int Indice, RegistroAlerta registroAlerta, RegistroDenuncias registroDenuncias)
+    public int ejecutarConsulta(int Indice, RegistroAlerta registroAlerta, RegistroDenuncias registroDenuncias, Contactos contactos)
     {
         SQLiteDatabase  db          = this.getWritableDatabase();   // ABRIENDO CONEXIÓN
         SQLiteStatement stmt        = null;                         // DECLARACIÓN PREPARADA
@@ -197,8 +226,31 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                     return result;
                 }
             case 3: // INSERTAR EN CONSUMO ELECTRÓNICO
+                try
+                {
 
-                break;
+                    sql = getStmtSql(CRUD.INSERT, new String[]{KeyNombreContacto, KeyTipoContacto, KeyNumeroContacto}, TbRegistroContactos);
+
+                    // INICIAMOS TRANSACCIÓN Y COMPILAMOS CONSULTA
+                    db.beginTransactionNonExclusive();
+                    stmt = db.compileStatement(sql);
+
+                    stmt.bindString(1, contactos.getNombreContacto());
+                    stmt.bindString(2, contactos.getTipoContacto());
+                    stmt.bindString(3, contactos.getNumeroContacto());
+                    // EJECUTAMOS Y LIMPIAMOS LA DECLARACIÓN/SENTENCIA PREPARADA (ANALIZAR clearBindings)
+                    stmt.execute();
+                    stmt.clearBindings();
+                    // SI LA INSTRUCCIÓN LLEGA HASTA AQUI , INDICAMOS QUE FUE UN ÉXITO
+                    db.setTransactionSuccessful();
+                    BackUpDataBase();
+                    result = 1;
+                }finally
+                {
+                    db.endTransaction();    // CERRAMOS TRANSACCIÓN
+                    db.close();
+                    return result;
+                }
             case 21 :   // ACTUALIZAR FLAG SERVIDOR
                 try
                 {
@@ -220,6 +272,41 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                 {
                     db.endTransaction();
                     db.close();
+                    return result;
+                }
+            case 22 :   // ACTUALIZAR CONTACTO
+                try
+                {
+
+                    sql = getStmtSql(CRUD.UPDATE, new String[]{KeyNombreContacto, KeyTipoContacto, KeyNumeroContacto, KeyIdRegistroContacto}, TbRegistroContactos);
+
+                    db.beginTransactionNonExclusive();
+                    stmt = db.compileStatement(sql);
+
+                    stmt.bindString(1, contactos.getNombreContacto());     // ACTUALIZAMOS FLAG SERVIDOR
+                    stmt.bindString(2, contactos.getTipoContacto());
+                    stmt.bindString(3, contactos.getNumeroContacto());
+                    stmt.bindLong(4  , contactos.getCodContacto());
+
+                    stmt.execute();
+                    stmt.clearBindings();
+                    db.setTransactionSuccessful();
+                    BackUpDataBase();
+                    result = 1;
+                }finally
+                {
+                    db.endTransaction();
+                    db.close();
+                    return result;
+                }
+            case 41:    // ELIMINA UN CONTACTO
+                try
+                {
+                    sql = getStmtSql(CRUD.DELETE, new String[]{KeyIdRegistroContacto}, TbRegistroContactos);
+                    db.execSQL(sql + contactos.getCodContacto());
+                    result = 1;
+                }finally
+                {
                     return result;
                 }
             case 61:    // LISTA REGISTROS PARA MOSTRARLOS EN UN LISTVIEW
@@ -248,6 +335,17 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                 try
                 {
                     if(ObtenerRegistro(4).equals("1"))
+                    {
+                        result = 1;
+                    }
+                }finally
+                {
+                    return result;
+                }
+            case 64:    // LISTA REGISTROS PARA MOSTRARLOS EN UN LISTADO
+                try
+                {
+                    if(ObtenerRegistro(5).equals("1"))
                     {
                         result = 1;
                     }
@@ -384,10 +482,34 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                 {
                     return result;
                 }
-        }
-        return result;
-    }
+            case 5: // LISTA REGISTROS DE LA TABLA DENUNCIA PARA MOSTRARLOS EN UN LISTADO
+                try
+                {
+                    String resultado  = "";
+                    sql = getStmtSql(CRUD.SELECT, new String[]{KeyIdRegistroContacto, KeyNombreContacto, KeyTipoContacto, KeyNumeroContacto}, TbRegistroContactos);
+                    cursor = db.rawQuery(sql, null);
+                    if(cursor.getCount() > 0)
+                    {
+                        int NumeroFila = 0;
+                        cursor.moveToFirst();
+                        while ((!cursor.isAfterLast()) && NumeroFila < cursor.getCount())
+                        {
+                            NumeroFila++;
+                            resultado = resultado + cursor.getString(0) + "|" + cursor.getString(1) + "|" + cursor.getString(2) + "|" + cursor.getString(3) + "~";
+                            cursor.moveToNext();
+                        }
+                        cursor.close();
+                        Contactos.setListaNumeros(resultado.substring(0, resultado.length() - 1));
 
+                    }
+                    result = "1";
+                }finally
+                {
+                    return result;
+                }
+            }
+            return result;
+        }
 
 
     /**
@@ -415,6 +537,8 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
             sql = "INSERT OR REPLACE INTO " + tabla + "( ";
         if(indiceCRUD == indiceCRUD.UPDATE)
             sql = "UPDATE " + tabla + " SET ";
+        if(indiceCRUD == indiceCRUD.DELETE)
+            sql = "DELETE FROM " + tabla + " WHERE ";
         if(indiceCRUD == indiceCRUD.SELECT)
             sql = "SELECT ";
 
@@ -440,6 +564,13 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                 else if(i == params.length -1)//  ÚLTIMO REGISTRO
                 {
                     sql = sql.substring(0, sql.length() -1) + " WHERE " + params[i] + " = ?" ;
+                }
+            }else if(indiceCRUD == indiceCRUD.DELETE)
+            {
+                if(i == params.length -1)//  ÚLTIMO REGISTRO
+                {
+//                    sql = sql +  params[i] + " = ?" ;
+                    sql = sql +  params[i] + " = " ;
                 }
             }else if(indiceCRUD == indiceCRUD.SELECT)
             {
