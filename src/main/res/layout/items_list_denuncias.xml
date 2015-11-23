@@ -12,7 +12,7 @@
         >
         <LinearLayout
             android:layout_width="90dp"
-            android:layout_height="180dp"
+            android:layout_height="120dp"
             android:orientation="vertical"
             android:padding="10dp"
             android:gravity="center_horizontal"
@@ -32,7 +32,7 @@
         <LinearLayout
             android:id="@+id/contenedorDescripcionDenuncia"
             android:layout_width="fill_parent"
-            android:layout_height="180dp"
+            android:layout_height="120dp"
             android:orientation="vertical"
             android:padding="10dp"
             android:layout_toRightOf="@+id/contenedorFecha">
@@ -40,16 +40,19 @@
             <TextView
                 style="@style/StyleTextoItem"
                 android:textColor="@color/gris_fuerte"
+                android:textSize="16sp"
                 android:id="@+id/txtTipoDenuncia"
                 android:text="Pandillaje"/>
             <TextView
                 style="@style/StyleTextoItem"
                 android:id="@+id/txtFechaHora"
+                android:textSize="14sp"
                 android:text="13:41:25"/>
             <TextView
                 style="@style/StyleTextoItem"
                 android:id="@+id/txtDescripcionDenuncia"
-                android:text="Un grupo de delincuentes juveniles empezarón a agredirse luego de un partido local entre..."/>
+                android:textSize="14sp"
+                android:text="1234567891012345678912345678912345678912345678910123456789123456789123456789"/>
 
         </LinearLayout>
         <RelativeLayout

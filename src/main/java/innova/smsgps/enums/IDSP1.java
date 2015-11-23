@@ -8,7 +8,8 @@ public enum IDSP1
     NUMERO01    (1),
     NUMERO02    (2),
     NUMERO03    (3),
-    NUMERO04    (4);
+    NUMERO04    (4),
+    FLAGSPLASH  (5);
 
     private int n;
 

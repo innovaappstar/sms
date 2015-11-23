@@ -8,7 +8,7 @@
     PRIMER CONTENEDOR - SIN DENUNCIAS
     -->
     <RelativeLayout
-        android:id="@+id/contenedor_contactos_vacios"
+        android:id="@+id/contenedor_denuncias_vacias"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible">
@@ -46,7 +46,7 @@
     SEGUNDO CONTENEDOR - CON DENUNCIAS AGREGADAS
     -->
     <RelativeLayout
-        android:id="@+id/contenedor_contactos_agregados"
+        android:id="@+id/contenedor_denuncias_agregadas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">

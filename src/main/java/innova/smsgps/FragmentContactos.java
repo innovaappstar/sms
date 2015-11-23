@@ -23,7 +23,7 @@ import innova.smsgps.beans.Contactos;
 /**
  * Created by innovaapps on 30/10/2015.
  */
-public class FragmentContactos extends BaseFragment implements View.OnClickListener
+public class FragmentContactos extends BaseFragment
 {
     ViewGroup rootView;
     RelativeLayout contenedorContactosVacios;

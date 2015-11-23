@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:padding="10dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        >
+        <RelativeLayout
+            android:id="@+id/contenedor_imagen"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/contenedorDetalle"
+            android:orientation="vertical"
+            android:padding="10dp" >
+            <ImageView
+                android:id="@+id/imgDenuncia"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="fitXY"
+                />
+        </RelativeLayout>
+        <!--
+        SEGUNDO CONTENEDOR DONDE SELECCIONARÁ LA CATEGORÍA
+        E INGRESARÁ LA DESCRIPCIÓN DE LA DENUNCIA.
+        -->
+        <EditText
+            style="@style/StyleEdittextRegistroWzp"
+            android:id="@+id/editDescripcionDenuncia"
+            android:layout_above="@+id/contenedorDetalle"/>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_above="@+id/contenedorBotones"
+            android:gravity="center_horizontal"
+            android:id="@+id/contenedorDetalle">
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnerCategorias"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contenedorBotones"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:padding="4dp"
+            android:weightSum="2">
+            <Button
+                style="@style/StyleButtonGestion"
+                android:id="@+id/btnCancelar"
+                android:text="Cancelar"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:layout_weight=".01"/>
+            <Button
+                style="@style/StyleButtonGestion"
+                android:id="@+id/btnAceptar"
+                android:text="Enviar"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

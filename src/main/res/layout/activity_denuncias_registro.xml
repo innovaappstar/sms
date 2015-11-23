@@ -17,6 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:id="@+id/img_gps"
+            android:onClick="onClick"
+            android:clickable="true"
             android:layout_above="@+id/view_medio"
             android:background="@drawable/img_background_sms"
             />

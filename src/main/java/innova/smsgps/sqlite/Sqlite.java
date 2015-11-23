@@ -217,6 +217,8 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                     stmt.clearBindings();
                     // SI LA INSTRUCCIÓN LLEGA HASTA AQUI , INDICAMOS QUE FUE UN ÉXITO
                     db.setTransactionSuccessful();
+                    Globals.getInfoMovil().setSpf2(IDSP2.IDREGISTRODENUNCIAMOVIL, ObtenerRegistro(6));
+
                     BackUpDataBase();
                     result = 1;
                 }finally
@@ -288,6 +290,27 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                     stmt.bindString(3, contactos.getNumeroContacto());
                     stmt.bindLong(4  , contactos.getCodContacto());
 
+                    stmt.execute();
+                    stmt.clearBindings();
+                    db.setTransactionSuccessful();
+                    BackUpDataBase();
+                    result = 1;
+                }finally
+                {
+                    db.endTransaction();
+                    db.close();
+                    return result;
+                }
+            case 23 :   // ACTUALIZAR DENUNCIA
+                try
+                {
+                    sql = getStmtSql(CRUD.UPDATE, new String[]{KeyFlagServidor, KeyIdRegistroDenuncias}, TbRegistroDenuncia);
+
+                    db.beginTransactionNonExclusive();
+                    stmt = db.compileStatement(sql);
+
+                    stmt.bindLong(1, 1);     // ACTUALIZAMOS FLAG SERVIDOR
+                    stmt.bindLong(2, Integer.valueOf(Globals.getInfoMovil().getSPF2(IDSP2.IDREGISTRODENUNCIAMOVIL)));
                     stmt.execute();
                     stmt.clearBindings();
                     db.setTransactionSuccessful();
@@ -507,6 +530,22 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                 {
                     return result;
                 }
+            case 6 :
+                try
+                {
+                    sql = "SELECT COUNT(*) FROM " + TbRegistroDenuncia;
+                    cursor = db.rawQuery(sql, null);
+                    if(cursor.getCount() > 0)
+                    {
+                        cursor.moveToFirst();
+                        result = String.valueOf(cursor.getInt(0));
+                        cursor.close();
+                    }
+                }finally
+                {
+                    return result;
+                }
+
             }
             return result;
         }

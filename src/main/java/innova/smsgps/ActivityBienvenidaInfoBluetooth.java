@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
+import innova.smsgps.application.Globals;
+import innova.smsgps.enums.IDSP1;
+
 /**
  * Created by USUARIO on 10/11/2015.
  */
@@ -21,7 +24,7 @@ public class ActivityBienvenidaInfoBluetooth extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_bienvenida_info_bluetooth);
-
+        Globals.getInfoMovil().setSpf1(IDSP1.FLAGSPLASH, 1);
 
     }
     /**

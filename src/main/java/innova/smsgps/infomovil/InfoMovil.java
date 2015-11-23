@@ -53,6 +53,8 @@ public class InfoMovil implements IInfoMovil
                 break;
             case NUMERO04:
                 editorspf.putInt("NUMERO04", i);
+            case FLAGSPLASH:
+                editorspf.putInt("FLAGSPLASH", i);
                 break;
         }
         editorspf.commit();
@@ -80,6 +82,8 @@ public class InfoMovil implements IInfoMovil
                 return spf.getInt("NUMERO03", 0);
             case NUMERO04:
                 return spf.getInt("NUMERO04", 0);
+            case FLAGSPLASH:
+                return spf.getInt("FLAGSPLASH", 0);
             default:
                 return -1;
         }
@@ -113,6 +117,9 @@ public class InfoMovil implements IInfoMovil
             case IDREGISTROALERTASMOVIL:
                 editorspf.putString("IDREGISTROALERTASMOVIL", s);
                 break;
+            case IDREGISTRODENUNCIAMOVIL:
+                editorspf.putString("IDREGISTRODENUNCIAMOVIL", s);
+                break;
         }
         editorspf.commit();
     }
@@ -143,6 +150,8 @@ public class InfoMovil implements IInfoMovil
                 return spf.getString("IDFACEBOOK", "12345678910112");
             case IDREGISTROALERTASMOVIL:
                 return spf.getString("IDREGISTROALERTASMOVIL", "");
+            case IDREGISTRODENUNCIAMOVIL:
+                return spf.getString("IDREGISTRODENUNCIAMOVIL", "");
             default:
                 return "";
         }

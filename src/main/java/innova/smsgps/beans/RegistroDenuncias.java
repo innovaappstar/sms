@@ -17,6 +17,8 @@ public class RegistroDenuncias extends Ubicacion
     String Descripcion;
     String IdTipoDenuncia;
     byte[] ImgDenuncia;
+//    public static Bitmap ImgDenunciabmp;
+
 
     public String getIdFacebookSqlite() {
         return IdFacebookSqlite;

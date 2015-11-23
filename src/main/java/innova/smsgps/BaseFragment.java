@@ -1,6 +1,8 @@
 package innova.smsgps;
 
 import android.support.v4.app.Fragment;
+import android.view.View;
+
 import innova.smsgps.infomovil.ManagerInfoMovil;
 import innova.smsgps.sqlite.ManagerSqlite;
 import innova.smsgps.utils.ManagerUtils;
@@ -9,7 +11,7 @@ import innova.smsgps.utils.ManagerUtils;
 /**
  * Created by innovaapps on 21/09/2015.
  */
-public abstract class BaseFragment extends Fragment implements TimerTarea.TimerTareaCallback
+public abstract class BaseFragment extends Fragment implements TimerTarea.TimerTareaCallback, View.OnClickListener
 {
     /**
      * Objetos

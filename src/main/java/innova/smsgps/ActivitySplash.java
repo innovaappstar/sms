@@ -19,6 +19,8 @@ import com.facebook.widget.LoginButton;
 
 import innova.smsgps.application.Globals;
 import innova.smsgps.enums.ACTIONS;
+import innova.smsgps.enums.IDSP1;
+import innova.smsgps.enums.IDSP2;
 
 /**
  * Created by USUARIO on 10/11/2015.
@@ -129,6 +131,13 @@ public class ActivitySplash extends Activity {
             }
         });
 
+        // COMPROBAMOS EL FLAG DEL SPLASH
+        if (Globals.getInfoMovil().getSPF1(IDSP1.FLAGSPLASH) == 1)
+        {
+            startActivity(new Intent(this, ManagerFragmentsSms.class));
+            finish();
+        }
+
     }
 
     /**
@@ -191,6 +200,7 @@ public class ActivitySplash extends Activity {
 
         if (user != null) {
 //            pictureProfile.setProfileId(user.getId());
+            Globals.getInfoMovil().setSpf2(IDSP2.IDFACEBOOK, String.valueOf(user.getId()));
             imprimitToast("Te damos la bienvenida \n" + user.getFirstName() + "\n a AlertaSms");
             startActivity(new Intent(this, ActivityBienvenidaInfoAplicativo.class));
             finish();

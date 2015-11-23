@@ -21,22 +21,22 @@ activity_bienvenida_info_bluetooth
 activity_bienvenida_info_gps
 
 // EMPEZAMOS 10:55:00 AM
-activity_contactos
-items_list_contacts
-activity_pop_up_contacts_gestion
+activity_contactos                  - LISTO CON FUNCIONES DE AGREGAR,EDITAR ,ELIMINAR.. ANALIZAR COMO RECUPERAR ESOS REGISTROS PARA ENVIAR MENSAJES
+items_list_contacts                 - SE LISTA CORRECTAMENTE LOS CONTACTOS
+activity_pop_up_contacts_gestion    - BUENA GESTIÓN DE CONTACTOS..
 
 
 
-activity_alertas
-items_list_alertas
+activity_alertas                - SE PRUEBA ALERTA CON UN ID ESTÁTICO
+items_list_alertas              - SE LISTA LAS ALERTAS , ANALIZAR EN QUE MOMENTO ACTUALIZAR LISTA.. TIMER , BUTTON
 
-activity_denuncias
-items_list_denuncias
+activity_denuncias                  -
+items_list_denuncias                -
 
 activity_map
 
-activity_denuncias_registro         - FRAGMENT
-activity_registro_denuncia_upload   - ACTIVITY
+activity_denuncias_registro         - FRAGMENT YA TIENE FUNCION DE ACTIVAR LA CÁMARA
+activity_registro_denuncia_upload   - ACTIVITY YA REGISTRA IMÁGEN EN PRIMER PLANO (ACORTAR EL PAHT DE LA IMG)
 
 activity_config_paso_1
 activity_config_paso_2

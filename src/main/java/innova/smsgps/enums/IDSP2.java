@@ -10,7 +10,8 @@ public enum IDSP2
     NUMERO03    (3),
     NUMERO04    (4),
     IDFACEBOOK  (5),
-    IDREGISTROALERTASMOVIL  (6);
+    IDREGISTROALERTASMOVIL  (6),
+    IDREGISTRODENUNCIAMOVIL (7);
 
     private int n;
 

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/gris_suave_fondo"
+    android:background="@drawable/shape_row_selector"
     android:padding="10dp">
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -16,7 +16,7 @@
             android:orientation="vertical"
             android:padding="10dp"
             android:gravity="center_horizontal"
-            android:background="@drawable/item_view_border_content"
+            android:background="@drawable/shape_row_selector"
             android:id="@+id/contenedorFecha">
             <TextView
                 style="@style/StyleTextoItem"
@@ -30,30 +30,38 @@
                 android:textSize="45sp"
                 android:text="10"/>
         </LinearLayout>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="10dp"
-            android:background="@drawable/item_view_border_gris_content"
+            android:background="@drawable/shape_row_selector"
             android:layout_toRightOf="@+id/contenedorFecha">
 
             <TextView
                 style="@style/StyleTextoItem"
                 android:textColor="@color/gris_fuerte"
+                android:textSize="16sp"
                 android:id="@+id/txtTipoAlerta"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
                 android:text="Asalto"/>
             <TextView
                 style="@style/StyleTextoItem"
+                android:layout_below="@+id/txtTipoAlerta"
+                android:layout_alignParentLeft="true"
+                android:textSize="14sp"
                 android:id="@+id/txtFechaHora"
                 android:text="13:41:25"/>
 
             <TextView
                 style="@style/StyleTextoItem"
                 android:id="@+id/txtEnviado"
-                android:layout_gravity="right"
+                android:textSize="14sp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:text="Enviado"/>
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
 

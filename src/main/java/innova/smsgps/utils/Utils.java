@@ -6,10 +6,14 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,6 +21,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -147,6 +152,48 @@ public class Utils implements IUtils {
 
         return bitmap;
     }
+
+    /**
+     * Función que devuelve la uri de un archivo...
+     **/
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        //inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+    /**
+     * Función que devuelve la ubicación de un archivo..
+     **/
+    public String getRealPathFromURI(Context context, Uri uri) {
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+    /**
+     * Función que devuelve objeto byte comprimido de una imágen...
+     **/
+    public byte[] getImagenComprimida(String path)
+    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Bitmap bm = BitmapFactory.decodeFile(path);
+        bm.compress(Bitmap.CompressFormat.JPEG, 75, bos); // Compresion
+        byte[] data = bos.toByteArray();
+        return data;
+    }
+
+    /**
+     * Función que devuelve objeto bitmap a partir de su path
+     **/
+    public Bitmap getBitmap(String path)
+    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Bitmap bm = BitmapFactory.decodeFile(path);
+        bm.compress(Bitmap.CompressFormat.JPEG, 75, bos); // Compresion
+        return bm;
+    }
+
 
 
 }

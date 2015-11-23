@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.View;
 
 import innova.smsgps.enums.IDUTILS;
@@ -57,6 +58,26 @@ public class ManagerUtils implements IUtils {
     @Override
     public Bitmap getBitmapCanvas(Activity activity, View view) {
         return iUtils.getBitmapCanvas(activity, view);
+    }
+
+    @Override
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        return iUtils.getImageUri(inContext, inImage);
+    }
+
+    @Override
+    public String getRealPathFromURI(Context context, Uri uri) {
+        return iUtils.getRealPathFromURI(context, uri);
+    }
+
+    @Override
+    public byte[] getImagenComprimida(String path) {
+        return iUtils.getImagenComprimida(path);
+    }
+
+    @Override
+    public Bitmap getBitmap(String path) {
+        return iUtils.getBitmap(path);
     }
 
 

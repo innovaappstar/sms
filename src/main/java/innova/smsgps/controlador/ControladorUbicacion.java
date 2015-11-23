@@ -28,7 +28,7 @@ public class ControladorUbicacion implements LocationListener{
 
 	@Override
 	public void onLocationChanged(Location location) {
-		if(location!=null)
+		if(location!=null || location.getLatitude() == 0.0)
 		{
  			Coordenada coordenada = new Coordenada();
 			coordenada.setLatitud(location.getLatitude());

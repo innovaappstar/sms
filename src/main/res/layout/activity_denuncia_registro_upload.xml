@@ -13,15 +13,14 @@
         <RelativeLayout
             android:id="@+id/contenedor_imagen"
             android:layout_width="fill_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:orientation="vertical"
             android:padding="10dp" >
             <ImageView
                 android:id="@+id/imgDenuncia"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:scaleType="fitXY"
-                android:background="@drawable/img_foto_denuncia"
+                android:scaleType="fitCenter"
                 />
         </RelativeLayout>
         <!--

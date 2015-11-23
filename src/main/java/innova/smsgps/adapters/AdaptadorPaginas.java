@@ -8,6 +8,7 @@ import innova.smsgps.FragmentAlertas;
 import innova.smsgps.FragmentContactos;
 import innova.smsgps.FragmentDenuncias;
 import innova.smsgps.FragmentDenunciasRegistro;
+import innova.smsgps.FragmentMap;
 
 /**
  * Created by innovaapps on 30/10/2015.
@@ -15,11 +16,12 @@ import innova.smsgps.FragmentDenunciasRegistro;
 public class AdaptadorPaginas extends FragmentStatePagerAdapter
 {
 
-    private String TITULOS[] = new String[] { "Contactos", "Denunciar", "Mis Alertas", "Mis Denuncias" };
+    private String TITULOS[] = new String[] { "Contactos", "Denunciar", "Mis Alertas", "Mis Denuncias", "Geolocalización" };
     Fragment[] FRAGMENTS = new Fragment[]{new FragmentContactos(),
             new FragmentDenunciasRegistro(),
             new FragmentAlertas(),
-            new FragmentDenuncias()};
+            new FragmentDenuncias(),
+            new FragmentMap()};
 
     // CONSTRUCTOR
     public AdaptadorPaginas(FragmentManager fm)
