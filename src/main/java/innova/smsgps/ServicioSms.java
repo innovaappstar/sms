@@ -23,6 +23,7 @@ import java.util.UUID;
 import innova.smsgps.beans.Coordenada;
 import innova.smsgps.controlador.ControladorUbicacion;
 import innova.smsgps.controlador.ControladorUbicacion.ControladorUbicacionCallback;
+import innova.smsgps.task.UpAlerta;
 import innova.smsgps.utils.ManagerUtils;
 
 /**
@@ -38,13 +39,13 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
     // Instancias
     private LocationManager handle;
     private ControladorUbicacion controladorUbicacion;
-    static Coordenada coordenada = new Coordenada();
     ManagerUtils managerUtils ;
 
     /**
      * Instancias bluetooth y objetos.
      */
-    protected static final String MacAddress ="98:D3:31:20:0A:F5";// "10:F9:6F:61:CD:4C"; // 98:D3:31:20:0A:F5
+//    protected static final String MacAddress ="98:D3:31:20:0A:F5";// "10:F9:6F:61:CD:4C"; // 98:D3:31:20:0A:F5
+    protected static final String MacAddress ="";// "10:F9:6F:61:CD:4C"; // 98:D3:31:20:0A:F5
     static BluetoothAdapter mBluetoothAdapter;
     static BluetoothSocket mmSocket;
     static BluetoothDevice mmDevice;
@@ -118,11 +119,12 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
         mContext            = getApplicationContext();
         instanciaServicio   = this;
         IniciarLocalizacion();
+//        if (MacAddress.length() > 1)
     }
 
     @Override
     public void getCoordenada(Coordenada coordenada) {
-        //Toast.makeText(mContext, coordenada._getLatitud() + "|" + coordenada._getLongitud(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, coordenada._getLatitud() + "|" + coordenada._getLongitud(), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -170,44 +172,61 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
      */
 
     /************* Funciones Bluetooth ***************/
+    public static void connectDevice(String address){
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
+        try {
+            UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //Standard SerialPortService ID
+            BluetoothSocket mmSocket = device.createRfcommSocketToServiceRecord(uuid);
+            mmSocket.connect();
+            mmOutputStream = mmSocket.getOutputStream();
+            mmInputStream = mmSocket.getInputStream();
+            escuchar();
+        }
+        catch (  IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     //region BLUETOOTH
-    public static void findBT(String MacAddress)
-    {
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if(mBluetoothAdapter == null)
-        { // return;
-        }
-
-        if(!mBluetoothAdapter.isEnabled())
-        {
-            mBluetoothAdapter.enable();
-        }
-        mmDevice = mBluetoothAdapter.getRemoteDevice(MacAddress);
-
-    }
-    public static void openBT() throws IOException
-    {
-        UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //Standard SerialPortService ID
-        mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
-        mmSocket.connect();
-        mmOutputStream = mmSocket.getOutputStream();
-        mmInputStream = mmSocket.getInputStream();
-    }
+//    public static void findBT(String MacAddress)
+//    {
+//        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+//        if(mBluetoothAdapter == null)
+//        { // return;
+//        }
+//
+//        if(!mBluetoothAdapter.isEnabled())
+//        {
+//            mBluetoothAdapter.enable();
+//        }
+//        mmDevice = mBluetoothAdapter.getRemoteDevice(MacAddress);
+//
+//    }
+//    public static void openBT() throws IOException
+//    {
+//        UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //Standard SerialPortService ID
+//        mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
+//        mmSocket.connect();
+//        mmOutputStream = mmSocket.getOutputStream();
+//        mmInputStream = mmSocket.getInputStream();
+//    }
 
     static BufferedReader r = null;
     static String mSalida="";
 
     static void escuchar()
     {
-        try
-        {
-            findBT(MacAddress);
-            openBT();
-        }catch (Exception e)
-        {
-
-        }
+//        try
+//        {
+//            findBT(MacAddress);
+//            openBT();
+//        }catch (Exception e)
+//        {
+//
+//        }
         /**
          *  Correr funcin de lectura con las claves obtenidas
          **/
@@ -219,25 +238,33 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
                 while (true)
                 {
                     //mmOutputStream.write(params[0].getBytes());
-                    Log.i("smsgps", "1");
-                    r = new BufferedReader(new InputStreamReader(mmInputStream));
-                    Log.i("smsgps", "2");
-                    try {
-                        mSalida = r.readLine().toString();
-                        mHandler.post(new Runnable()
-                        {
-                            @Override
-                            public void run()
+                    //Log.i("smsgps", "1");
+//                    if (r != null)
+//                    {
+                        r = new BufferedReader(new InputStreamReader(mmInputStream));
+                        Log.i("smsgps", "2");
+                        try {
+                            mSalida = r.readLine().toString();
+                            mHandler.post(new Runnable()
                             {
-                                Toast.makeText(mContext, mSalida, Toast.LENGTH_SHORT).show();
-                                SmsActivity.Contador = 0;
-                            }
-                        });
-                    }catch (Exception e)
-                    {
-                        Log.i("smsgps", e.getMessage());
+                                @Override
+                                public void run()
+                                {
+                                    if (mSalida.equals("1"))
+                                    {
+                                        new UpAlerta(mContext);
+                                    }
+                                    Toast.makeText(mContext, mSalida, Toast.LENGTH_SHORT).show();
+//                                    SmsActivity.Contador = 0;
+                                }
+                            });
+                        }catch (Exception e)
+                        {
+                            Log.i("smsgps", e.getMessage());
 
-                    }
+                        }
+//                    }
+
 
                 }
 

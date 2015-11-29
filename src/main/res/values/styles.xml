@@ -38,6 +38,45 @@
     </style>
 
 
+    <!--01 ESTILO EDITTEXT LOGIN / REGISTRO-->
+
+    <style name="StyleEdittextCuenta" parent="WidgetEdittextCuenta">
+        <item name="android:layout_marginLeft">35dp</item>
+        <item name="android:layout_marginRight">35dp</item>
+    </style>
+
+    <style name="WidgetEdittextCuenta">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+    <!--01 ESTILO BUTTON LOGIN / REGISTRO-->
+    <style name="StyleButtonCuenta" parent="WidgetButtonCuenta">
+        <item name="android:layout_marginLeft">35dp</item>
+        <item name="android:layout_marginRight">35dp</item>
+        <item name="android:background">@drawable/shape_view_selector_button_general_customizado</item>
+    </style>
+    <style name="WidgetButtonCuenta">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">onClick</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+
+
+
+
+
+
+
     <!--
     ESTILOS BIENVENIDA
     -->
@@ -80,6 +119,20 @@
         <item name="android:onClick">onClick</item>
     </style>
 
+    <style name="StyleButtonCustomizado" parent="WidgetButton">
+    </style>
+
+    <style name="WidgetButton">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/shape_view_selector_button_general_customizado</item>
+        <item name="android:padding">10dp</item>
+        <!--<item name="android:layout_margin">10dp</item>-->
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">onClick</item>
+    </style>
 
     <!--
     BIENVENIDA INFO

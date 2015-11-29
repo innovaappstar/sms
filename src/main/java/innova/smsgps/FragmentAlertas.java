@@ -53,7 +53,7 @@ public class FragmentAlertas extends BaseFragment
     }
 
     /**
-     * Simple método para listar registros de alertas...
+     * Simple mï¿½todo para listar registros de alertas...
      **/
     public void listarRegistros()
     {
@@ -186,14 +186,28 @@ public class FragmentAlertas extends BaseFragment
         switch (v.getId())
         {
             case R.id.txtLeerMas:
-                managerUtils.imprimirToast(getActivity(), "Leer más...");
+                managerUtils.imprimirToast(getActivity(), "Leer mï¿½s...");
                 break;
         }
     }
-
+    private int mContadorLista = 0;
     @Override
-    public void listenerTimer() {
+    public void listenerTimer()
+    {
+        if (mContadorLista == 5)
+        {
+            try
+            {
+                listarRegistros();
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }
 
+            mContadorLista = 0;
+        }
+
+        mContadorLista ++;
     }
 
 }

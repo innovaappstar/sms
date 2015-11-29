@@ -1,0 +1,15 @@
+<inset xmlns:android="http://schemas.android.com/apk/res/android" android:insetBottom="0dp" android:insetRight="0dp">
+	<shape  android:shape="rectangle" >
+		<!-- Fondo -->
+		<gradient
+			android:startColor="@color/celeste_button_default_customizado"
+			android:endColor="@color/celeste_button_default_customizado"
+			android:angle="0"/>
+		<!-- Borde -->
+		<stroke
+			android:width="0dip"
+			android:color="@color/white"/>
+		<!-- Corners -->
+		<corners android:radius="4dip" />
+	</shape>
+</inset>

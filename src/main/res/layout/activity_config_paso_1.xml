@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gris_suave_fondo">
@@ -45,9 +46,18 @@
             android:layout_below="@+id/profilePicture"
             android:layout_marginTop="10dp"
             android:textColor="@color/gris_suave_texto"
-            android:text="Hola Pablo Alboran."/>
+            android:text=""/>
 
-
+        <com.facebook.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_above="@id/btnAceptar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            facebook:confirm_logout="false"
+            facebook:fetch_user_info="true"
+            />
         <Button
             style="@style/StyleButtonAceptar"
             android:id="@+id/btnAceptar"

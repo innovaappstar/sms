@@ -52,7 +52,7 @@ public class FragmentDenunciasRegistro extends BaseFragment
         post = new Httppostaux();
     }
     /**
-     * Simple método para iniciar servicio..
+     * Simple mï¿½todo para iniciar servicio..
      **/
     private void iniciarServicio()
     {
@@ -130,7 +130,7 @@ public class FragmentDenunciasRegistro extends BaseFragment
         {
             case R.id.btnAceptar:
                 managerUtils.imprimirToast(getActivity(), "registrando ..");
-                // ABRIMOS CÁMARA PARA CAPTURAR IMÁGEN
+                // ABRIMOS Cï¿½MARA PARA CAPTURAR IMï¿½GEN
                 Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(cameraIntent, REQUEST_FOTO);
 
@@ -138,17 +138,17 @@ public class FragmentDenunciasRegistro extends BaseFragment
 //                registroAlerta.setIdTipoAlerta(1);
 //                if (managerSqlite.ejecutarConsulta(1, registroAlerta, null , null) == 1)   // NULL = BAD PRACTICE
 //                {
-//                    managerUtils.imprimirToast(getActivity(), "SE INSERTÓ CORRECTAMENTE");
+//                    managerUtils.imprimirToast(getActivity(), "SE INSERTï¿½ CORRECTAMENTE");
 //                    new asynRegistroAlerta().execute();
 //                }
                 break;
             case R.id.img_gps:
                 // EJECUTAMOS ASYNTASK PARA REGISTRAR EN WEBSERVICE
-                registroAlerta.setIdTipoAlerta(1);
-                if (managerSqlite.ejecutarConsulta(1, registroAlerta, null , null) == 1)   // NULL = BAD PRACTICE
-                {
-                    new asynRegistroAlerta().execute();
-                }
+//                registroAlerta.setIdTipoAlerta(1);
+//                if (managerSqlite.ejecutarConsulta(1, registroAlerta, null , null) == 1)   // NULL = BAD PRACTICE
+//                {
+//                    new asynRegistroAlerta().execute();
+//                }
                 break;
         }
     }
@@ -164,7 +164,7 @@ public class FragmentDenunciasRegistro extends BaseFragment
      **/
     RegistroAlerta registroAlerta = new RegistroAlerta();
     /**
-     * Método para probar webServices
+     * Mï¿½todo para probar webServices
      */
     Httppostaux post;
 

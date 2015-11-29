@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import innova.smsgps.FragmentAlertas;
+import innova.smsgps.FragmentConfiguracion;
 import innova.smsgps.FragmentContactos;
 import innova.smsgps.FragmentDenuncias;
 import innova.smsgps.FragmentDenunciasRegistro;
@@ -16,12 +17,13 @@ import innova.smsgps.FragmentMap;
 public class AdaptadorPaginas extends FragmentStatePagerAdapter
 {
 
-    private String TITULOS[] = new String[] { "Contactos", "Denunciar", "Mis Alertas", "Mis Denuncias", "Geolocalización" };
+    private String TITULOS[] = new String[] { "Contactos", "Denunciar", "Mis Alertas", "Mis Denuncias", "Geolocalización", "Configuración" };
     Fragment[] FRAGMENTS = new Fragment[]{new FragmentContactos(),
             new FragmentDenunciasRegistro(),
             new FragmentAlertas(),
             new FragmentDenuncias(),
-            new FragmentMap()};
+            new FragmentMap(),
+            new FragmentConfiguracion()};
 
     // CONSTRUCTOR
     public AdaptadorPaginas(FragmentManager fm)

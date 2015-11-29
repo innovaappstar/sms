@@ -17,4 +17,8 @@
     <color name="black">@android:color/black</color>
     <color name="blackOpacidad90">#60000000</color>
     <color name="gris_fuerte">#707070</color>
+    <color name="celeste_background">#49b3e1</color>
+    <color name="celeste_button_default_customizado">#1ba0da</color>
+    <color name="celeste_button_press_customizado">#168cbf</color>
+
 </resources>
