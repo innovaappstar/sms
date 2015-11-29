@@ -13,11 +13,15 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.facebook.Request;
+import com.facebook.Response;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.UUID;
 
 import innova.smsgps.beans.Coordenada;
@@ -39,7 +43,7 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
     // Instancias
     private LocationManager handle;
     private ControladorUbicacion controladorUbicacion;
-    ManagerUtils managerUtils ;
+    static ManagerUtils managerUtils ;
 
     /**
      * Instancias bluetooth y objetos.
@@ -253,6 +257,7 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
                                     if (mSalida.equals("1"))
                                     {
                                         new UpAlerta(mContext);
+                                        postStatusUpdate("Prueba integrada ... " + (new Date().toString()));
                                     }
                                     Toast.makeText(mContext, mSalida, Toast.LENGTH_SHORT).show();
 //                                    SmsActivity.Contador = 0;
@@ -271,6 +276,36 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
 
             }
         }).start();
+    }
+
+    /**
+     * Comprueba si la session esta activa.
+     */
+    static innova.smsgps.beans.Session sessionbeans = new innova.smsgps.beans.Session();
+
+
+    private static void postStatusUpdate(final String message) {
+        if (sessionbeans != null) {
+            Request request = Request
+                    .newStatusUpdateRequest(sessionbeans.getSession().getActiveSession(), message, new Request.Callback() {
+                        @Override
+                        public void onCompleted(Response response) {
+                            if (response.getError() != null)
+                            {
+                                if (response.getError().toString().length() < 1)
+                                {
+                                    managerUtils.imprimirToast(mContext, "Se actualizo correctamente");
+                                }
+                                managerUtils.imprimirToast(mContext, response.getGraphObject() + "|" + response.getError());
+                            }else
+                            {
+                                managerUtils.imprimirToast(mContext, response.toString());
+                            }
+
+                        }
+                    });
+            request.executeAsync();
+        }
     }
 
 

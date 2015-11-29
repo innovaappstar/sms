@@ -32,6 +32,7 @@ public class ManagerFragmentsConfiguracion extends FragmentActivity
         // INICIAMOS LAS INSTANCIAS
         mViewPager = (ViewPager)findViewById(R.id.pager);
         mViewPager.setAdapter(new AdaptadorPaginasConfiguracion(getSupportFragmentManager()));
+        mViewPager.setOffscreenPageLimit(3);
         PagerSlidingTabStrip tabsStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         // UNIMO TABS AL VIEW PAGER
         tabsStrip.setViewPager(mViewPager);
