@@ -25,6 +25,7 @@ public class FragmentAlertas extends BaseFragment
     ListView list;
     RelativeLayout contenedorAlertasVacias;
     RelativeLayout contenedorAlertasAgregadas;
+    private int mContadorLista = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class FragmentAlertas extends BaseFragment
             contenedorAlertasVacias.setVisibility(View.GONE);
         }else
         {
-            managerUtils.imprimirToast(getActivity(), "<<Excepcion Code 01>>");
+//            managerUtils.imprimirToast(getActivity(), "<<Excepcion Code 01>>");
         }
 
     }
@@ -190,7 +191,7 @@ public class FragmentAlertas extends BaseFragment
                 break;
         }
     }
-    private int mContadorLista = 0;
+
     @Override
     public void listenerTimer()
     {

@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import innova.smsgps.ActivityLoginFb;
 import innova.smsgps.R;
@@ -195,5 +197,16 @@ public class Utils implements IUtils {
     }
 
 
+    /**
+     * Simple función que devuelve el País del usuario , de acuerdo a la sim mobile.
+     **/
+    @Override
+    public String getCountry(Context context)
+    {
+        TelephonyManager tlfManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String CountryID            = tlfManager.getSimCountryIso().toUpperCase();
+        Locale l                    = new Locale("", CountryID);
+        return l.getDisplayCountry();
+    }
 
 }

@@ -26,7 +26,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:elevation="100dp"
-        android:visibility="gone"
+        android:visibility="visible"
         card_view:cardBackgroundColor="@android:color/white"
         card_view:cardCornerRadius="8dp">
 

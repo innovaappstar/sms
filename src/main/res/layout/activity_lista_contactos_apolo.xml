@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/celeste_background">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="5.5">
+
+        <!--CONTENEDOR PARA MOSTRAR ICONO DE LOCALIZACIÒN CON TEXTO INFORMATIVO -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_weight="2.5">
+            <!--CONTENEDOR DEVICE - SUPERIOR-->
+            <RelativeLayout
+                style="@style/StyleContenedorMenuBotones"
+                android:id="@+id/contenedor_gps"
+                android:layout_marginTop="20dp" >
+                <ImageView
+                    style="@style/StyleImgMenuBotones"
+                    android:id="@+id/img_gps"
+                    android:src="@drawable/ic_gps_button"/>
+                <TextView
+                    style="@style/StyleTextoMenuBotones"
+                    android:id="@+id/txt_device"
+                    android:text="Location"
+                    android:layout_below="@+id/img_gps"/>
+            </RelativeLayout>
+
+            <!--REUTILIZANDO ESTILO DE ACTIVITY PÈRFIL-->
+            <TextView
+                style="@style/StyleTextIndicadoresMenuOpciones"
+                android:id="@+id/txtInfoClick"
+                android:text="1 click   : Compartir Locación\n2 clicks : Emergencia Locación\n3 clicks : Cancelar Mensaje"
+                android:layout_below="@+id/contenedor_gps"/>
+
+        </RelativeLayout>
+        <!--CONTENEDOR DE DATOS DE PÉRFIL -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@color/white">
+            <!--SEPARADOR-->
+            <View
+                android:id="@+id/view_medio"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentTop="true"/>
+            <!--REUTILIZANDO ESTILO DE ACTIVITY PÈRFIL-->
+            <TextView
+                style="@style/StyleTextIndicadoresMenuOpciones"
+                android:id="@+id/lblListaContactos"
+                android:text="Listado de Contactos"
+                android:textColor="@color/black"
+                android:layout_below="@+id/view_medio"/>
+            <!-- -->
+            <!-- -->
+            <!-- -->
+            <!--INPUT 01 / CONTACTO 01-->
+            <EditText
+                style="@style/StyleEdittextContactoSms"
+                android:id="@+id/editContacto01"
+                android:layout_below="@+id/lblListaContactos"
+                android:hint="Contacto 01"/>
+            <TextView
+                style="@style/StyleTextoEditarPerfil"
+                android:id="@+id/inputContacto01"
+                android:layout_alignEnd="@+id/editContacto01"
+                android:layout_alignBottom="@+id/editContacto01"/>
+            <!-- -->
+            <!-- -->
+            <!-- -->
+            <!--INPUT 02 / CONTACTO 02 -->
+            <EditText
+                style="@style/StyleEdittextContactoSms"
+                android:id="@+id/editContacto02"
+                android:layout_below="@+id/editContacto01"
+                android:hint="Contacto 02"/>
+
+            <TextView
+                style="@style/StyleTextoEditarPerfil"
+                android:id="@+id/inputContacto02"
+                android:layout_alignEnd="@+id/editContacto02"
+                android:layout_alignBottom="@+id/editContacto02"/>
+
+            <!-- -->
+            <!-- -->
+            <!-- -->
+            <!--INPUT 03 / CONTACTO 03-->
+            <EditText
+                style="@style/StyleEdittextContactoSms"
+                android:id="@+id/editContacto03"
+                android:layout_below="@+id/editContacto02"
+                android:hint="Contacto 03"/>
+            <TextView
+                style="@style/StyleTextoEditarPerfil"
+                android:id="@+id/inputContacto03"
+                android:layout_alignEnd="@+id/editContacto03"
+                android:layout_alignBottom="@+id/editContacto03"/>
+            <!-- -->
+            <!-- -->
+            <!-- -->
+            <!--INPUT 04 / CONTACTO 04-->
+            <EditText
+                style="@style/StyleEdittextContactoSms"
+                android:id="@+id/editContacto04"
+                android:layout_below="@+id/editContacto03"
+                android:hint="Contacto 04"/>
+            <TextView
+                style="@style/StyleTextoEditarPerfil"
+                android:id="@+id/inputContacto04"
+                android:layout_alignEnd="@+id/editContacto04"
+                android:layout_alignBottom="@+id/editContacto04"/>
+            <!-- -->
+            <!-- -->
+            <!-- -->
+
+
+            <!--BOTON ACEPTAR-->
+            <Button
+                style="@style/StyleButtonAceptarGeneral"
+                android:id="@+id/btnAceptar"
+                android:text="Save"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <com.facebook.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_below="@id/btnAceptar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="10dp"
+        facebook:confirm_logout="false"
+        facebook:fetch_user_info="true"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

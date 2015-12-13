@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/celeste_fondo_apolo">
+
+
+    <!--TEXTO INFORMATIVO DEL MENU - REUTILIZAMOS ESTILO PARA ADAPTARLO EN UNA POSICION SOBRE DEVICE-->
+    <TextView
+        style="@style/StyleTextoDatosPerfil"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/contenedor_device"
+        android:text="To connect please click 5 times\nthe location icon on your phone"/>
+
+    <!--CONTENEDOR DEVICE - SUPERIOR-->
+    <RelativeLayout
+        style="@style/StyleContenedorMenuBotones"
+        android:id="@+id/contenedor_device"
+        android:layout_above="@+id/contenedor_gps" >
+        <ImageView
+            style="@style/StyleImgMenuBotones"
+            android:id="@+id/img_device"
+            android:src="@drawable/ic_device_button"/>
+        <TextView
+            style="@style/StyleTextoMenuBotones"
+            android:id="@+id/txt_device"
+            android:text="Find Me"
+            android:layout_below="@+id/img_device"/>
+
+    </RelativeLayout>
+
+    <!--CONTENEDOR MEDIA - LATERAL IZQUIERDO-->
+    <RelativeLayout
+        style="@style/StyleContenedorMenuBotones"
+        android:id="@+id/contenedor_media"
+        android:layout_toStartOf="@+id/contenedor_gps"
+        android:layout_centerInParent="true" >
+
+        <ImageView
+            style="@style/StyleImgMenuBotones"
+            android:id="@+id/img_media"
+            android:src="@drawable/ic_media_button"/>
+        <TextView
+            style="@style/StyleTextoMenuBotones"
+            android:id="@+id/txt_media"
+            android:text="Media"
+            android:layout_below="@+id/img_media"/>
+    </RelativeLayout>
+
+
+    <!--CONTENEDOR GPS - CENTRAL-->
+    <RelativeLayout
+        style="@style/StyleContenedorMenuBotones"
+        android:id="@+id/contenedor_gps"
+        android:layout_margin="10dp"
+        android:layout_centerInParent="true" >
+        <ImageView
+            style="@style/StyleImgMenuBotones"
+            android:id="@+id/img_gps"
+            android:src="@drawable/ic_gps_button"/>
+        <TextView
+            style="@style/StyleTextoMenuBotones"
+            android:id="@+id/txt_gps"
+            android:text="Location"
+            android:layout_below="@+id/img_gps"/>
+    </RelativeLayout>
+
+
+    <!--CONTENEDOR CÁMARA - LATERAL DERECHO-->
+    <RelativeLayout
+        style="@style/StyleContenedorMenuBotones"
+        android:id="@+id/contenedor_selfie"
+        android:layout_toEndOf="@+id/contenedor_gps"
+        android:layout_centerInParent="true" >
+        <ImageView
+            style="@style/StyleImgMenuBotones"
+            android:id="@+id/img_selfie"
+            android:src="@drawable/ic_selfie_button"/>
+        <TextView
+            style="@style/StyleTextoMenuBotones"
+            android:id="@+id/txt_selfie"
+            android:text="Selfie"
+            android:layout_below="@+id/img_selfie"/>
+
+    </RelativeLayout>
+
+    <!--CONTENEDOR OTHER - INFERIOR-->
+    <RelativeLayout
+        style="@style/StyleContenedorMenuBotones"
+        android:id="@+id/contenedor_other"
+        android:layout_below="@id/contenedor_gps">
+        <ImageView
+            style="@style/StyleImgMenuBotones"
+            android:id="@+id/img_other"
+            android:src="@drawable/ic_other_button"/>
+
+        <TextView
+            style="@style/StyleTextoMenuBotones"
+            android:id="@+id/txt_other"
+            android:text="Other"
+            android:layout_below="@+id/img_other"/>
+    </RelativeLayout>
+
+</RelativeLayout>

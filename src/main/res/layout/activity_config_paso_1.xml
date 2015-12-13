@@ -57,6 +57,7 @@
             android:layout_marginRight="5dp"
             facebook:confirm_logout="false"
             facebook:fetch_user_info="true"
+            android:visibility="gone"
             />
         <Button
             style="@style/StyleButtonAceptar"

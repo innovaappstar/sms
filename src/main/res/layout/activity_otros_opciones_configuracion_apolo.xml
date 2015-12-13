@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/celeste_background">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="5.5">
+
+        <!--CONTENEDOR PARA MOSTRAR ICONO DE LOCALIZACIÒN CON TEXTO INFORMATIVO -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_weight="2.5">
+            <!--CONTENEDOR DEVICE - SUPERIOR-->
+            <RelativeLayout
+                style="@style/StyleContenedorMenuBotones"
+                android:id="@+id/contenedor_gps"
+                android:layout_marginTop="20dp" >
+                <ImageView
+                    style="@style/StyleImgMenuBotones"
+                    android:id="@+id/img_gps"
+                    android:src="@drawable/ic_other_button"/>
+                <TextView
+                    style="@style/StyleTextoMenuBotones"
+                    android:id="@+id/txt_device"
+                    android:text="Otros"
+                    android:layout_below="@+id/img_gps"/>
+            </RelativeLayout>
+
+            <!--REUTILIZANDO ESTILO DE ACTIVITY PÈRFIL-->
+            <TextView
+                style="@style/StyleTextIndicadoresMenuOpciones"
+                android:id="@+id/txtInfoClick"
+                android:text="@string/infoConfigure"
+                android:layout_below="@+id/contenedor_gps"/>
+
+        </RelativeLayout>
+        <!--CONTENEDOR DE DATOS DE PÉRFIL -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@color/white">
+            <!--REUTILIZANDO ESTILO DE ACTIVITY PÈRFIL-->
+            <TextView
+                style="@style/StyleTextIndicadoresMenuOpciones"
+                android:id="@+id/lblListaOpciones"
+                android:text="@string/textoListaConfiguracion"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/black"/>
+
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scrollView"
+                android:layout_below="@+id/lblListaOpciones">
+
+                <FrameLayout
+                    android:id="@+id/scroll_view_frame"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginBottom="30dp"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            style="@style/StileContenedorPadreScroll">
+
+                            <!--CARD OPCIONES CONTACTOS-->
+                            <android.support.v7.widget.CardView
+                                android:id="@+id/cardContactos"
+                                style="@style/StyleCardTextoOpciones">
+
+                                <RelativeLayout
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="match_parent"
+                                    >
+                                    <TextView
+                                        style="@style/StyleTextCardTextoOpciones"
+                                        android:text="Contacts (Phone Numbers)"/>
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+                            <RelativeLayout
+                                style="@style/StyleContenedorBotonFlotante"
+                                >
+                                <ImageView
+                                    style="@style/StyleImgBotonFlotanteComprobacion"
+                                    android:id="@+id/img_add_button_contactos" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <!--FIN DEL CONTENEDOR DE CONTACTOS-->
+                        <!-- -->
+                        <!-- -->
+                        <!-- -->
+
+                        <RelativeLayout
+                            style="@style/StileContenedorPadreScroll">
+
+                            <!--CARD OPCIONES FACEBOOK-->
+                            <android.support.v7.widget.CardView
+                                style="@style/StyleCardTextoOpciones">
+
+                                <RelativeLayout
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="match_parent"
+                                    >
+                                    <TextView
+                                        style="@style/StyleTextCardTextoOpciones"
+                                        android:id="@+id/lblAccountFacebook"
+                                        android:text="Add your facebook account"/>
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+                            <RelativeLayout
+                                style="@style/StyleContenedorBotonFlotante"
+                                android:layout_alignParentBottom="true"
+                                >
+                                <ImageView
+                                    style="@style/StyleImgBotonFlotanteComprobacion"
+                                    android:id="@+id/img_add_button_facebook" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+                        <!--FIN DEL CONTENEDOR FACEBOOK-->
+                        <!-- -->
+                        <!-- -->
+                        <!-- -->
+
+                        <RelativeLayout
+                            style="@style/StileContenedorPadreScroll">
+                            <!--CARD OPCIONES ALERTAS-->
+                            <android.support.v7.widget.CardView
+                                style="@style/StyleCardTextoOpciones">
+
+                                <RelativeLayout
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="match_parent"
+                                    >
+                                    <TextView
+                                        style="@style/StyleTextCardTextoOpciones"
+                                        android:id="@+id/lblMapAlertas"
+                                        android:text="Mapa de Alertas"/>
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+                            <RelativeLayout
+                                style="@style/StyleContenedorBotonFlotante"
+                                android:layout_alignParentBottom="true"
+                                >
+                                <ImageView
+                                    style="@style/StyleImgBotonFlotanteComprobacion"
+                                    android:id="@+id/img_add_button_mapa" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+                        <!--FIN DEL CONTENEDOR MAPA DE ALERTAS-->
+                        <!-- -->
+                        <!-- -->
+                        <!-- -->
+
+                        <RelativeLayout
+                            style="@style/StileContenedorPadreScroll">
+
+                            <!--CARD OPCIONES DENUNCIA-->
+                            <android.support.v7.widget.CardView
+                                style="@style/StyleCardTextoOpciones">
+
+                                <RelativeLayout
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="match_parent"
+                                    >
+                                    <TextView
+                                        style="@style/StyleTextCardTextoOpciones"
+                                        android:id="@+id/lblDenuncia"
+                                        android:text="Denuncia"/>
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+                            <RelativeLayout
+                                style="@style/StyleContenedorBotonFlotante"
+                                android:layout_alignParentBottom="true"
+                                >
+                                <ImageView
+                                    style="@style/StyleImgBotonFlotanteComprobacion"
+                                    android:id="@+id/img_add_button_denuncia" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <!--FIN DEL CONTENEDOR DENUNCIA-->
+                        <!-- -->
+                        <!-- -->
+                        <!-- -->
+
+                        <RelativeLayout
+                            style="@style/StileContenedorPadreScroll">
+
+                            <!--CARD OPCIONES BLUETOOTH-->
+                            <android.support.v7.widget.CardView
+                                style="@style/StyleCardTextoOpciones">
+
+                                <RelativeLayout
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="match_parent"
+                                    >
+                                    <TextView
+                                        style="@style/StyleTextCardTextoOpciones"
+                                        android:id="@+id/lblBluetooth"
+                                        android:text="Bluetooth"/>
+
+                                </RelativeLayout>
+                            </android.support.v7.widget.CardView>
+                            <RelativeLayout
+                                style="@style/StyleContenedorBotonFlotante"
+                                android:layout_alignParentBottom="true"
+                                >
+                                <ImageView
+                                    style="@style/StyleImgBotonFlotanteComprobacion"
+                                    android:id="@+id/img_add_button_bluetooth" />
+                            </RelativeLayout>
+                        </RelativeLayout>
+
+                        <!--FIN DEL CONTENEDOR BLUETOOTH-->
+                        <!-- -->
+                        <!-- -->
+                        <!-- -->
+
+                    </LinearLayout>
+                </FrameLayout>
+            </ScrollView>
+
+
+            <!--BOTON ACEPTAR-->
+            <Button
+                style="@style/StyleButtonAceptarGeneral"
+                android:id="@+id/btnAceptar"
+                android:text="Save"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <com.facebook.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_below="@id/btnAceptar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="10dp"
+        facebook:confirm_logout="false"
+        facebook:fetch_user_info="true"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

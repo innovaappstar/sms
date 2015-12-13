@@ -36,4 +36,7 @@ public interface IUtils {
     public byte[] getImagenComprimida(String path);
 
     public Bitmap getBitmap(String path);
+
+    public String getCountry(Context context);
+
 }

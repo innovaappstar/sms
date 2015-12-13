@@ -80,5 +80,9 @@ public class ManagerUtils implements IUtils {
         return iUtils.getBitmap(path);
     }
 
+    public String getCountry(Context context)
+    {
+        return iUtils.getCountry(context);
+    }
 
 }

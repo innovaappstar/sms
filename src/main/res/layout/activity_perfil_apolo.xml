@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/celeste_background">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="5.5">
+
+        <!--CONTENEDOR DONDE SE MOSTRARA SI ESTÁ ACTIVO, EL GÉNERO Y LUGAR DE RESIDENCIA DE LA PERSONA-->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <innova.smsgps.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_contacts"
+                android:layout_centerInParent="true"/>
+
+            <TextView
+                style="@style/StyleTextoDatosPerfil"
+                android:id="@+id/txtPerfilNombre"
+                android:text="Kenny Baltazar"
+                android:textSize="18sp"
+                android:layout_below="@+id/profile_image"/>
+
+            <TextView
+                style="@style/StyleTextoDatosPerfil"
+                android:id="@+id/txtPerfilDatos"
+                android:text="Active | Male | Lima, Perú"
+                android:textSize="14sp"
+                android:layout_below="@+id/txtPerfilNombre"/>
+
+        </RelativeLayout>
+        <!--SEPARADOR DE CONTENEDORES-->
+        <RelativeLayout
+            android:id="@+id/view_medio_separador_contenedor"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+            <ImageView
+                style="@style/StyleButtonCamaraPerfil"
+                android:id="@+id/img_button_camera" />
+        </RelativeLayout>
+        <!--CONTENEDOR DE DATOS DE PÉRFIL -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@color/white">
+            <!--SEPARADOR-->
+            <View
+                android:id="@+id/view_medio"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentTop="true"/>
+            <EditText
+                style="@style/StyleEdittextCuentaPerfil"
+                android:id="@+id/editEmail"
+                android:layout_below="@+id/view_medio"
+                android:inputType="textEmailAddress"
+                android:layout_alignParentTop="true"
+                android:hint="Email"/>
+            <TextView
+                style="@style/StyleTextoEditarPerfil"
+                android:id="@+id/inputEmail"
+                android:layout_alignEnd="@+id/editEmail"
+                android:layout_alignBottom="@+id/editEmail"/>
+
+
+            <EditText
+                style="@style/StyleEdittextCuentaPerfil"
+                android:id="@+id/editPassword"
+                android:layout_below="@+id/editEmail"
+                android:inputType="textPassword"
+                android:hint="Password"/>
+            <TextView
+                style="@style/StyleTextoEditarPerfil"
+                android:id="@+id/inputPassword"
+                android:layout_alignEnd="@+id/editPassword"
+                android:layout_alignBottom="@+id/editPassword"/>
+            <EditText
+                style="@style/StyleEdittextCuentaPerfil"
+                android:id="@+id/editRepeatPassword"
+                android:layout_below="@+id/editPassword"
+                android:inputType="textPassword"
+                android:visibility="gone"
+                android:hint="Repeated Password"/>
+            <EditText
+                style="@style/StyleEdittextCuentaPerfil"
+                android:id="@+id/editFirstName"
+                android:layout_below="@+id/editRepeatPassword"
+                android:inputType="textPersonName"
+                android:visibility="visible"
+                android:hint="First Name"/>
+            <TextView
+                style="@style/StyleTextoEditarPerfil"
+                android:id="@+id/inputFirstName"
+                android:layout_alignEnd="@+id/editFirstName"
+                android:layout_alignBottom="@+id/editFirstName"/>
+            <EditText
+                style="@style/StyleEdittextCuentaPerfil"
+                android:id="@+id/editLastName"
+                android:layout_below="@+id/editFirstName"
+                android:inputType="textPersonName"
+                android:visibility="visible"
+                android:hint="Last Name"/>
+            <TextView
+                style="@style/StyleTextoEditarPerfil"
+                android:id="@+id/inputLastName"
+                android:layout_alignEnd="@+id/editLastName"
+                android:layout_alignBottom="@+id/editLastName"/>
+            <Button
+                style="@style/StyleButtonCuenta"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/btnAceptar"
+                android:text="Save"
+                android:visibility="visible"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <com.facebook.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_below="@id/btnAceptar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="10dp"
+        facebook:confirm_logout="false"
+        facebook:fetch_user_info="true"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

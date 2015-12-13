@@ -132,7 +132,7 @@ public class FragmentContactos extends BaseFragment
         dialog = new Dialog(getActivity());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_pop_up_contacts_gestion);
-        String datos = "Ha seleccionado al contacto \n" + NombreContacto + "\n¿Que acción desea realizar?.";
+        String datos = "Ha seleccionado al contacto \n" + NombreContacto + "\nQue acciÃ³n desea realizar?.";
         ((TextView)dialog.findViewById(R.id.txtDetalleAplicativo)).setText(datos);
         ((Button)dialog.findViewById(R.id.btnSustituirContacto)).setOnClickListener(this);
         ((Button)dialog.findViewById(R.id.btnEliminarContacto)).setOnClickListener(this);
@@ -227,7 +227,7 @@ public class FragmentContactos extends BaseFragment
                 //mostrarListaContactos();
                 if (listContactos.size() >= 4)
                 {
-                    managerUtils.imprimirToast(getActivity(), "Sólo se permite 4 contactos como máximo.");
+                    managerUtils.imprimirToast(getActivity(), "Sï¿½lo se permite 4 contactos como mï¿½ximo.");
                     return;
                 }
                 break;

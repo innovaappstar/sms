@@ -75,10 +75,10 @@ public class UpAlerta extends AsyncTask< String, String, String > {
         {
             if (managerSqlite.ejecutarConsulta(21, registroAlerta, null , null) == 1) // BAD PRACTICE
             {
-                managerUtils.imprimirToast(mContext, "Se actualizo");
+                managerUtils.imprimirToast(mContext, "Registrado correctamente en el servidor...");
             }
         }
-        managerUtils.imprimirToast(mContext, result);
+//        managerUtils.imprimirToast(mContext, result);
     }
 
 

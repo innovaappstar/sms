@@ -20,5 +20,10 @@
     <color name="celeste_background">#49b3e1</color>
     <color name="celeste_button_default_customizado">#1ba0da</color>
     <color name="celeste_button_press_customizado">#168cbf</color>
+    <color name="celeste_button_apolo_default">#65c3ec</color>
+    <color name="celeste_button_apolo_press">#8FD1EE</color>
+    <color name="celeste_fondo_apolo">#49b3e1</color>
+    <color name="gris_claro_card_view">#f4f4f4</color>
+
 
 </resources>

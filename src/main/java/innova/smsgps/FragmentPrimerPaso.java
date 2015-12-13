@@ -96,7 +96,7 @@ public class FragmentPrimerPaso extends BaseFragment
     private void IniciandoVistas()
     {
         ((Button)rootView.findViewById(R.id.btnAceptar)).setOnClickListener(this);
-        // COMPROBAMOS SI TIENE UNA SESIÓN CON FACEBOOK
+        // COMPROBAMOS SI TIENE UNA SESIÃ“N CON FACEBOOK
         if (!isSessionWithFacebook())
         {
 //            mostrarDialogo();
@@ -125,6 +125,7 @@ public class FragmentPrimerPaso extends BaseFragment
                 updateUI();
             }
         });
+
         return rootView;
     }
 
@@ -163,18 +164,21 @@ public class FragmentPrimerPaso extends BaseFragment
         sessionbeans.getSession().getActiveSession();
 
         if (user != null) {
+            loginButton.setVisibility(View.GONE);
             profilePictureView.setProfileId(user.getId());
             Globals.getInfoMovil().setSpf2(IDSP2.IDFACEBOOK, String.valueOf(user.getId()));
             managerUtils.imprimirToast(getActivity(), "Te damos la bienvenida \n" + user.getFirstName() + "\n a AlertaSms");
             txtUserName.setText("Hola " + user.getFirstName());
-            if (dialog == null)
-                return;
-            if (dialog.isShowing())
-                dialog.cancel();
+//            if (dialog == null)
+//                return;
+//            if (dialog.isShowing())
+//                dialog.cancel();
         } else {
+            loginButton.setVisibility(View.VISIBLE);
+
             profilePictureView.setProfileId(null);
             txtUserName.setText("");
-            managerUtils.imprimirToast(getActivity(), "Sesión no iniciada..");
+            managerUtils.imprimirToast(getActivity(), "Sesiï¿½n no iniciada..");
 
 //            pictureProfile.setProfileId(null);
 //            mostrarDialogo();
@@ -182,7 +186,7 @@ public class FragmentPrimerPaso extends BaseFragment
     }
 
     /**
-     * POP UP SESSIÓN DE FACEBOOK
+     * POP UP SESSIï¿½N DE FACEBOOK
      **/
     private void mostrarDialogo()
     {
@@ -214,18 +218,18 @@ public class FragmentPrimerPaso extends BaseFragment
             case R.id.btnAceptar:
                 if (isSessionWithFacebook())
                 {
-                    managerUtils.imprimirToast(getActivity(), "Sesión iniciada correctamente..");
+                    managerUtils.imprimirToast(getActivity(), "Sesiï¿½n iniciada correctamente..");
                 }else
                 {
-                    managerUtils.imprimirToast(getActivity(), "Aún no inicia su sesión..");
+                    managerUtils.imprimirToast(getActivity(), "Aï¿½n no inicia su sesiï¿½n..");
                 }
                 break;
         }
     }
 
     /**
-     * Simple función booleana que nos indicará
-     * si tenemos guardada una sesión...
+     * Simple funciï¿½n booleana que nos indicarï¿½
+     * si tenemos guardada una sesiï¿½n...
      **/
 
     private boolean isSessionWithFacebook()

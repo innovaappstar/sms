@@ -8,24 +8,26 @@
 
     <TextView
         style="@style/StyleTextoSplash"
-        android:layout_above="@+id/editEmail"
+        android:layout_above="@+id/editNick"
         android:layout_marginBottom="20dp"
         android:textSize="44sp"
         android:textStyle="bold"
         android:text="APOLO"/>
 
     <EditText
-        style="@style/StyleEdittextCuenta"
-        android:id="@+id/editEmail"
+        style="@style/StyleEdittextCuentaRegistro"
+        android:id="@+id/editNick"
         android:layout_above="@+id/editPassword"
         android:inputType="textEmailAddress"
+        android:text="483620641820436"
         android:hint="Email"/>
 
     <EditText
-        style="@style/StyleEdittextCuenta"
+        style="@style/StyleEdittextCuentaRegistro"
         android:id="@+id/editPassword"
         android:layout_above="@+id/view_medio"
         android:inputType="textPassword"
+        android:text="12345678910"
         android:hint="Password"/>
 
     <!--SEPARADOR-->
@@ -56,6 +58,7 @@
         />
     <TextView
         style="@style/StyleTextoSplash"
+        android:id="@+id/inputTextCrearCuenta"
         android:padding="10dp"
         android:textSize="18sp"
         android:layout_below="@id/login_button"

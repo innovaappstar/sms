@@ -28,7 +28,7 @@ public class FragmentDenuncias extends BaseFragment
     ListView list;
     RelativeLayout contenedorDenunciasVacias;
     RelativeLayout contenedorDenunciasAgregadas;
-
+    private int mContadorLista = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class FragmentDenuncias extends BaseFragment
             contenedorDenunciasVacias.setVisibility(View.GONE);
         }else
         {
-            managerUtils.imprimirToast(getActivity(), "<<Excepcion Code 01>>");
+//            managerUtils.imprimirToast(getActivity(), "<<Excepcion Code 01>>");
         }
 
 
@@ -200,7 +200,20 @@ public class FragmentDenuncias extends BaseFragment
 
     @Override
     public void listenerTimer() {
+        if (mContadorLista == 5)
+        {
+            try
+            {
+                listarRegistros();
+            }catch(Exception e)
+            {
+                e.printStackTrace();
+            }
 
+            mContadorLista = 0;
+        }
+
+        mContadorLista ++;
     }
 
 

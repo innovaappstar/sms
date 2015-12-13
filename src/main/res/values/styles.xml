@@ -20,6 +20,8 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">26sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">onClick</item>
     </style>
 
 
@@ -40,9 +42,10 @@
 
     <!--01 ESTILO EDITTEXT LOGIN / REGISTRO-->
 
-    <style name="StyleEdittextCuenta" parent="WidgetEdittextCuenta">
+    <style name="StyleEdittextCuentaRegistro" parent="WidgetEdittextCuenta">
         <item name="android:layout_marginLeft">35dp</item>
         <item name="android:layout_marginRight">35dp</item>
+        <item name="android:textColorHint">@color/white</item>
     </style>
 
     <style name="WidgetEdittextCuenta">
@@ -50,7 +53,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:textColorHint">@color/white</item>
     </style>
     <!--01 ESTILO BUTTON LOGIN / REGISTRO-->
     <style name="StyleButtonCuenta" parent="WidgetButtonCuenta">
@@ -69,9 +71,170 @@
         <item name="android:onClick">onClick</item>
         <item name="android:padding">10dp</item>
     </style>
+    <!--ESTILO PARA EDITTEXT PÉRFIL USUARIO-->
+    <style name="StyleEdittextCuentaPerfil" parent="WidgetEdittextCuenta">
+        <item name="android:layout_marginLeft">35dp</item>
+        <item name="android:layout_marginRight">35dp</item>
+        <item name="android:textColorHint">@color/secondary_text</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:enabled">false</item>
+        <!--APLICAMOS UN PARENT LEFT PARA NO REUTILIZAR ESTE ESTILO CON SU PADRE-->
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+
+    <!--ESTILO PARA TEXTOS PERFIL-->
+    <style name="StyleTextoDatosPerfil" parent="WidgetTextPerfil">
+    </style>
+
+    <style name="WidgetTextPerfil">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <!--ESTILO PARA IMAGE VIEW CÁMARA PERFIL-->
+    <style name="StyleButtonCamaraPerfil" parent="WidgetCamaraPerfil">
+    </style>
+
+    <style name="WidgetCamaraPerfil">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:src">@drawable/ic_camara</item>
+
+    </style>
+    <!--ESTILO PARA TEXTOS PERFIL-->
+    <style name="StyleTextoEditarPerfil" parent="WidgetTextEditarPerfil">
+        <item name="android:text">@string/textEditar</item>
+    </style>
+
+    <style name="WidgetTextEditarPerfil">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/celeste_button_press_customizado</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <!--ESTILO PARA CONTENEDORES MENU DE BOTONES APOLO-->
+
+    <!--ESTILO PARA TEXTOS PERFIL-->
+    <style name="StyleContenedorMenuBotones" parent="WidgetContenedorBotones">
+    </style>
+
+    <!-- ESTILO WIDGET CONTENEDOR PADRE SCROLL VIEW -->
+    <style name="WidgetContenedorPadreScroll">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
 
 
 
+
+    <style name="WidgetContenedorBotones">
+        <item name="android:layout_width">110dp</item>
+        <item name="android:layout_height">110dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:background">@drawable/shape_view_selector_button_contenedor_circle</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">onClick</item>
+    </style>
+
+    <!--ESTILO PARA IMÁGENES DE MENU  APOLO-->
+    <style name="StyleImgMenuBotones" parent="WidgetImgBotones">
+    </style>
+
+    <style name="WidgetImgBotones">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+    <!--ESTILO PARA TEXTO DE MENU  APOLO-->
+    <style name="StyleTextoMenuBotones" parent="WidgetTextoBotones">
+    </style>
+
+    <style name="WidgetTextoBotones">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+    <!--ESTILOS DE OPCIONES MENU -->
+    <!--ESTILO PARA TEXTO DE MENU  APOLO-->
+    <style name="StyleCardTextoOpciones" parent="WidgetCardTextoOpciones">
+    </style>
+
+    <style name="WidgetCardTextoOpciones" parent="CardView.Light">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">35dp</item>
+        <item name="android:layout_marginRight">85dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_gravity">center_horizontal|bottom</item>
+        <item name="cardBackgroundColor">@color/gris_claro_card_view</item>
+        <item name="cardCornerRadius">8dp</item>
+    </style>
+    <!--ESTILO PARA TEXTOS OPCIONES-->
+    <style name="StyleTextCardTextoOpciones" parent="WidgetTextPerfil">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!--ESTILO PARA TEXTOS INDICADORES-->
+    <style name="StyleTextIndicadoresMenuOpciones" parent="WidgetTextPerfil">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <!--ESTILO PARA CONTENEDORES DE BOTON FLOTANTE ADD -->
+    <style name="StileContenedorPadreScroll" parent="WidgetContenedorPadreScroll">
+    </style>
+
+
+
+    <!--ESTILO PARA CONTENEDORES DE BOTON FLOTANTE ADD -->
+    <style name="StyleContenedorBotonFlotante" parent="StyleContenedorMenuBotones">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <!--ESTILO PARA IMÀGENES (ICONO AGREGAR) DE FONDO DE LOS BOTONES FLOTANTES ADD -->
+    <style name="StyleImgBotonFlotante" parent="StyleImgMenuBotones">
+        <item name="android:padding">7dp</item>
+        <item name="android:src">@drawable/ic_add_button</item>
+    </style>
+
+    <!--ESTILO PARA IMÀGENES (ICONO AGREGAR) DE FONDO DE LOS BOTONES FLOTANTES ADD -->
+    <style name="StyleEdittextContactoSms" parent="StyleEdittextCuentaPerfil">
+        <item name="android:inputType">number|phone</item>
+    </style>
+
+    <!--01 ESTILO BUTTON LOGIN / REGISTRO-->
+    <style name="StyleButtonAceptarGeneral" parent="StyleButtonCuenta">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:background">@drawable/shape_view_selector_button_general_customizado</item>
+    </style>
+
+
+    <!--ESTILO PARA IMÀGENES (ICONO CHECK) DE FONDO DE LOS BOTONES FLOTANTES ADD -->
+    <style name="StyleImgBotonFlotanteComprobacion" parent="StyleImgMenuBotones">
+        <item name="android:padding">7dp</item>
+        <item name="android:src">@drawable/ic_check_button</item>
+    </style>
 
 
 

@@ -292,14 +292,11 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
                         public void onCompleted(Response response) {
                             if (response.getError() != null)
                             {
-                                if (response.getError().toString().length() < 1)
-                                {
-                                    managerUtils.imprimirToast(mContext, "Se actualizo correctamente");
-                                }
                                 managerUtils.imprimirToast(mContext, response.getGraphObject() + "|" + response.getError());
                             }else
                             {
-                                managerUtils.imprimirToast(mContext, response.toString());
+                                managerUtils.imprimirToast(mContext, "Se actualizo correctamente");
+//                                managerUtils.imprimirToast(mContext, response.toString());
                             }
 
                         }

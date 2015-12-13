@@ -44,6 +44,10 @@
         <activity android:name=".ActivityPostDenuncia"/>
         <activity android:name=".ActivityListaRegistroDenuncias"/>
         <activity android:name=".ActivityListaDispositivosBluetooth"/>
+        <activity android:name=".ActivityMenuOpciones"/>
+        <activity android:name=".ActivityMenu"/>
+        <activity android:name=".ActivityRegistroUsuario"/>
+
         <activity android:name=".ActivitySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

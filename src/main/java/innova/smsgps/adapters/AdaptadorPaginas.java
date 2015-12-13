@@ -17,7 +17,7 @@ import innova.smsgps.FragmentMap;
 public class AdaptadorPaginas extends FragmentStatePagerAdapter
 {
 
-    private String TITULOS[] = new String[] { "Contactos", "Denunciar", "Mis Alertas", "Mis Denuncias", "Geolocalización", "Configuración" };
+    private String TITULOS[] = new String[] { "Contactos", "Denunciar", "Mis Alertas", "Mis Denuncias", "GeolocalizaciÃ³n", "ConfiguraciÃ³n" };
     Fragment[] FRAGMENTS = new Fragment[]{new FragmentContactos(),
             new FragmentDenunciasRegistro(),
             new FragmentAlertas(),
