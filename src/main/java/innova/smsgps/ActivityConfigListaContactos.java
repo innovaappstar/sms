@@ -126,6 +126,9 @@ public class ActivityConfigListaContactos extends BaseActivity {
                     contactos.setNombreContacto(nombreContacto);
                     contactos.setTipoContacto(tipoContacto);
                     contactos.setNumeroContacto(numeroContacto);
+
+                    setContacto(numeroContacto);
+                    /*
                     if (TIPO_ACCION == FragmentContactos.ID_INSERTAR_CONTACTO)
                     {
                         // INDICE 3 .. INSERTAR REGISTRO EN CONTACTOS
@@ -141,7 +144,7 @@ public class ActivityConfigListaContactos extends BaseActivity {
                             setContacto(numeroContacto);
                         }
                     }
-
+                    */
                     //imprimitToast(nombre.getText().toString());
                 }
             });

@@ -15,15 +15,19 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <permission
-        android:name="com.example.androidmapsv2.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature"/>
-    <uses-permission
-        android:name="com.example.androidmapsv2.permission.MAPS_RECEIVE"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <permission android:name="com.example.androidmapsv2.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
+    <uses-permission android:name="com.example.androidmapsv2.permission.MAPS_RECEIVE"/>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+
     <uses-feature android:glEsVersion="0x00020000" android:required="true" />
 
     <application android:allowBackup="true"
@@ -44,9 +48,31 @@
         <activity android:name=".ActivityPostDenuncia"/>
         <activity android:name=".ActivityListaRegistroDenuncias"/>
         <activity android:name=".ActivityListaDispositivosBluetooth"/>
-        <activity android:name=".ActivityMenuOpciones"/>
-        <activity android:name=".ActivityMenu"/>
-        <activity android:name=".ActivityRegistroUsuario"/>
+
+        <activity android:name=".ActivityCameraPhoto"
+            android:allowBackup="true"
+            android:label="@string/app_name" />
+        <activity android:name=".ActivityMenuOpciones"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/MyTheme" />
+        <activity android:name=".ActivityMenu"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/MyTheme" />
+        <activity android:name=".ActivityRegistroUsuario"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/MyTheme" />
+        <activity android:name=".ActivityListaContactos"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/MyTheme" />
+
 
         <activity android:name=".ActivitySplash">
             <intent-filter>
@@ -63,11 +89,6 @@
 
         </activity>
         <activity android:name=".ManagerFragmentsSms">
-
-        </activity>
-
-
-        <activity android:name=".ActivityMenu">
 
         </activity>
 

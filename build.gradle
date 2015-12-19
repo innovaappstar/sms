@@ -20,6 +20,7 @@ dependencies {
     compile project(':facebookSDK')
     compile 'com.android.support:support-annotations:22.2.0'
     compile project(':library')
+    compile project(':libraryui')
     compile 'com.google.android.gms:play-services-location:7.5.0'
     compile 'com.android.support:cardview-v7:21.0.2'
     compile files('libs/apache-mime4j-core-0.7.2.jar')

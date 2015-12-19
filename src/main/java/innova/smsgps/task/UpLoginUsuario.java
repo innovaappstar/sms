@@ -23,12 +23,12 @@ public class UpLoginUsuario extends AsyncTask< String, Integer, Integer > {
 
 
     /**
-     * CALLBACK QUE ACTUARÁ DE LISTENER
+     * CALLBACK QUE ACTUARAAA DE LISTENER
      **/
     LoginUsuarioCallback loginCallback;
 
     /**
-     * INTERFAZ QUE CONTENDRÁ EL MÉTODO CALLBACK
+     * INTERFAZ QUE CONTENDR EL MTODO CALLBACK
      **/
     public interface LoginUsuarioCallback
     {

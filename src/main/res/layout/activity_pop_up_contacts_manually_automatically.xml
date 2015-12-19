@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="@color/white">
+    <RelativeLayout
+        style="@style/StyleContenedorMenuBotones"
+        android:id="@+id/contenedor_manual"
+        android:layout_alignParentStart="true">
+        <ImageView
+            style="@style/StyleImgMenuBotones"
+            android:id="@+id/img_manualmente"
+            android:src="@drawable/ic_write_button"/>
+        <TextView
+            style="@style/StyleTextoMenuBotones"
+            android:id="@+id/txt_manualmente"
+            android:text="Manualmente"
+            android:layout_below="@+id/img_manualmente"/>
+    </RelativeLayout>
+    <RelativeLayout
+        style="@style/StyleContenedorMenuBotones"
+        android:id="@+id/contenedor_automatico"
+        android:layout_alignParentEnd="true">
+        <ImageView
+            style="@style/StyleImgMenuBotones"
+            android:id="@+id/img_automatico"
+            android:src="@drawable/ic_agenda_button"/>
+        <TextView
+            style="@style/StyleTextoMenuBotones"
+            android:id="@+id/txt_device"
+            android:text="Automatico"
+            android:layout_below="@+id/img_automatico"/>
+    </RelativeLayout>
+
+</RelativeLayout>

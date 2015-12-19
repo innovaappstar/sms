@@ -47,7 +47,7 @@ public class ActivityRegistroUsuario extends BaseActivity implements RegistroUsu
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_registro_apolo);
 

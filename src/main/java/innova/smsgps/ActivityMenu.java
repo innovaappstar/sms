@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 
 
@@ -18,9 +17,10 @@ public class ActivityMenu extends BaseActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_menu_apolo);
+
     }
 
     @Override
@@ -58,8 +58,10 @@ public class ActivityMenu extends BaseActivity{
                 imprimitToast("Autenticando...");
                 break;
             case R.id.contenedor_device:
-                intent = new Intent(this, ActivityMenuOpciones.class);
+                intent = new Intent(this, ActivityCameraPhoto.class);
                 break;
+//                intent = new Intent(this, ActivityMenuOpciones.class);
+//                break;
             case R.id.contenedor_gps:
                 intent = new Intent(this, ActivityMenuOpciones.class);
                 break;
@@ -83,6 +85,7 @@ public class ActivityMenu extends BaseActivity{
     private void imprimitToast(String data) {
         Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
     }
+
 
 
 }

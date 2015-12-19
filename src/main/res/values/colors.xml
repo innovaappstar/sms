@@ -24,6 +24,7 @@
     <color name="celeste_button_apolo_press">#8FD1EE</color>
     <color name="celeste_fondo_apolo">#49b3e1</color>
     <color name="gris_claro_card_view">#f4f4f4</color>
+    <color name="fondo_transparente">#50000000</color>
 
 
 </resources>

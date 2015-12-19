@@ -1,10 +1,10 @@
 package innova.smsgps;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 
 
@@ -18,7 +18,7 @@ public class ActivityMenuOpciones extends BaseActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_opciones_menu_apolo);
     }
@@ -44,6 +44,22 @@ public class ActivityMenuOpciones extends BaseActivity{
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1)
+        {
+            if(resultCode == Activity.RESULT_OK)
+            {
+                managerUtils.imprimirToast(getApplicationContext(), "Se guardaron correctamente.");
+            }
+            if (resultCode == Activity.RESULT_CANCELED)
+            {
+                //Write your code if there's no result
+
+            }
+        }
+    }
 
     /**
      * Evento que se ejecutará al dar click
@@ -57,9 +73,13 @@ public class ActivityMenuOpciones extends BaseActivity{
             case R.id.btnAceptar:
 //                imprimitToast("Aceptar..");
                 break;
+            case R.id.contenedor_contactos:
+                Intent i = new Intent(this, ActivityListaContactos.class);
+                startActivityForResult(i, 1);
+                break;
         }
 
-        startActivity(intent);
+        //startActivity(intent);
     }
 
     private void imprimitToast(String data) {
