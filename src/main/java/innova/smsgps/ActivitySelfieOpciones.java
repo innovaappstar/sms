@@ -10,7 +10,7 @@ import android.widget.Toast;
 /**
  * Created by USUARIO on 10/11/2015.
  */
-public class ActivityMenu extends BaseActivity{
+public class ActivitySelfieOpciones extends BaseActivity{
 
     Intent intent ;
 
@@ -19,7 +19,7 @@ public class ActivityMenu extends BaseActivity{
         super.onCreate(savedInstanceState);
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_menu_apolo);
+        setContentView(R.layout.activity_selfie_apolo);
 
     }
 
@@ -54,31 +54,10 @@ public class ActivityMenu extends BaseActivity{
     {
         switch (view.getId())
         {
-            case R.id.imgSplashFacebook:
-                imprimitToast("Autenticando...");
-                break;
-            case R.id.contenedor_device:
-                //intent = new Intent(this, ActivityCameraPhoto.class);
-                break;
-//                intent = new Intent(this, ActivityMenuOpciones.class);
-//                break;
-            case R.id.contenedor_gps:
-                intent = new Intent(this, ActivityMenuOpciones.class);
-                break;
-            case R.id.contenedor_selfie:
-                intent = new Intent(this, ActivitySelfieOpciones.class);
-                break;
-            case R.id.contenedor_other:
-                intent = new Intent(this, ActivityMenuOpciones.class);
-                break;
-            case R.id.contenedor_media:
-                intent = new Intent(this, ActivityMenuOpciones.class);
-                break;
-            case R.id.btnAceptar:
-//                imprimitToast("Aceptar..");
+            case R.id.contenedorCamara:
+                intent = new Intent(this, ActivityCameraPhoto.class);
                 break;
         }
-
         startActivity(intent);
     }
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:facebook="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/celeste_background">
@@ -21,7 +20,7 @@
             <!--CONTENEDOR DEVICE - SUPERIOR-->
             <RelativeLayout
                 style="@style/StyleContenedorMenuBotones"
-                android:id="@+id/contenedor_gps"
+                android:id="@+id/contenedorCamara"
                 android:layout_marginTop="20dp" >
                 <ImageView
                     style="@style/StyleImgMenuBotones"
@@ -39,22 +38,8 @@
                 style="@style/StyleTextIndicadoresMenuOpciones"
                 android:id="@+id/txtInfoClick"
                 android:text="@string/infoFoto"
-                android:layout_below="@+id/contenedor_gps"/>
+                android:layout_below="@+id/contenedorCamara"/>
 
         </RelativeLayout>
     </LinearLayout>
- 
-    <com.facebook.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_below="@id/btnAceptar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="10dp"
-        facebook:confirm_logout="false"
-        facebook:fetch_user_info="true"
-        android:visibility="gone"
-        />
-
 </RelativeLayout>

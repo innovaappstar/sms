@@ -90,7 +90,7 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
                 break;
             case R.id.imgGuardarFoto:
                 surfaceViewCustom.guardarFoto();
-                managerUtils.imprimirToast(this, "Guardando foto ...");
+                //managerUtils.imprimirToast(this, "Guardando foto ...");
                 break;
 
 
