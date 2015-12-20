@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent">
+
+<RelativeLayout
+    android:id="@+id/contenedorSurface"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <RelativeLayout
+        android:id="@+id/conFoto"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <!--VISTA CUSTOMIZADA LIBRARY UI-->
+        <innova.libraryui.SurfaceViewCustomVideo
+            android:id="@+id/surface_camera"
+            android:layout_width="fill_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_height="fill_parent" />
+    </RelativeLayout>
+
+    <ImageView
+        style="@style/StyleButtonOritentationCamera"
+        android:background="@drawable/shape_view_selector_button_take_photo"
+        android:id="@+id/imgButtonTakePhoto" />
+    <!--BUTTON CAPTURE PHOTO-->
+    <ImageView
+        style="@style/StyleButtonReverseCamera"
+        android:id="@+id/imgButtonCameraReverse" />
+    <!--CONTENEDOR TEXT CAPTURE PHOTO-->
+    <RelativeLayout
+        style="@style/StyleContenedorTakePhoto"
+        android:id="@+id/contenedorCapturePhoto">
+    </RelativeLayout>
+
+</RelativeLayout>
+
+<!--CONTENEDOR TITULO SELFIE-->
+<RelativeLayout
+    style="@style/StyleContenedorTituloSelfie">
+    <TextView
+        android:id="@+id/txtTiempo"
+        style="@style/StyleTextoCentralTitulo"
+        android:text="Video : 00:00:00" />
+</RelativeLayout>
+<ProgressBar
+    android:id="@+id/pbarCargando"
+    android:visibility="gone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"/>
+
+
+
+</RelativeLayout>
+
+
+
+

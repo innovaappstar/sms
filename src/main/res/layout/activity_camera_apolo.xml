@@ -43,7 +43,12 @@
                 android:layout_marginStart="0dp"
                 android:layout_height="match_parent" />
         </RelativeLayout>
-
+        <!--BUTTON CAPTURE PHOTO-->
+        <ImageView
+            style="@style/StyleButtonOritentationCamera"
+            android:layout_width="60dp"
+            android:background="@drawable/shape_view_selector_button_record_video"
+            android:id="@+id/imgButtonRecordVideo" />
         <!--BUTTON CAPTURE PHOTO-->
         <ImageView
             style="@style/StyleButtonReverseCamera"

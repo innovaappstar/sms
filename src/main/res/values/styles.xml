@@ -171,6 +171,12 @@
     </style>
 
     <!--ESTILO PARA CONTENEDORES DE TOMAR FOTO-->
+    <style name="StyleButtonOritentationCamera" parent="WidgetViewButtonsTakePhoto">
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:background">@drawable/shape_view_selector_button_orientation_camera</item>
+    </style>
+
+    <!--ESTILO PARA CONTENEDORES DE TOMAR FOTO-->
     <style name="StyleOpcionesPicturePhoto" parent="WidgetViewButtonsTakePhoto">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>

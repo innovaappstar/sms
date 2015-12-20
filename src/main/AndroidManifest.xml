@@ -19,6 +19,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_VIDEO" />
+
+
 
     <permission android:name="com.example.androidmapsv2.permission.MAPS_RECEIVE" android:protectionLevel="signature"/>
     <uses-permission android:name="com.example.androidmapsv2.permission.MAPS_RECEIVE"/>
@@ -48,6 +52,7 @@
         <activity android:name=".ActivityPostDenuncia"/>
         <activity android:name=".ActivityListaRegistroDenuncias"/>
         <activity android:name=".ActivityListaDispositivosBluetooth"/>
+        <activity android:name=".ActivityGrabarVideo"/>
         <activity android:name=".ActivitySelfieOpciones"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"

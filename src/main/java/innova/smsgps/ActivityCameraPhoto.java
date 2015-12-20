@@ -1,5 +1,6 @@
 package innova.smsgps;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,7 +52,7 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
     @Override
     public void onPause() {
         super.onPause();
-        surfaceViewCustom.detenerCamara();
+//        surfaceViewCustom.detenerCamara();
     }
 
     @Override
@@ -92,6 +93,13 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
                 surfaceViewCustom.guardarFoto();
                 //managerUtils.imprimirToast(this, "Guardando foto ...");
                 break;
+            case R.id.imgButtonRecordVideo:
+//                surfaceViewCustom.detenerCamara();
+                surfaceViewCustom.destruirCamara();
+                startActivity(new Intent(this, ActivityGrabarVideo.class));
+                finish();
+                break;
+
 
 
         }
