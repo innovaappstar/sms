@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class ActivityConfigListaContactos extends BaseActivity {
 
     // Info
     ManagerInfoMovil managerInfoMovil;
-
+    RelativeLayout contenedorSinContactos;
     ListView listView;
     ArrayList<Contactos> listContactos = new ArrayList<Contactos>();
     String numeroContacto ;
@@ -46,7 +47,8 @@ public class ActivityConfigListaContactos extends BaseActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.lista_contactos);
         managerInfoMovil = new ManagerInfoMovil(getApplicationContext());
-        listView = (ListView)findViewById(R.id.list);
+        listView                = (ListView)findViewById(R.id.list);
+        contenedorSinContactos  = (RelativeLayout)findViewById(R.id.contenedorSinContactos);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             TIPO_ACCION = extras.getInt(FragmentContactos.ID_PETICION);
@@ -79,7 +81,8 @@ public class ActivityConfigListaContactos extends BaseActivity {
         listContactos.clear();
 
         Cursor cursor = contentResolver.query(CONTENT_URI, null,null, null, null);
-        if (cursor.getCount() > 0) {
+        if (cursor.getCount() > 0)
+        {
 
             while (cursor.moveToNext())
             {
@@ -148,6 +151,18 @@ public class ActivityConfigListaContactos extends BaseActivity {
                     //imprimitToast(nombre.getText().toString());
                 }
             });
+        }
+        // se puede dar si no tiene, ningún número movil, talvez solo tuviese
+        // teléfonos de casa o esten su google drive.
+        if (listContactos.size() == 0)
+        {
+            managerUtils.imprimirToast(this, "No tiene ningún contacto en su SIM.");
+            contenedorSinContactos.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+        }else
+        {
+            contenedorSinContactos.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
         }
     }
 

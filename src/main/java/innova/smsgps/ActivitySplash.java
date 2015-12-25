@@ -30,7 +30,7 @@ import innova.smsgps.utils.ManagerUtils;
 /**
  * Created by USUARIO on 10/11/2015.
  */
-public class ActivitySplash extends Activity implements LoginUsuarioCallback{
+public class ActivitySplash extends BaseActivity implements LoginUsuarioCallback{
 
     /**
      * Instancias HTTP y utils
@@ -159,7 +159,7 @@ public class ActivitySplash extends Activity implements LoginUsuarioCallback{
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -193,7 +193,7 @@ public class ActivitySplash extends Activity implements LoginUsuarioCallback{
         if (Globals.getInfoMovil().getSPF1(IDSP1.FLAGSPLASH) == 1)
         {
             startActivity(new Intent(this, ActivityMenu.class));
-            //finish();
+            finish();
         }
 
     }
@@ -230,6 +230,11 @@ public class ActivitySplash extends Activity implements LoginUsuarioCallback{
     public void onDestroy() {
         super.onDestroy();
         uiHelper.onDestroy();
+    }
+
+    @Override
+    public void listenerTimer() {
+
     }
 
     /**Manejado para acciones pendientes.*/
@@ -383,6 +388,8 @@ public class ActivitySplash extends Activity implements LoginUsuarioCallback{
     {
         if ( resultado == 1 || resultado == 2)    // LOGIN CORRECTO
         {
+            // guardamos el nickusuario para mas adelante enviarlo en sus alertas
+            managerInfoMovil.setSpf2(IDSP2.NICKUSUARIO, params[1]);
             startActivity(new Intent(this, ActivityBienvenidaInfoAplicativo.class));
             finish();
         }else

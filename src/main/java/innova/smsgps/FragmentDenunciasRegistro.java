@@ -205,7 +205,7 @@ public class FragmentDenunciasRegistro extends BaseFragment
         int status = -1;
         ArrayList<NameValuePair> postparameters2send= new ArrayList<NameValuePair>();
 
-        postparameters2send.add(new BasicNameValuePair("idFacebook"             ,registroAlerta.getIdFacebook()));
+        postparameters2send.add(new BasicNameValuePair("NickUsuario"            ,registroAlerta.getNickUsuario()));
         postparameters2send.add(new BasicNameValuePair("idTipoAlerta"           ,registroAlerta.getIdTipoAlerta() + ""));
         postparameters2send.add(new BasicNameValuePair("lat"                    ,registroAlerta.getLatitud()));
         postparameters2send.add(new BasicNameValuePair("lng"                    ,registroAlerta.getLongitud()));

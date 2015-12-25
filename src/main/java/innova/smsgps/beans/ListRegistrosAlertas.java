@@ -8,6 +8,19 @@ import java.util.ArrayList;
 public class ListRegistrosAlertas
 {
 
+    public ArrayList<HistorialRegistros> getListaAlertas() {
+        return listaAlertas;
+    }
+
+    public void setListaAlertas(ArrayList<HistorialRegistros> listaAlertas) {
+        this.listaAlertas = listaAlertas;
+    }
+
+    private ArrayList<HistorialRegistros> listaAlertas = new ArrayList<HistorialRegistros>();
+
+    /***************************************************************************************/
+
+
     public static ArrayList<HistorialRegistros> listHistorial   = new ArrayList<HistorialRegistros>();  // MAPA
 
     public static ArrayList<RegistroAlerta> listRegistrosAlertas = new ArrayList<RegistroAlerta>(); // LISTADO

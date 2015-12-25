@@ -68,6 +68,16 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:theme="@style/MyTheme" />
+        <activity android:name=".ActivityMapaAlertas"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/MyTheme" />
+        <activity android:name=".ActivityFacebookAccount"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/MyTheme" />
         <activity android:name=".ActivityMenu"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"

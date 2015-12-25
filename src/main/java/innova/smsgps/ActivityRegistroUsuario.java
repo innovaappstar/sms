@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import innova.smsgps.enums.IDSP2;
 import innova.smsgps.task.UpRegistroUsuario;
 import innova.smsgps.task.UpRegistroUsuario.RegistroUsuarioCallback;
 
@@ -220,6 +220,8 @@ public class ActivityRegistroUsuario extends BaseActivity implements RegistroUsu
     {
         if ( resultado == 1)    // REGISTRO CORRECTO
         {
+            // guardamos el nickusuario para mas adelante enviarlo en sus alertas
+            managerInfoMovil.setSpf2(IDSP2.NICKUSUARIO, params[0]);
             Intent returnIntent = new Intent();
             setResult(Activity.RESULT_OK, returnIntent);
             finish();

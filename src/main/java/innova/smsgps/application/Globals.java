@@ -2,6 +2,7 @@ package innova.smsgps.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -9,6 +10,7 @@ import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
 
+import innova.smsgps.ServicioSms;
 import innova.smsgps.beans.Coordenada;
 import innova.smsgps.infomovil.ManagerInfoMovil;
 import innova.smsgps.utils.ManagerUtils;
@@ -34,8 +36,19 @@ public class Globals extends Application {
         mAppContext = getApplicationContext();
         managerUtils = new ManagerUtils();
         managerInfoMovil = new ManagerInfoMovil(mAppContext);
+        // INICIAR SERVICIO
+        iniciarServicio();
      }
-
+    /**
+     * Iniciar Servicio de Geolocalización en segundo plano...
+     * #ServicioLocalizacion.java
+     * Comprobar si una instancia del servicio esta ejecutandose..
+     */
+    private void iniciarServicio()
+    {
+        if(!ServicioSms.isRunning())
+            startService(new Intent(this, ServicioSms.class));
+    }
     /**
      * get/set Session facebook
      **/

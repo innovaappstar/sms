@@ -120,6 +120,9 @@ public class InfoMovil implements IInfoMovil
             case IDREGISTRODENUNCIAMOVIL:
                 editorspf.putString("IDREGISTRODENUNCIAMOVIL", s);
                 break;
+            case NICKUSUARIO:
+                editorspf.putString("NICKUSUARIO", s);
+                break;
         }
         editorspf.commit();
     }
@@ -152,6 +155,8 @@ public class InfoMovil implements IInfoMovil
                 return spf.getString("IDREGISTROALERTASMOVIL", "");
             case IDREGISTRODENUNCIAMOVIL:
                 return spf.getString("IDREGISTRODENUNCIAMOVIL", "");
+            case NICKUSUARIO:
+                return spf.getString("NICKUSUARIO", "");
             default:
                 return "";
         }

@@ -58,10 +58,8 @@ public class ActivityMenu extends BaseActivity{
                 imprimitToast("Autenticando...");
                 break;
             case R.id.contenedor_device:
-                //intent = new Intent(this, ActivityCameraPhoto.class);
+                intent = new Intent(this, ActivityCameraPhoto.class);
                 break;
-//                intent = new Intent(this, ActivityMenuOpciones.class);
-//                break;
             case R.id.contenedor_gps:
                 intent = new Intent(this, ActivityMenuOpciones.class);
                 break;

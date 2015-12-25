@@ -2,11 +2,13 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/celeste_background">
 
     <LinearLayout
+        android:id="@+id/contenedorPrincipalMapa"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
@@ -14,6 +16,7 @@
 
         <!--CONTENEDOR PARA MOSTRAR ICONO DE LOCALIZACIÒN CON TEXTO INFORMATIVO -->
         <RelativeLayout
+            android:id="@+id/contenedorMapaInfo"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:gravity="center"
@@ -21,7 +24,7 @@
             <!--CONTENEDOR DEVICE - SUPERIOR-->
             <RelativeLayout
                 style="@style/StyleContenedorMenuBotones"
-                android:id="@+id/contenedor_gps"
+                android:id="@+id/contenedorAlertas"
                 android:layout_marginTop="20dp" >
                 <ImageView
                     style="@style/StyleImgMenuBotones"
@@ -30,7 +33,7 @@
                 <TextView
                     style="@style/StyleTextoMenuBotones"
                     android:id="@+id/txt_device"
-                    android:text="Location"
+                    android:text="Mapa\nAlertas"
                     android:layout_below="@+id/img_gps"/>
             </RelativeLayout>
 
@@ -39,11 +42,12 @@
                 style="@style/StyleTextIndicadoresMenuOpciones"
                 android:id="@+id/txtInfoClick"
                 android:text="1 click   : Compartir Locación\n2 clicks : Emergencia Locación\n3 clicks : Cancelar Mensaje"
-                android:layout_below="@+id/contenedor_gps"/>
+                android:layout_below="@+id/contenedorAlertas"/>
 
         </RelativeLayout>
         <!--CONTENEDOR DE DATOS DE PÉRFIL -->
         <RelativeLayout
+            android:id="@+id/contenedorMapaView"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
@@ -55,14 +59,35 @@
                 android:layout_height="0dp"
                 android:layout_alignParentTop="true"/>
             <!--REUTILIZANDO ESTILO DE ACTIVITY PÈRFIL-->
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <fragment
+                    android:id="@+id/map"
+                    android:tag="Mapa Alertas"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    tools:layout="@layout/layout_map" />
+                <RelativeLayout
+                    android:id="@+id/contenedorExpandir"
+                    style="@style/StyleContenedorBotonFlotante"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="20dp"
+                    >
+                    <ImageView
+                        style="@style/StyleImgBotonFlotante"
+                        android:id="@+id/img_button_expandir" />
+                </RelativeLayout>
+            </RelativeLayout>
             <TextView
                 style="@style/StyleTextIndicadoresMenuOpciones"
-                android:id="@+id/lblListaContactos"
+                android:id="@+id/lblMapaAlertas"
                 android:text="Mapa de Alertas"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:layout_below="@+id/view_medio"/>
-
-
             <!--BOTON ACEPTAR-->
             <Button
                 style="@style/StyleButtonAceptarGeneral"

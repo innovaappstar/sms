@@ -230,6 +230,7 @@
     </style>
     <!--ESTILO PARA TEXTO DE MENU  APOLO-->
     <style name="StyleTextoMenuBotones" parent="WidgetTextoBotones">
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="WidgetTextoBotones">

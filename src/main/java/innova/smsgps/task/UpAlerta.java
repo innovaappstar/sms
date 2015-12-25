@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import innova.smsgps.beans.RegistroAlerta;
+import innova.smsgps.constantes.CONSTANT;
+import innova.smsgps.enums.IDSP1;
 import innova.smsgps.managerhttp.Httppostaux;
 import innova.smsgps.sqlite.ManagerSqlite;
 import innova.smsgps.utils.ManagerUtils;
@@ -22,6 +24,14 @@ import innova.smsgps.utils.ManagerUtils;
  */
 public class UpAlerta extends AsyncTask< String, String, String > {
 
+    /**
+     * URL WS
+     **/
+    String URL = CONSTANT.PATH_WS + CONSTANT.WS_REGISTRO_ALERTA;
+    /**
+     * INDICES SQLITE
+     **/
+    private int CRUD_ACTUALIZAR = 21;
 
     /**
      * REGISTRAR ALERTA
@@ -33,24 +43,29 @@ public class UpAlerta extends AsyncTask< String, String, String > {
     Httppostaux post;
     ManagerSqlite managerSqlite                 = null;     // MANEJADOR DE FUNCIONES C.R.U.D. SQLITE.
     ManagerUtils managerUtils                   = null;     // MANEJADOR DE FUNCIONES TIPO UTILS.
-
+    /**
+     * Enumerables
+     **/
+    IDSP1 idsp1 = null;
     Context mContext;
 
-    public UpAlerta(Context context)
+    public UpAlerta(Context context, IDSP1 idsp1)
     {
-        post = new Httppostaux();
-        mContext = context;
-        managerSqlite      = new ManagerSqlite(mContext);
-        managerUtils       = new ManagerUtils();
+        post                = new Httppostaux();
+        mContext            = context;
+        managerSqlite       = new ManagerSqlite(mContext);
+        managerUtils        = new ManagerUtils();
+        this.idsp1          = idsp1;
         insertarAlerta();
     }
 
     private void insertarAlerta()
     {
-        RegistroAlerta registroAlerta = new RegistroAlerta();
+        // Tipo de ALerta
+        int TA  = idsp1.getInt(idsp1);
         // EJECUTAMOS ASYNTASK PARA REGISTRAR EN WEBSERVICE
-        registroAlerta.setIdTipoAlerta(1);
-        if (managerSqlite.ejecutarConsulta(1, registroAlerta, null , null) == 1)   // NULL = BAD PRACTICE
+        registroAlerta.setIdTipoAlerta(TA);
+        if (managerSqlite.ejecutarConsulta(TA, registroAlerta, null , null) == 1)   // NULL = BAD PRACTICE
         {
             this.execute();
         }
@@ -58,7 +73,7 @@ public class UpAlerta extends AsyncTask< String, String, String > {
 
     //        String user,pass;
     protected String doInBackground(String... params) {
-        if (registroCorrecto() == true){
+        if (registroCorrecto()){
             return "ok";
         }else{
             return "err";
@@ -73,31 +88,33 @@ public class UpAlerta extends AsyncTask< String, String, String > {
     {
         if(result.equals("ok"))
         {
-            if (managerSqlite.ejecutarConsulta(21, registroAlerta, null , null) == 1) // BAD PRACTICE
+            if (managerSqlite.ejecutarConsulta(CRUD_ACTUALIZAR, registroAlerta, null , null) == 1) // BAD PRACTICE
             {
                 managerUtils.imprimirToast(mContext, "Registrado correctamente en el servidor...");
             }
+        }else
+        {
+
         }
 //        managerUtils.imprimirToast(mContext, result);
     }
 
 
 
-    String URL_connect="http://smsgps.comli.com/ws_android/ws_sms_gps/ws_registro_alerta.php";//ruta en donde estan nuestros archivos
 
     private boolean registroCorrecto()
     {
         int status = -1;
         ArrayList<NameValuePair> postparameters2send= new ArrayList<NameValuePair>();
 
-        postparameters2send.add(new BasicNameValuePair("idFacebook"             ,registroAlerta.getIdFacebook()));
+        postparameters2send.add(new BasicNameValuePair("NickUsuario"            ,registroAlerta.getNickUsuario()));  // IDFACEBOOK X NICKUSUARIO
         postparameters2send.add(new BasicNameValuePair("idTipoAlerta"           ,registroAlerta.getIdTipoAlerta() + ""));
         postparameters2send.add(new BasicNameValuePair("lat"                    ,registroAlerta.getLatitud()));
         postparameters2send.add(new BasicNameValuePair("lng"                    ,registroAlerta.getLongitud()));
         postparameters2send.add(new BasicNameValuePair("fechaHora"              ,registroAlerta.getFechaHora()));
         postparameters2send.add(new BasicNameValuePair("IdRegistroAlertasMovil" ,registroAlerta.getIdRegistroAlertasMovil()));
 
-        JSONArray jdata =   post.getserverdata(postparameters2send, URL_connect);
+        JSONArray jdata =   post.getserverdata(postparameters2send, URL);
 
         if (jdata!=null && jdata.length() > 0)
         {
@@ -116,7 +133,6 @@ public class UpAlerta extends AsyncTask< String, String, String > {
             }
             else                // [{"status":"1"}] ACTUALIZAMOS FLAG
             {
-
                 return true;
             }
 

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 
 /**
@@ -72,18 +71,19 @@ public class ActivityMenuOpciones extends BaseActivity{
         {
             case R.id.btnAceptar:
 //                imprimitToast("Aceptar..");
-                break;
+                return;
             case R.id.contenedor_contactos:
-                Intent i = new Intent(this, ActivityListaContactos.class);
-                startActivityForResult(i, 1);
+                intent = new Intent(this, ActivityListaContactos.class);
                 break;
+            case R.id.contenedor_add_facebook:
+                intent = new Intent(this, ActivityFacebookAccount.class);
+                break;
+            case R.id.contenedor_mapa_alertas:
+                intent = new Intent(this, ActivityMapaAlertas.class);
+                break;
+
         }
-
-        //startActivity(intent);
-    }
-
-    private void imprimitToast(String data) {
-        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+        startActivityForResult(intent, 1);
     }
 
 

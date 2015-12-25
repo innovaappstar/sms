@@ -21,7 +21,7 @@
             <!--CONTENEDOR DEVICE - SUPERIOR-->
             <RelativeLayout
                 style="@style/StyleContenedorMenuBotones"
-                android:id="@+id/contenedor_gps"
+                android:id="@+id/contenedorFacebookAccount"
                 android:layout_marginTop="20dp" >
                 <ImageView
                     style="@style/StyleImgMenuBotones"
@@ -30,7 +30,8 @@
                 <TextView
                     style="@style/StyleTextoMenuBotones"
                     android:id="@+id/txt_device"
-                    android:text="Location"
+                    android:gravity="center"
+                    android:text="Account Facebook"
                     android:layout_below="@+id/img_gps"/>
             </RelativeLayout>
 
@@ -39,7 +40,7 @@
                 style="@style/StyleTextIndicadoresMenuOpciones"
                 android:id="@+id/txtInfoClick"
                 android:text="1 click   : Compartir Locación\n2 clicks : Emergencia Locación\n3 clicks : Cancelar Mensaje"
-                android:layout_below="@+id/contenedor_gps"/>
+                android:layout_below="@+id/contenedorFacebookAccount"/>
 
         </RelativeLayout>
         <!--CONTENEDOR DE DATOS DE PÉRFIL -->
@@ -57,10 +58,26 @@
             <!--REUTILIZANDO ESTILO DE ACTIVITY PÈRFIL-->
             <TextView
                 style="@style/StyleTextIndicadoresMenuOpciones"
-                android:id="@+id/lblListaContactos"
+                android:id="@+id/lblAccountFacebook"
                 android:text="Facebook Account"
                 android:textColor="@color/black"
                 android:layout_below="@+id/view_medio"/>
+
+            <com.facebook.widget.ProfilePictureView
+                android:id="@+id/profilePictureUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true">
+
+            </com.facebook.widget.ProfilePictureView>
+            <TextView
+                style="@style/StyleTextIndicadoresMenuOpciones"
+                android:id="@+id/lblProfileNameUser"
+                android:text=""
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_below="@+id/profilePictureUser"/>
 
 
             <!--BOTON ACEPTAR-->
@@ -88,20 +105,5 @@
 
 
 
-
-
-
-    <com.facebook.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_below="@id/btnAceptar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="10dp"
-        facebook:confirm_logout="false"
-        facebook:fetch_user_info="true"
-        android:visibility="gone"
-        />
 
 </RelativeLayout>

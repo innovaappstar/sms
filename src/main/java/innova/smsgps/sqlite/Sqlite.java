@@ -1,6 +1,5 @@
 package innova.smsgps.sqlite;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -61,7 +60,8 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
      * Campos TbRegistroAlerta
      **/
     private String KeyIdRegistroAlertas = "IdRegistroAlertas";
-    private String KeyIdFacebook        = "IdFacebook";
+//    private String KeyIdFacebook        = "IdFacebook";
+    private String KeyNickUsuario       = "NickUsuario";
     private String KeyIdTipoAlerta      = "IdTipoAlerta";
     private String KeyLat               = "Latitud";
     private String KeyLng               = "Longitud";
@@ -82,7 +82,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
     //region -------DEFINICIÓN DE TABLAS------
     private String mCrearTbRegistroAlertas  = "CREATE TABLE " + TbRegistroAlerta + "("
             + KeyIdRegistroAlertas      + " INTEGER PRIMARY KEY,"
-            + KeyIdFacebook             + " TEXT NOT NULL,"
+            + KeyNickUsuario            + " TEXT NOT NULL,"
             + KeyIdTipoAlerta           + " INTEGER NOT NULL,"
             + KeyLat                    + " TEXT NOT NULL,"
             + KeyLng                    + " TEXT NOT NULL,"
@@ -97,7 +97,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
             + KeyFechaHora              + " TEXT NOT NULL,"
             + KeyDescripcion            + " TEXT NOT NULL,"
             + KeyIdTipoDenuncia         + " INTEGER NOT NULL,"
-            + KeyIdFacebook             + " TEXT NOT NULL,"
+            + KeyNickUsuario            + " TEXT NOT NULL,"
             + KeyImagenDenuncia         + " BLOB,"
             + KeyFlagServidor           + " INTEGER DEFAULT '0'"
             + ")";
@@ -161,28 +161,27 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
     {
         SQLiteDatabase  db          = this.getWritableDatabase();   // ABRIENDO CONEXIÓN
         SQLiteStatement stmt        = null;                         // DECLARACIÓN PREPARADA
-        ContentValues   parametros  = new ContentValues();
         int result = -1;
         String sql = null;
 
         switch (Indice)
         {
 
-            case 1 :    // INSERTAR APERTURA DE CAJA GESTIÓN CONDUCTOR
+            case 1 :    // INSERTAR ALERTA EN TBREGISTROALERTA
                 try
                 {
 
-                    sql = getStmtSql(CRUD.INSERT, new String[]{KeyIdFacebook, KeyIdTipoAlerta, KeyLat, KeyLng, KeyFechaHora}, TbRegistroAlerta);
+                    sql = getStmtSql(CRUD.INSERT, new String[]{KeyNickUsuario, KeyIdTipoAlerta, KeyLat, KeyLng, KeyFechaHora}, TbRegistroAlerta);
 
                     // INICIAMOS TRANSACCIÓN Y COMPILAMOS CONSULTA
                     db.beginTransactionNonExclusive();
                     stmt = db.compileStatement(sql);
 
-                    stmt.bindString(1, registroAlerta.getIdFacebook());
-                    stmt.bindLong(2, registroAlerta.getIdTipoAlerta());
-                    stmt.bindString(3, registroAlerta.getLatitud());
-                    stmt.bindString(4, registroAlerta.getLongitud());
-                    stmt.bindString(5, registroAlerta.getFechaHora());
+                    stmt.bindString (1, registroAlerta.getNickUsuario());
+                    stmt.bindLong   (2, registroAlerta.getIdTipoAlerta());
+                    stmt.bindString (3, registroAlerta.getLatitud());
+                    stmt.bindString (4, registroAlerta.getLongitud());
+                    stmt.bindString (5, registroAlerta.getFechaHora());
                     // EJECUTAMOS Y LIMPIAMOS LA DECLARACIÓN/SENTENCIA PREPARADA (ANALIZAR clearBindings)
                     stmt.execute();
                     stmt.clearBindings();
@@ -200,7 +199,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
             case 2 :    // INSERTAR REGISTRO DE DENUNCIA
                 try
                 {
-                    sql = getStmtSql(CRUD.INSERT, new String[]{KeyLat, KeyLng, KeyFechaHora, KeyDescripcion, KeyIdTipoDenuncia, KeyImagenDenuncia, KeyIdFacebook}, TbRegistroDenuncia);
+                    sql = getStmtSql(CRUD.INSERT, new String[]{KeyLat, KeyLng, KeyFechaHora, KeyDescripcion, KeyIdTipoDenuncia, KeyImagenDenuncia, KeyNickUsuario}, TbRegistroDenuncia);
 
                     // INICIAMOS TRANSACCIÓN Y COMPILAMOS CONSULTA ........................ aqui
                     db.beginTransactionNonExclusive();
@@ -208,11 +207,11 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
 
                     stmt.bindString (1, registroDenuncias.getLatitud());
                     stmt.bindString (2, registroDenuncias.getLongitud());
-                    stmt.bindString (3, registroDenuncias.getFechaHora());
-                    stmt.bindString (4, registroDenuncias.getDescripcion());
+                    stmt.bindString(3, registroDenuncias.getFechaHora());
+                    stmt.bindString(4, registroDenuncias.getDescripcion());
                     stmt.bindLong(5, Integer.valueOf(registroDenuncias.getIdTipoDenuncia()));
                     stmt.bindBlob(6, registroDenuncias.getImgDenuncia());
-                    stmt.bindString (7, registroDenuncias.getIdFacebook());
+                    stmt.bindString (7, registroDenuncias.getNickUsuario());
                     stmt.execute();
                     stmt.clearBindings();
                     // SI LA INSTRUCCIÓN LLEGA HASTA AQUI , INDICAMOS QUE FUE UN ÉXITO
@@ -443,7 +442,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                     ArrayList<HistorialRegistros> list          = new ArrayList<HistorialRegistros>();
 
                     //sql = "SELECT " + KeyIdFacebook + "," + KeyIdTipoAlerta + "," + KeyLat + "," + KeyLng + "," + KeyFechaHora + " FROM " + TbRegistroAlerta;
-                    sql = getStmtSql(CRUD.SELECT, new String[]{KeyIdFacebook, KeyIdTipoAlerta, KeyLat, KeyLng, KeyFechaHora}, TbRegistroAlerta);
+                    sql = getStmtSql(CRUD.SELECT, new String[]{KeyNickUsuario, KeyIdTipoAlerta, KeyLat, KeyLng, KeyFechaHora}, TbRegistroAlerta);
                     cursor = db.rawQuery(sql, null);
                     if(cursor.getCount() > 0)
                     {
@@ -453,7 +452,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                         {
                             NumeroFila++;
                             HistorialRegistros historial = new HistorialRegistros();               // BAD PRACTICE
-                            historial.setIdFacebook(cursor.getString(0));
+                            historial.setIdFacebook(cursor.getString(0));       // SE CAMBIO DE NOMBRE POR NICKUSUARIO
                             historial.setIdTipoAlerta(cursor.getString(1));
                             historial.setLatitud(cursor.getString(2));
                             historial.setLongitud(cursor.getString(3));
@@ -477,7 +476,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                     ListRegistrosDenuncias listRegistrosDenuncias   = new ListRegistrosDenuncias();
                     ArrayList<RegistroDenuncias> list              = new ArrayList<RegistroDenuncias>();
 
-                    sql = getStmtSql(CRUD.SELECT, new String[]{KeyFechaHora, KeyDescripcion, KeyIdTipoDenuncia, KeyIdFacebook, KeyImagenDenuncia, KeyFlagServidor}, TbRegistroDenuncia);
+                    sql = getStmtSql(CRUD.SELECT, new String[]{KeyFechaHora, KeyDescripcion, KeyIdTipoDenuncia, KeyNickUsuario, KeyImagenDenuncia, KeyFlagServidor}, TbRegistroDenuncia);
                     cursor = db.rawQuery(sql, null);
                     if(cursor.getCount() > 0)
                     {

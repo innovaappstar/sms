@@ -3,6 +3,7 @@ package innova.smsgps;
 import android.app.Activity;
 import android.os.Bundle;
 
+import innova.smsgps.communication.ManagerBridgeIPC;
 import innova.smsgps.infomovil.ManagerInfoMovil;
 import innova.smsgps.managerhttp.Httppostaux;
 import innova.smsgps.sqlite.ManagerSqlite;
@@ -21,6 +22,8 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
     ManagerInfoMovil managerInfoMovil           = null;     // MANEJADOR SE SPF's.
     ManagerUtils managerUtils                   = null;     // MANEJADOR DE FUNCIONES TIPO UTILS.
     ManagerSqlite managerSqlite                 = null;     // MANEJADOR DE FUNCIONES C.R.U.D. SQLITE.
+    private ManagerBridgeIPC managerBridgeIPC   = null;     // PUENTE DE COMUNICACIÓN ENTRE PROCEDOS.
+
     Httppostaux post;
 
     /**
@@ -42,6 +45,8 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
         managerUtils        = new ManagerUtils();
         managerSqlite       = new ManagerSqlite(this);
         post                = new Httppostaux();
+        managerBridgeIPC    = new ManagerBridgeIPC(this);
+
     }
 
 
@@ -57,6 +62,13 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
     @Override
     public void onDestroy() {
         super.onDestroy();
+        try
+        {
+            managerBridgeIPC.DesconectarnosDelServicio();
+        } catch (Throwable throwable)
+        {
+            throwable.printStackTrace();
+        }
     }
 
 
@@ -71,7 +83,13 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
         listenerTimer();
     }
 
-
+    /**
+     * Simple método para enviar mensajes al servidor IPC
+     */
+    public void enviarMensajeIPC(int indice, String[] data)
+    {
+        managerBridgeIPC.enviarMensaje(indice, data);
+    }
 
 
 

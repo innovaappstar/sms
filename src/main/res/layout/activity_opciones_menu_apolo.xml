@@ -118,6 +118,7 @@
                                 </RelativeLayout>
                             </android.support.v7.widget.CardView>
                             <RelativeLayout
+                                android:id="@+id/contenedor_add_facebook"
                                 style="@style/StyleContenedorBotonFlotante"
                                 android:layout_alignParentBottom="true"
                                 >
@@ -149,6 +150,7 @@
                                 </RelativeLayout>
                             </android.support.v7.widget.CardView>
                             <RelativeLayout
+                                android:id="@+id/contenedor_mapa_alertas"
                                 style="@style/StyleContenedorBotonFlotante"
                                 android:layout_alignParentBottom="true"
                                 >

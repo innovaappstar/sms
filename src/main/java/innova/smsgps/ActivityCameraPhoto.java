@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+
+import java.io.File;
 
 import innova.libraryui.SurfaceViewCustom;
 import innova.libraryui.SurfaceViewCustom.PhotoCallback;
@@ -86,11 +89,11 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
                 //surfaceViewCustom.tomarFoto();
                 break;
             case R.id.imgCancelarFoto:
-                contenedorSurface.setVisibility(View.VISIBLE);
-                contenedorMostrarFoto.setVisibility(View.GONE);
+                surfaceViewCustom.eliminarFoto();
                 break;
             case R.id.imgGuardarFoto:
-                surfaceViewCustom.guardarFoto();
+                ocultarFotoTomada();
+//                surfaceViewCustom.guardarFoto();
                 //managerUtils.imprimirToast(this, "Guardando foto ...");
                 break;
             case R.id.imgButtonRecordVideo:
@@ -111,48 +114,59 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
         return surfaceViewCustom.comprobarExistenciaCamaraFrontal();
     }
 
-
+    File imgFile = null;
     @Override
     public void PhotoCapture(final byte[] data)
     {
-        try
-        {
-            new Thread(new Runnable() {
-                @Override
-                public void run()
-                {
-                    bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-
-                    mHandler.post(new Runnable()
-                    {
-                        @Override
-                        public void run()
-                        {
-                            if (bitmap != null)
-                            {
-                                pbarCargando.setVisibility(View.GONE);
-                                imgFoto.setImageBitmap(bitmap);
-                                contenedorMostrarFoto.setVisibility(View.VISIBLE);
-                                contenedorSurface.setVisibility(View.GONE);
-                            }
-                        }
-                    });
-                }
-            }).start();
-        }catch (Exception e)
-        {
-
-        }
 
     }
 
+
+    public Bitmap getBitmap(byte[] data)
+    {
+        BitmapFactory.Options options=new BitmapFactory.Options();// Create object of bitmapfactory's option method for further option use
+        options.inPurgeable = true; // inPurgeable is used to free up memory while required
+        Bitmap songImage1 = BitmapFactory.decodeByteArray(data,0, data.length,options);//Decode image, "thumbnail" is the object of image file
+        Bitmap songImage = Bitmap.createScaledBitmap(songImage1, 50 , 50 , true);// convert decoded bitmap into well scalled Bitmap format.
+        return songImage;
+    }
+
     @Override
-    public void PhotoGuardada(int resultado)
+    public void PhotoGuardada(int resultado,final String filepath)
     {
         if (resultado == 0)
         {
-            managerUtils.imprimirToast(getApplicationContext(), "Se guardó correctamente");
-            finish();
+            try
+            {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run()
+                    {
+                        imgFile = new  File(filepath);
+
+                        mHandler.post(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                if(imgFile.exists())
+                                {
+                                    imgFoto.setImageURI(Uri.fromFile(imgFile));
+                                    pbarCargando.setVisibility(View.GONE);
+                                    contenedorMostrarFoto.setVisibility(View.VISIBLE);
+                                    contenedorSurface.setVisibility(View.GONE);
+                                }
+                            }
+                        });
+                    }
+                }).start();
+            }catch (Exception e)
+            {
+
+            }
+
+            //managerUtils.imprimirToast(getApplicationContext(), "Se guardó correctamente");
+            //finish();
         }else
         {
             managerUtils.imprimirToast(getApplicationContext(), "Ocurrió un error al guardar la imágen.");
@@ -160,8 +174,40 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
     }
 
     @Override
-    public void PhotoConvert()
+    public void PhotoGuardando()
     {
         pbarCargando.setVisibility(View.VISIBLE);
+
     }
+
+    /**
+     * Simple callback que retornará un booleano
+     * indicando si se elimino o no el archivo.
+     * Si no se pudierá eliminar el archivo sería
+     * un error inesperado, por permisos u otra razón.
+     * */
+    @Override
+    public void PhotoEliminado(boolean eliminado)
+    {
+        if (!eliminado)
+        {
+            managerUtils.imprimirToast(this, "No se pudo eliminar el archivo.");
+        }else
+        {
+            managerUtils.imprimirToast(this, "Cancelado");
+        }
+        ocultarFotoTomada();
+    }
+
+    /**
+     * Método que ocultara la ventana de visualización
+     * de las fotos que se toman.
+     * será llamado por el callback y el boton check de fotos.
+     **/
+    private void ocultarFotoTomada()
+    {
+        contenedorSurface.setVisibility(View.VISIBLE);
+        contenedorMostrarFoto.setVisibility(View.GONE);
+    }
+
 }

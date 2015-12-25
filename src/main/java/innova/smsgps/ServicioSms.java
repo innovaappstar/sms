@@ -8,8 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Binder;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,8 +28,12 @@ import java.util.Date;
 import java.util.UUID;
 
 import innova.smsgps.beans.Coordenada;
+import innova.smsgps.communication.BridgeIPC;
+import innova.smsgps.communication.IncomingIPC;
+import innova.smsgps.communication.IncomingIPC.IncomingIpcCallback;
 import innova.smsgps.controlador.ControladorUbicacion;
 import innova.smsgps.controlador.ControladorUbicacion.ControladorUbicacionCallback;
+import innova.smsgps.enums.IDSP1;
 import innova.smsgps.task.UpAlerta;
 import innova.smsgps.utils.ManagerUtils;
 
@@ -34,7 +41,8 @@ import innova.smsgps.utils.ManagerUtils;
  * Created by USUARIO on 02/11/2015.
  */
 
-public class ServicioSms extends IntentService implements TimerTarea.TimerTareaCallback, ControladorUbicacionCallback{
+public class ServicioSms extends IntentService implements TimerTarea.TimerTareaCallback, ControladorUbicacionCallback,
+        IncomingIpcCallback{
 
     /**
      * Instancias Singleton
@@ -44,18 +52,13 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
     private LocationManager handle;
     private ControladorUbicacion controladorUbicacion;
     static ManagerUtils managerUtils ;
-
+    TimerTarea objTimer;
     /**
      * Instancias bluetooth y objetos.
      */
-//    protected static final String MacAddress ="98:D3:31:20:0A:F5";// "10:F9:6F:61:CD:4C"; // 98:D3:31:20:0A:F5
-    protected static final String MacAddress ="";// "10:F9:6F:61:CD:4C"; // 98:D3:31:20:0A:F5
-    static BluetoothAdapter mBluetoothAdapter;
-    static BluetoothSocket mmSocket;
-    static BluetoothDevice mmDevice;
     static OutputStream mmOutputStream;
     static InputStream mmInputStream;
-    private String Ordenes[]=new String[]{"A","B","C","D"};
+//    private String Ordenes[]=new String[]{"A","B","C","D"};
     static Context mContext ;
     /** Manejador de recuperacion de datos del TAG*/
     static Handler mHandler = new Handler();
@@ -70,16 +73,77 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
         super(ServicioSms.class.getName());
     }
 
+    // Obejto messenger usado para clientes que envien mensajes
+    Messenger mMessenger = null;
+    public static final int MESSAGE = 1;
+
+    // INDICES IPC
+    public static final int MSG_REGISTRAR_CLIENTE	= 1;
+    public static final int MSG_ELIMINAR_CLIENTE	= 2;
+    public static final int MSG_SET_INT_VALOR		= 3;
+    public static final int MSG_SET_STRING_VALOR	= 4;
+    @Override
+    public void IncomingIPC(Message message)
+    {
+        switch (message.what)
+        {
+            case MSG_REGISTRAR_CLIENTE:
+//                mClientes.add(message.replyTo);
+                //Toast.makeText(getApplicationContext(), "Nuevo cliente conectado..", Toast.LENGTH_SHORT).show();
+                break;
+            case MSG_ELIMINAR_CLIENTE:
+//                mClientes.remove(message.replyTo);
+                break;
+            case MSG_SET_STRING_VALOR:
+                // COMUNICACIÓN DESDE BASE ACTIVITY - CLIENTE
+                if (message.arg1 == BridgeIPC.INDICE_WEBSOCKET)
+                {
+                    Bundle bundle = message.getData();
+                    if (bundle != null)
+                    {
+                        String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
+//                        managerUtils.imprimirToast(this, data[0]);
+
+                        // SÓLO PARA PRUEBAS DE DESARROLLO REGISTRAREMOS ALERTAS DESDE AQUÍ
+                        if (data[0].equals("1"))
+                        {
+                            new UpAlerta(mContext, IDSP1.TA1);
+                            postStatusUpdate("Prueba integrada ... " + (new Date().toString()));
+                        }
+
+                        // ENVIAMOS MENSAJE AL SERVIDOR SIN DISTINGUIR SI ES BOLETO O ELECTRÓNICO - DESARROLLO
+//                        enviarMensajeAlServidorWebSocket(data[1]);
+                        //Toast.makeText(getApplicationContext(), data[1]  + " <S>\n", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            case MSG_SET_INT_VALOR:
+                Toast.makeText(getApplicationContext(), message.arg2 + " <I>", Toast.LENGTH_SHORT).show();
+                break;
+            //default:
+            //IncomingIPC(message);
+        }
+    }
+
     // LocalBinder, mBinder and onBind() allow other Activities to bind to this service.
     public class LocalBinder extends Binder {
     }
 
     private final LocalBinder mBinder = new LocalBinder();
-
+    /**
+     * Retornar a nuestra interfaz Messenger para enviar mensajes al servicio
+     * por los clientes..
+     */
     @Override
     public IBinder onBind(Intent intent) {
-        return mBinder;
+        return mMessenger.getBinder();
     }
+    @Override
+    public boolean onUnbind(Intent intent)
+    {
+        return false;
+    }
+
 
     @Override
     protected void onHandleIntent(Intent workIntent) {
@@ -106,6 +170,12 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
     public void onDestroy() {
         stopForeground(true);
         DetenerLocalizacion();
+        try
+        {
+            objTimer = null;
+        }catch (Exception e)
+        {
+        }
         super.onDestroy();
     }
 
@@ -118,17 +188,19 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
     public void onCreate() {
         super.onCreate(); // if you override onCreate(), make sure to call super().
         // If a Context object is needed, call getApplicationContext() here.
-        TimerTarea objTimer = new TimerTarea(this);
+        objTimer = new TimerTarea(this);
         managerUtils        = new ManagerUtils();
         mContext            = getApplicationContext();
         instanciaServicio   = this;
         IniciarLocalizacion();
+        mMessenger =  new Messenger(new IncomingIPC(this));
+
 //        if (MacAddress.length() > 1)
     }
 
     @Override
     public void getCoordenada(Coordenada coordenada) {
-//        Toast.makeText(mContext, coordenada._getLatitud() + "|" + coordenada._getLongitud(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, coordenada._getLatitud() + "|" + coordenada._getLongitud(), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -256,7 +328,7 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
                                 {
                                     if (mSalida.equals("1"))
                                     {
-                                        new UpAlerta(mContext);
+                                        new UpAlerta(mContext, IDSP1.TA1);
                                         postStatusUpdate("Prueba integrada ... " + (new Date().toString()));
                                     }
                                     Toast.makeText(mContext, mSalida, Toast.LENGTH_SHORT).show();
