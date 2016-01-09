@@ -34,6 +34,7 @@ import innova.smsgps.communication.IncomingIPC.IncomingIpcCallback;
 import innova.smsgps.controlador.ControladorUbicacion;
 import innova.smsgps.controlador.ControladorUbicacion.ControladorUbicacionCallback;
 import innova.smsgps.enums.IDSP1;
+import innova.smsgps.listener.TimerTarea;
 import innova.smsgps.task.UpAlerta;
 import innova.smsgps.utils.ManagerUtils;
 

@@ -44,13 +44,6 @@
 
     <activity android:name=".SmsActivity">
         </activity>
-        <activity android:name=".ActivityConfigListaContactos"/>
-        <activity android:name=".ActivityLoginFb"/>
-        <activity android:name=".ActivityConfigContactos"/>
-        <activity android:name=".ActivityListaRegistroAlertas"/>
-        <activity android:name=".ActivityMap"/>
-        <activity android:name=".ActivityPostDenuncia"/>
-        <activity android:name=".ActivityListaRegistroDenuncias"/>
         <activity android:name=".ActivityListaDispositivosBluetooth"/>
         <activity android:name=".ActivityGrabarVideo"/>
         <activity android:name=".ActivitySelfieOpciones"
@@ -105,14 +98,6 @@
         <activity android:name=".ActivityBienvenidaInfoAplicativo"/>
         <activity android:name=".ActivityBienvenidaInfoGps"/>
         <activity android:name=".ActivityBienvenidaInfoBluetooth"/>
-        <activity android:name=".ActivityDenunciaRegistroUpload"/>
-
-        <activity android:name=".ManagerFragmentsConfiguracion">
-
-        </activity>
-        <activity android:name=".ManagerFragmentsSms">
-
-        </activity>
 
         <service
             android:name=".ServicioSms"

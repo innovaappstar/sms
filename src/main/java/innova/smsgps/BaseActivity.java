@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import innova.smsgps.communication.ManagerBridgeIPC;
 import innova.smsgps.infomovil.ManagerInfoMovil;
+import innova.smsgps.listener.TimerTarea;
 import innova.smsgps.managerhttp.Httppostaux;
 import innova.smsgps.sqlite.ManagerSqlite;
 import innova.smsgps.utils.ManagerUtils;
