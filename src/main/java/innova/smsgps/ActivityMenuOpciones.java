@@ -83,7 +83,9 @@ public class ActivityMenuOpciones extends BaseActivity{
                 break;
 
         }
-        startActivityForResult(intent, 1);
+
+        if (intent != null)
+            startActivityForResult(intent, 1);
     }
 
 

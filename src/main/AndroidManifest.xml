@@ -95,7 +95,8 @@
             android:theme="@style/MyTheme" />
 
 
-        <activity android:name=".ActivitySplash">
+        <activity android:name=".ActivitySplash"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

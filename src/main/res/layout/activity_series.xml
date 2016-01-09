@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android:background="#000000"
+    android1:layout_width="fill_parent"
+    android1:layout_height="fill_parent">
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Click Me to enable Webview"
+        android:id="@+id/buttonClick"
+        android:onClick="onClick"
+        android:clickable="true"
+        android:visibility="gone"/>
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/myWebView"
+        android:layout_below="@+id/buttonClick"  />
+
+</RelativeLayout>

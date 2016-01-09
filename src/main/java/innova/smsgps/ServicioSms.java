@@ -200,7 +200,7 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
 
     @Override
     public void getCoordenada(Coordenada coordenada) {
-        Toast.makeText(mContext, coordenada._getLatitud() + "|" + coordenada._getLongitud(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, coordenada._getLatitud() + "|" + coordenada._getLongitud(), Toast.LENGTH_SHORT).show();
     }
 
 
