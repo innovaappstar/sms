@@ -75,7 +75,7 @@ public class ActivityMenu extends BaseActivity{
                 intent = new Intent(this, ActivityOthers.class);
                 break;
             case R.id.contenedor_media:
-                intent = new Intent(this, ActivityMenuOpciones.class);
+                intent = new Intent(this, ActivityMediaOpciones.class);
                 break;
             case R.id.btnAceptar:
 //                imprimitToast("Aceptar..");

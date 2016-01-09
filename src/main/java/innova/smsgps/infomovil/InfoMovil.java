@@ -140,6 +140,9 @@ public class InfoMovil implements IInfoMovil
             case NICKUSUARIO:
                 editorspf.putString("NICKUSUARIO", s);
                 break;
+            case DIRECTORIOMUSIC:
+                editorspf.putString("DIRECTORIOMUSIC", s);
+                break;
         }
         editorspf.commit();
     }
@@ -174,6 +177,8 @@ public class InfoMovil implements IInfoMovil
                 return spf.getString("IDREGISTRODENUNCIAMOVIL", "");
             case NICKUSUARIO:
                 return spf.getString("NICKUSUARIO", "");
+            case DIRECTORIOMUSIC:
+                return spf.getString("DIRECTORIOMUSIC", "");
             default:
                 return "";
         }

@@ -12,7 +12,8 @@ public enum IDSP2
     IDFACEBOOK  (5),
     IDREGISTROALERTASMOVIL  (6),
     IDREGISTRODENUNCIAMOVIL (7),
-    NICKUSUARIO             (8);
+    NICKUSUARIO             (8),
+    DIRECTORIOMUSIC         (9);
 
     private int n;
 

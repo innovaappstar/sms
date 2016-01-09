@@ -54,7 +54,11 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:theme="@style/MyTheme" />
-
+        <activity android:name=".ActivityMediaOpciones"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/MyTheme" />
 
         <activity android:name=".ActivityCameraPhoto"
             android:allowBackup="true"
@@ -94,7 +98,11 @@
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:theme="@style/MyTheme" />
-
+        <activity android:name=".ActivityListaDirectorios"
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/MyTheme" />
         <activity android:name=".ActivityConfigBeeps"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"

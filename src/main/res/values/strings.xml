@@ -21,7 +21,7 @@
     <!--FUNCIONES DEL BOTON-->
     <string name="infoDevice">1 click   : Hacerlo sonar\n2 clicks : Prender la linterna\n3 clicks : Vibrar</string>
     <string name="infoFoto">1 click   : Tomar foto.\n2 clicks : Grabar video.\n3 clicks : Detener video</string>
-    <string name="infoMedia">1 click   : Apaga mi alarma\n2 clicks : Play mùsica.\n3 clicks : Stop mùsica.</string>
+    <string name="infoMedia">1 click   : Play/Pause\n2 clicks : next.\n3 clicks : forward.</string>
     <string name="infoConfigure">1 click   : Configure\n2 clicks : Configure\n3 clicks : Configure</string>
     <string name="textoListaConfiguracion">Listado de Configuraciòn</string>
 
