@@ -82,7 +82,7 @@ public class ActivityOthers extends BaseActivity{
                 intent = new Intent(this, ActivityMapaAlertas.class);
                 break;
             case R.id.img_add_button_config_beeps:
-                managerUtils.imprimirToast(this, "Config beeps");
+                intent = new Intent(this, ActivityConfigBeeps.class);
                 break;
 
         }

@@ -22,7 +22,9 @@ public class BridgeIPC implements IBridgeIPC
     /**
      * Índices referenciales
      */
-    public static final int INDICE_WEBSOCKET = 1;
+    public static final int INDICE_WEBSOCKET    = 1;
+    public static final int INDICE_LOCATION     = 2;
+
     public static final String SUB_INDICE_WEBSOCKET_TRANSACCION_BOLETO      = "1";
     public static final String SUB_INDICE_WEBSOCKET_TRANSACCION_ELECTRONICO = "2";
 

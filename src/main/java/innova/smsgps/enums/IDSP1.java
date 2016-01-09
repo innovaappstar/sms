@@ -5,11 +5,16 @@ package innova.smsgps.enums;
  */
 public enum IDSP1
 {
-    NUMERO01    (1),
-    NUMERO02    (2),
-    NUMERO03    (3),
-    NUMERO04    (4),
+//    NUMERO01    (1),
+//    NUMERO02    (2),
+//    NUMERO03    (3),
+//    NUMERO04    (4),
+    BEEP1         (1),
+    BEEP2         (2),
+    BEEP3         (3),
+
     FLAGSPLASH  (5),
+
     TA1         (11),
     TA2         (12),
     TA3         (13),

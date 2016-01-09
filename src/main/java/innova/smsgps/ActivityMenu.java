@@ -3,8 +3,13 @@ package innova.smsgps;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import innova.smsgps.communication.BridgeIPC;
 
 
 /**
@@ -85,6 +90,43 @@ public class ActivityMenu extends BaseActivity{
     }
 
 
+    // Initiating Menu XML file (menu.xml)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    /**
+     * Event Handling for Individual menu item selected
+     * Identify single menu item by it's id
+     * */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+
+        switch (item.getItemId())
+        {
+            case R.id.menu_bookmark:
+                enviarMensajeIPC(BridgeIPC.INDICE_LOCATION, new String[]{"Hola Mundo", "Bye Mundo"});
+                //managerUtils.imprimirToast(this, "Locación");
+                return true;
+            case R.id.menu_save:
+                return true;
+            case R.id.menu_search:
+                return true;
+            case R.id.menu_share:
+                return true;
+            case R.id.menu_delete:
+                return true;
+            case R.id.menu_preferences:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }
 

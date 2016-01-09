@@ -111,10 +111,15 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
                             new UpAlerta(mContext, IDSP1.TA1);
                             postStatusUpdate("Prueba integrada ... " + (new Date().toString()));
                         }
-
-                        // ENVIAMOS MENSAJE AL SERVIDOR SIN DISTINGUIR SI ES BOLETO O ELECTRÓNICO - DESARROLLO
-//                        enviarMensajeAlServidorWebSocket(data[1]);
-                        //Toast.makeText(getApplicationContext(), data[1]  + " <S>\n", Toast.LENGTH_SHORT).show();
+                    }
+                }else if (message.arg1 == BridgeIPC.INDICE_LOCATION)
+                {
+                    Bundle bundle = message.getData();
+                    if (bundle != null)
+                    {
+                        String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
+                        new UpAlerta(mContext, IDSP1.TA1);
+                        postStatusUpdate("Prueba integrada ... " + (new Date().toString()));
                     }
                 }
                 break;
@@ -358,7 +363,8 @@ public class ServicioSms extends IntentService implements TimerTarea.TimerTareaC
 
 
     private static void postStatusUpdate(final String message) {
-        if (sessionbeans != null) {
+        if (sessionbeans != null)
+        {
             Request request = Request
                     .newStatusUpdateRequest(sessionbeans.getSession().getActiveSession(), message, new Request.Callback() {
                         @Override

@@ -42,17 +42,27 @@ public class InfoMovil implements IInfoMovil
     {
         switch (idsp1)
         {
-            case NUMERO01:
-                editorspf.putInt("NUMERO01", i);
+            case BEEP1:
+                editorspf.putInt("BEEP1", i);
                 break;
-            case NUMERO02:
-                editorspf.putInt("NUMERO02", i);
+            case BEEP2:
+                editorspf.putInt("BEEP2", i);
                 break;
-            case NUMERO03:
-                editorspf.putInt("NUMERO03", i);
+            case BEEP3:
+                editorspf.putInt("BEEP3", i);
                 break;
-            case NUMERO04:
-                editorspf.putInt("NUMERO04", i);
+
+//            case NUMERO01:
+//                editorspf.putInt("NUMERO01", i);
+//                break;
+//            case NUMERO02:
+//                editorspf.putInt("NUMERO02", i);
+//                break;
+//            case NUMERO03:
+//                editorspf.putInt("NUMERO03", i);
+//                break;
+//            case NUMERO04:
+//                editorspf.putInt("NUMERO04", i);
             case FLAGSPLASH:
                 editorspf.putInt("FLAGSPLASH", i);
                 break;
@@ -74,14 +84,21 @@ public class InfoMovil implements IInfoMovil
     {
         switch (idsp1)
         {
-            case NUMERO01:
-                return spf.getInt("NUMERO01", 0);
-            case NUMERO02:
-                return spf.getInt("NUMERO02", 0);
-            case NUMERO03:
-                return spf.getInt("NUMERO03", 0);
-            case NUMERO04:
-                return spf.getInt("NUMERO04", 0);
+            case BEEP1:
+                return spf.getInt("BEEP1", 1);  // default : 1 = Asalto
+            case BEEP2:
+                return spf.getInt("BEEP2", 1);  // default : 1 = Asalto
+            case BEEP3:
+                return spf.getInt("BEEP3", 1);  // default : 1 = Asalto
+
+//            case NUMERO01:
+//                return spf.getInt("NUMERO01", 0);
+//            case NUMERO02:
+//                return spf.getInt("NUMERO02", 0);
+//            case NUMERO03:
+//                return spf.getInt("NUMERO03", 0);
+//            case NUMERO04:
+//                return spf.getInt("NUMERO04", 0);
             case FLAGSPLASH:
                 return spf.getInt("FLAGSPLASH", 0);
             default:
