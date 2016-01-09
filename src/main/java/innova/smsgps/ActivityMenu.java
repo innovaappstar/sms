@@ -110,7 +110,7 @@ public class ActivityMenu extends BaseActivity{
         switch (item.getItemId())
         {
             case R.id.menu_bookmark:
-                enviarMensajeIPC(BridgeIPC.INDICE_LOCATION, new String[]{"Hola Mundo", "Bye Mundo"});
+                enviarMensajeIPC(BridgeIPC.INDICE_LOCATION, new String[]{"1|1", "Bye Mundo"});
                 //managerUtils.imprimirToast(this, "Locación");
                 return true;
             case R.id.menu_save:

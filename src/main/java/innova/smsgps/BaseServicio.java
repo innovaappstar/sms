@@ -6,17 +6,20 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.Messenger;
 
 import innova.smsgps.beans.Coordenada;
+import innova.smsgps.communication.IncomingIPC;
 import innova.smsgps.controlador.ControladorUbicacion;
+import innova.smsgps.infomovil.ManagerInfoMovil;
 import innova.smsgps.listener.TimerTarea;
 import innova.smsgps.utils.ManagerUtils;
 
 /**
  * Created by USUARIO on 09/01/2016.
  */
-public class BaseServicio extends IntentService implements TimerTarea.TimerTareaCallback, ControladorUbicacion.ControladorUbicacionCallback
+public class BaseServicio extends IntentService implements TimerTarea.TimerTareaCallback, ControladorUbicacion.ControladorUbicacionCallback, IncomingIPC.IncomingIpcCallback
         {
 
     /**
@@ -27,6 +30,9 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
     private LocationManager handle;
     private ControladorUbicacion controladorUbicacion;
     static ManagerUtils managerUtils ;
+
+    public ManagerInfoMovil managerInfoMovil;
+
     TimerTarea objTimer;
     static Context mContext ;
     Messenger mMessenger = null;
@@ -39,10 +45,18 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
     {
         super(BaseServicio.class.getName());
     }
+    /**
+     * Comprueba si la session esta activa.
+     */
+    static innova.smsgps.beans.Session sessionbeans = new innova.smsgps.beans.Session();
+
+    @Override
+    public void IncomingIPC(Message message) {
+
+    }
 
 
-
-    // LocalBinder, mBinder and onBind() allow other Activities to bind to this service.
+            // LocalBinder, mBinder and onBind() allow other Activities to bind to this service.
     public class LocalBinder extends Binder {
     }
 
@@ -108,9 +122,11 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
         // If a Context object is needed, call getApplicationContext() here.
         objTimer = new TimerTarea(this);
         managerUtils        = new ManagerUtils();
+        managerInfoMovil    = new ManagerInfoMovil(this);
         mContext            = getApplicationContext();
         instanciaServicio   = this;
         IniciarLocalizacion();
+        mMessenger =  new Messenger(new IncomingIPC(this));
 
 //        if (MacAddress.length() > 1)
     }
@@ -158,12 +174,4 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
     }
 
 
-
-    /**
-     * Comprueba si la session esta activa.
-     */
-    static innova.smsgps.beans.Session sessionbeans = new innova.smsgps.beans.Session();
-
-
-    //endregion
 }

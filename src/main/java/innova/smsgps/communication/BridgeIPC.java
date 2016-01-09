@@ -23,6 +23,7 @@ public class BridgeIPC implements IBridgeIPC
      * Índices referenciales
      */
     public static final int INDICE_WEBSOCKET    = 1;
+    // INDICES DE BLUETOOTH
     public static final int INDICE_LOCATION     = 2;
 
     public static final String SUB_INDICE_WEBSOCKET_TRANSACCION_BOLETO      = "1";

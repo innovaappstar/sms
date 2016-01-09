@@ -1,14 +1,21 @@
 package innova.smsgps.utils;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -22,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import innova.smsgps.ActivityFacebookAccount;
+import innova.smsgps.R;
 import innova.smsgps.enums.IDUTILS;
 import innova.smsgps.interfaces.IUtils;
 
@@ -39,30 +48,73 @@ public class Utils implements IUtils {
      */
     public void showNotificacionSimple(Context context)
     {
-//        int icon = R.drawable.ic_contacts;
-//        long when = System.currentTimeMillis();
-//        NotificationManager nm=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-//        Intent intent=new Intent(context, ActivityLoginFb.class);
-//        PendingIntent pending=PendingIntent.getActivity(context, 0, intent, 0);
-//        Notification notification;
-//        if (Build.VERSION.SDK_INT < 11) {
-//            notification = new Notification(icon, "Title", when);
-//            notification.setLatestEventInfo(
-//                    context,
-//                    "Session perdida",
-//                    "Restaura tu session",
-//                    pending);
-//        } else {
-//            notification = new Notification.Builder(context)
-//                    .setContentTitle("Session perdida")
-//                    .setContentText(
-//                            "Restaura tu session").setSmallIcon(R.drawable.ic_contacts)
-//                    .setContentIntent(pending).setWhen(when).setAutoCancel(true)
-//                    .build();
-//        }
-//        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-//        notification.defaults |= Notification.DEFAULT_SOUND;
-//        nm.notify(0, notification);
+        int icon = R.drawable.ic_contacts;
+        long when = System.currentTimeMillis();
+        NotificationManager nm=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.cancel(1);   // clear previous notification
+        Intent intent=new Intent(context, ActivityFacebookAccount.class);
+        PendingIntent pending=PendingIntent.getActivity(context, 0, intent, 0);
+        Notification notification;
+        if (Build.VERSION.SDK_INT < 11) {
+            notification = new Notification(icon, "Sesión Perdida", when);
+            notification.setLatestEventInfo(
+                    context,
+                    "Sesión perdida",
+                    "Restaura tu sesión",
+                    pending);
+        } else {
+            notification = new Notification.Builder(context)
+                    .setContentTitle("Session perdida")
+                    .setContentText(
+                            "Restaura tu sesión").setSmallIcon(R.drawable.ic_contacts)
+                    .setContentIntent(pending).setWhen(when).setAutoCancel(true)
+//                    .setVibrate(new long[] { 500, 500 })  //  { 1000, 1000, 1000, 1000, 1000 })
+                    .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                    .setLights(Color.WHITE, 3000, 3000)
+                    .build();
+        }
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        notification.ledOnMS = 1000;
+        notification.flags |= Notification.FLAG_SHOW_LIGHTS;
+        notification.ledARGB = Color.YELLOW;
+        nm.notify(1, notification);
+//        RedFlashLight(context);
+    }
+
+    private void RedFlashLight(Context context)
+    {
+        NotificationManager notif = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        for (int i = 0; i < 8; i++) {
+            notif.cancel(1); // clear previous notification
+            final Notification notification = new Notification();
+            if (i == 0){
+                notification.ledARGB = Color.MAGENTA;
+            }else if (i == 1){
+                notification.ledARGB = Color.BLUE;
+            }else if (i == 2){
+                notification.ledARGB = Color.CYAN;
+            }else if (i == 3){
+                notification.ledARGB = Color.GRAY;
+            }else if (i == 4){
+                notification.ledARGB = Color.GREEN;
+            }else if (i == 5){
+                notification.ledARGB = Color.RED;
+            }else if (i == 6){
+                notification.ledARGB = Color.WHITE;
+            }else if (i == 7){
+                notification.ledARGB = Color.YELLOW;
+            }
+            notification.ledOnMS = 1000;
+            notification.flags |= Notification.FLAG_SHOW_LIGHTS;
+            notif.notify(1, notification);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     /**
@@ -93,7 +145,7 @@ public class Utils implements IUtils {
     public String getFechaHora(IDUTILS idutils)
     {
         String mFecha = (idutils == IDUTILS.HHMM) ? "HH:mm:ss" :
-            (idutils == IDUTILS.HHMM.DDHHMMSS) ? "dd/MM/yyyy HH:mm:ss" : "dd/MM/yyyy HH:mm:ss.SSS";
+            (idutils == IDUTILS.DDHHMMSS) ? "dd/MM/yyyy HH:mm:ss" : "dd/MM/yyyy HH:mm:ss.SSS";
 
         return new SimpleDateFormat(mFecha).format(Calendar.getInstance().getTime());
     }

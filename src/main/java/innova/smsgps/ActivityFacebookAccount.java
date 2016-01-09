@@ -55,7 +55,8 @@ public class ActivityFacebookAccount extends BaseActivity{
 
     }
     boolean isFetching = false;
-    private void performFacebookLogin() {
+    private void performFacebookLogin()
+    {
         Log.d("FACEBOOK", "performFacebookLogin");
         final Session.NewPermissionsRequest newPermissionsRequest = new Session.NewPermissionsRequest(this, Arrays.asList("email"));
         Session openActiveSession = Session.openActiveSession(this, true, new Session.StatusCallback() {

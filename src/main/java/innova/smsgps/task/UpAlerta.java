@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 import innova.smsgps.beans.RegistroAlerta;
 import innova.smsgps.constantes.CONSTANT;
-import innova.smsgps.enums.IDSP1;
 import innova.smsgps.managerhttp.Httppostaux;
 import innova.smsgps.sqlite.ManagerSqlite;
 import innova.smsgps.utils.ManagerUtils;
@@ -33,6 +32,9 @@ public class UpAlerta extends AsyncTask< String, String, String > {
      **/
     private int CRUD_ACTUALIZAR = 21;
 
+    /***/
+    int mTipoAlerta = 0;
+
     /**
      * REGISTRAR ALERTA
      **/
@@ -45,27 +47,27 @@ public class UpAlerta extends AsyncTask< String, String, String > {
     ManagerUtils managerUtils                   = null;     // MANEJADOR DE FUNCIONES TIPO UTILS.
     /**
      * Enumerables
-     **/
-    IDSP1 idsp1 = null;
+    **/
     Context mContext;
 
-    public UpAlerta(Context context, IDSP1 idsp1)
+
+    public UpAlerta(Context context, int tipoAlerta)
     {
         post                = new Httppostaux();
         mContext            = context;
         managerSqlite       = new ManagerSqlite(mContext);
         managerUtils        = new ManagerUtils();
-        this.idsp1          = idsp1;
+        this.mTipoAlerta    = tipoAlerta;
         insertarAlerta();
     }
 
     private void insertarAlerta()
     {
         // Tipo de ALerta
-        int TA  = idsp1.getInt(idsp1);
         // EJECUTAMOS ASYNTASK PARA REGISTRAR EN WEBSERVICE
-        registroAlerta.setIdTipoAlerta(TA);
-        if (managerSqlite.ejecutarConsulta(TA, registroAlerta, null , null) == 1)   // NULL = BAD PRACTICE
+        registroAlerta.setIdTipoAlerta(mTipoAlerta);
+        int indiceEjecutarConsultaAlerta = 1;
+        if (managerSqlite.ejecutarConsulta(indiceEjecutarConsultaAlerta, registroAlerta, null , null) == 1)   // NULL = BAD PRACTICE
         {
             this.execute();
         }
