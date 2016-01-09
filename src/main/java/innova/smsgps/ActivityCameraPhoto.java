@@ -3,8 +3,6 @@ package innova.smsgps;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -14,10 +12,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import java.io.File;
 
 import innova.libraryui.SurfaceViewCustom;
 import innova.libraryui.SurfaceViewCustom.PhotoCallback;
+import innova.smsgps.communication.BridgeIPC;
 
 /**
  * Created by USUARIO on 19/12/2015.
@@ -29,8 +31,10 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
     RelativeLayout contenedorMostrarFoto;
     RelativeLayout contenedorSurface;
     ProgressBar pbarCargando;
-    private Handler mHandler = new Handler();
-    Bitmap bitmap   = null;
+    private Handler mHandler    = new Handler();
+    Bitmap bitmap               = null;
+    ImageLoader imageLoader     = ImageLoader.getInstance();
+    boolean iscambioVideo       = false;
 
 
     @SuppressWarnings("deprecation")
@@ -42,6 +46,8 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_camera_apolo);
+
+        imageLoader.init(ImageLoaderConfiguration.createDefault(getApplicationContext()));
 
         surfaceViewCustom       = (SurfaceViewCustom)findViewById(R.id.surfaceView);
         imgFoto                 = (ImageView)findViewById(R.id.imgFotoCapturada);
@@ -61,7 +67,8 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
     @Override
     public void onDestroy() {
         super.onDestroy();
-        surfaceViewCustom.destruirCamara();
+        if (!iscambioVideo)
+            surfaceViewCustom.destruirCamara();
     }
 
     @Override
@@ -75,7 +82,9 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
         {
             case R.id.contenedorCapturePhoto:
 //                managerUtils.imprimirToast(this, "Capturando foto - Prueba...");
-                surfaceViewCustom.tomarFoto();
+//                surfaceViewCustom.tomarFoto();
+                enviarMensajeIPC(BridgeIPC.INDICE_SELFIE_ANDROID, new String[]{"3|1", "FOTO"});
+
 //                capture();
                 break;
             case R.id.imgButtonCameraReverse:
@@ -99,6 +108,7 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
             case R.id.imgButtonRecordVideo:
 //                surfaceViewCustom.detenerCamara();
                 surfaceViewCustom.destruirCamara();
+                iscambioVideo = true;
                 startActivity(new Intent(this, ActivityGrabarVideo.class));
                 finish();
                 break;
@@ -122,15 +132,6 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
     }
 
 
-    public Bitmap getBitmap(byte[] data)
-    {
-        BitmapFactory.Options options=new BitmapFactory.Options();// Create object of bitmapfactory's option method for further option use
-        options.inPurgeable = true; // inPurgeable is used to free up memory while required
-        Bitmap songImage1 = BitmapFactory.decodeByteArray(data,0, data.length,options);//Decode image, "thumbnail" is the object of image file
-        Bitmap songImage = Bitmap.createScaledBitmap(songImage1, 50 , 50 , true);// convert decoded bitmap into well scalled Bitmap format.
-        return songImage;
-    }
-
     @Override
     public void PhotoGuardada(int resultado,final String filepath)
     {
@@ -142,20 +143,23 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
                     @Override
                     public void run()
                     {
-                        imgFile = new  File(filepath);
 
                         mHandler.post(new Runnable()
                         {
                             @Override
                             public void run()
                             {
-                                if(imgFile.exists())
-                                {
-                                    imgFoto.setImageURI(Uri.fromFile(imgFile));
-                                    pbarCargando.setVisibility(View.GONE);
-                                    contenedorMostrarFoto.setVisibility(View.VISIBLE);
-                                    contenedorSurface.setVisibility(View.GONE);
-                                }
+                                    try
+                                    {
+                                        imageLoader.displayImage("file:///mnt" + filepath, imgFoto);
+                                        pbarCargando.setVisibility(View.GONE);
+                                        contenedorMostrarFoto.setVisibility(View.VISIBLE);
+                                        contenedorSurface.setVisibility(View.GONE);
+                                    }catch (Exception e)
+                                    {
+                                        //managerUtils.imprimirToast(ActivityCameraPhoto.this, "Insuficiente memoria para mostrar la foto..");
+                                        managerUtils.imprimirToast(ActivityCameraPhoto.this, e.getMessage());
+                                    }
                             }
                         });
                     }
@@ -196,6 +200,7 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
         {
             managerUtils.imprimirToast(this, "Cancelado");
         }
+
         ocultarFotoTomada();
     }
 
@@ -208,6 +213,16 @@ public class ActivityCameraPhoto  extends BaseActivity implements PhotoCallback
     {
         contenedorSurface.setVisibility(View.VISIBLE);
         contenedorMostrarFoto.setVisibility(View.GONE);
+        imgFoto.setImageBitmap(null);
     }
+
+    @Override
+    public void RecepcionMensaje(int activity, int tipo) {
+        if (activity == 2 && tipo == 1)
+        {
+            surfaceViewCustom.tomarFoto();
+        }
+    }
+
 
 }

@@ -25,6 +25,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:21.0.2'
     compile files('libs/apache-mime4j-core-0.7.2.jar')
     compile files('libs/httpmime-4.2.3.jar')
+    compile files('libs/universal-image-loader-1.9.5.jar')
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
-//    compile 'de.hdodenhof:circleimageview:2.0.0'
+    //    compile 'de.hdodenhof:circleimageview:2.0.0'
 }

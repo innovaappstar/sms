@@ -14,7 +14,7 @@ import innova.smsgps.utils.ManagerUtils;
 /**
  * Created by innovaapps on 21/09/2015.
  */
-public abstract class BaseActivity extends Activity implements TimerTarea.TimerTareaCallback
+public abstract class BaseActivity extends Activity implements TimerTarea.TimerTareaCallback, ServicioSms.ServicioCallback
 {
     /**
      * Objetos
@@ -34,6 +34,8 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
     @Override
     public void onResume() {
         super.onResume();
+        // INICIAMOS CALLBACK
+        ServicioSms.setServicioCallback(this);
     }
 
     @Override
@@ -92,6 +94,7 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
         managerBridgeIPC.enviarMensaje(indice, data);
     }
 
-
+    @Override
+    public void RecepcionMensaje(int activity, int tipo) {}
 
 }

@@ -65,8 +65,9 @@ public class Utils implements IUtils {
         } else {
             notification = new Notification.Builder(context)
                     .setContentTitle("Session perdida")
-                    .setContentText(
-                            "Restaura tu sesión").setSmallIcon(R.drawable.ic_contacts)
+                    .setContentText("Restaura tu sesión")
+                    .setSmallIcon(R.drawable.img_notification_facebook_session)
+//                    .setLargeIcon()   // SE PUEDE UTILIZAR UN SEGUNDO ICONO PARA MOSTRAR AL DESLIZAR..
                     .setContentIntent(pending).setWhen(when).setAutoCancel(true)
 //                    .setVibrate(new long[] { 500, 500 })  //  { 1000, 1000, 1000, 1000, 1000 })
                     .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
@@ -81,41 +82,7 @@ public class Utils implements IUtils {
 //        RedFlashLight(context);
     }
 
-    private void RedFlashLight(Context context)
-    {
-        NotificationManager notif = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        for (int i = 0; i < 8; i++) {
-            notif.cancel(1); // clear previous notification
-            final Notification notification = new Notification();
-            if (i == 0){
-                notification.ledARGB = Color.MAGENTA;
-            }else if (i == 1){
-                notification.ledARGB = Color.BLUE;
-            }else if (i == 2){
-                notification.ledARGB = Color.CYAN;
-            }else if (i == 3){
-                notification.ledARGB = Color.GRAY;
-            }else if (i == 4){
-                notification.ledARGB = Color.GREEN;
-            }else if (i == 5){
-                notification.ledARGB = Color.RED;
-            }else if (i == 6){
-                notification.ledARGB = Color.WHITE;
-            }else if (i == 7){
-                notification.ledARGB = Color.YELLOW;
-            }
-            notification.ledOnMS = 1000;
-            notification.flags |= Notification.FLAG_SHOW_LIGHTS;
-            notif.notify(1, notification);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
 
     /**
      * imprimirLog void IMPRIME LOG EN CONSOLA

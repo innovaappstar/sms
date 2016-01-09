@@ -109,19 +109,26 @@ public class ActivityMenu extends BaseActivity{
 
         switch (item.getItemId())
         {
-            case R.id.menu_bookmark:
+            case R.id.compartirUbicacion:
                 enviarMensajeIPC(BridgeIPC.INDICE_LOCATION, new String[]{"1|1", "Bye Mundo"});
                 //managerUtils.imprimirToast(this, "Locación");
                 return true;
-            case R.id.menu_save:
+            case R.id.iniciarSound:
+                enviarMensajeIPC(BridgeIPC.INDICE_LOST_ANDROID, new String[]{"2|1", "Iniciar Sonido"});
                 return true;
-            case R.id.menu_search:
+            case R.id.detenerSound:
+                enviarMensajeIPC(BridgeIPC.INDICE_LOST_ANDROID, new String[]{"2|2", "Detener Sonido"});
                 return true;
-            case R.id.menu_share:
+            case R.id.toogleLED:
+                enviarMensajeIPC(BridgeIPC.INDICE_LOST_ANDROID, new String[]{"2|3", "Switch Led"});
                 return true;
-            case R.id.menu_delete:
+            case R.id.Selfie:
                 return true;
-            case R.id.menu_preferences:
+            case R.id.PlayMusic:
+                return true;
+            case R.id.LLamadas:
+                return true;
+            case R.id.GoogleMaps:
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

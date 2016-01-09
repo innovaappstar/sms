@@ -109,6 +109,7 @@ public class ActivityConfigBeeps extends BaseActivity{
     }
 
 
+
     /**
      * Simple Enumerable interno para los
      * indices de serializados iguales al servidor Hp-IDSP1(enum)..

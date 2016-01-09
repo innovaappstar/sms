@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.io.IOException;
 
 import innova.libraryui.SurfaceViewCustomVideo;
+import innova.smsgps.communication.BridgeIPC;
 
 public class ActivityGrabarVideo extends BaseActivity {
 
@@ -110,6 +111,13 @@ public class ActivityGrabarVideo extends BaseActivity {
 		super.onResume();
 		surfaceView.iniciarCamara();
 	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		surfaceView.destruirCamara();
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -157,27 +165,13 @@ public class ActivityGrabarVideo extends BaseActivity {
 				finish();
 				break;
 			case R.id.contenedorCapturePhoto:
-				try
-				{
-					if (!isGrabandoVideo)
-					{
-						startRecording();
-						isGrabandoVideo = true;
-					}else
-					{
-						surfaceView.stopRecording();
-						managerUtils.imprimirToast(this, "Video guardado con éxito.");
-						isGrabandoVideo = false;
-					}
-				} catch (Exception e) {
-					isGrabandoVideo = false;
-				}
+				enviarMensajeIPC(BridgeIPC.INDICE_SELFIE_ANDROID, new String[]{"3|2", "VIDEO"});
 				break;
-
-
-
 		}
 	}
+
+
+
 
 	private boolean isHorizontal()
 	{
@@ -197,6 +191,29 @@ public class ActivityGrabarVideo extends BaseActivity {
 	{
 		return surfaceView.comprobarExistenciaCamaraFrontal();
 	}
+
+	@Override
+	public void RecepcionMensaje(int activity, int tipo) {
+		if (activity == 2 && tipo == 2)
+		{
+			try
+			{
+				if (!isGrabandoVideo)
+				{
+					startRecording();
+					isGrabandoVideo = true;
+				}else
+				{
+					surfaceView.stopRecording();
+					managerUtils.imprimirToast(this, "Video guardado con éxito.");
+					isGrabandoVideo = false;
+				}
+			} catch (Exception e) {
+				isGrabandoVideo = false;
+			}
+		}
+	}
+
 
 
 }

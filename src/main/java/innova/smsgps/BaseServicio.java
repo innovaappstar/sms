@@ -3,7 +3,11 @@ package innova.smsgps;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Camera;
 import android.location.LocationManager;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.Message;
@@ -22,6 +26,12 @@ import innova.smsgps.utils.ManagerUtils;
 public class BaseServicio extends IntentService implements TimerTarea.TimerTareaCallback, ControladorUbicacion.ControladorUbicacionCallback, IncomingIPC.IncomingIpcCallback
         {
 
+    // INDICES IPC
+    public static final int MSG_REGISTRAR_CLIENTE	= 1;
+    public static final int MSG_ELIMINAR_CLIENTE	= 2;
+    public static final int MSG_SET_INT_VALOR		= 3;
+    public static final int MSG_SET_STRING_VALOR	= 4;
+
     /**
      * Instancias Singleton
      */
@@ -36,6 +46,8 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
     TimerTarea objTimer;
     static Context mContext ;
     Messenger mMessenger = null;
+    Ringtone ringtone;
+    Camera camera = null;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -104,6 +116,7 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
         try
         {
             objTimer = null;
+            ToogleLed(true);    // APagamos led al destruir
         }catch (Exception e)
         {
         }
@@ -125,7 +138,10 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
         managerInfoMovil    = new ManagerInfoMovil(this);
         mContext            = getApplicationContext();
         instanciaServicio   = this;
-        IniciarLocalizacion();
+        // RINGTONE
+        Uri notification    = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+        ringtone            = RingtoneManager.getRingtone(getApplicationContext(), notification);
+//        IniciarLocalizacion();
         mMessenger =  new Messenger(new IncomingIPC(this));
 
 //        if (MacAddress.length() > 1)
@@ -148,7 +164,7 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
         {
             handle = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             controladorUbicacion = new ControladorUbicacion(this);
-            handle.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, controladorUbicacion);
+            handle.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, controladorUbicacion);
         }
     }
 
@@ -164,6 +180,50 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
         }
     }
     //endregion
+
+    /**
+     * Inicia el ringtone, pero antes detiene alguno si
+     * estuviese reproduciendose..
+    */
+    public void IniciarRingtone()
+    {
+        DetenerRingtone();
+        ringtone.play();
+    }
+
+    /**
+     * Detiene el ringtone siempre y cuando este reproduciendose...
+     */
+    public void DetenerRingtone()
+    {
+        if (ringtone.isPlaying())
+            ringtone.stop();
+    }
+
+    /**
+     * Simple método para hacer un switch del
+     * led de la cámara..
+     * @param isApagarLed
+     */
+    public void ToogleLed(boolean isApagarLed)
+    {
+        if ( camera == null)
+        {
+            camera = Camera.open();
+        }
+        Camera.Parameters p = camera.getParameters();
+        p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+        camera.setParameters(p);
+        if (isApagarLed)
+        {
+            camera.stopPreview();
+            camera.release();
+            camera = null;
+        }else
+        {
+            camera.startPreview();
+        }
+    }
 
 
 

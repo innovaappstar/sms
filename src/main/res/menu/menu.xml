@@ -3,27 +3,33 @@
     <!-- Single menu item 
          Set id, icon and Title for each menu item
     -->
-    <item android:id="@+id/menu_bookmark"
+    <item android:id="@+id/compartirUbicacion"
         android:icon="@drawable/ic_menu_gps_small"
-        android:title="Compartir Ubicación" />
+        android:title="Compartir Ubicación" >
 
-    <item android:id="@+id/menu_save"
+    </item>
+    <item android:id="@+id/encuentraDispositivo"
         android:icon="@drawable/ic_menu_gps_small"
-        android:title="Encuentra tu celular" />
-
-    <item android:id="@+id/menu_search"
+        android:title="Encuentra tu celular" >
+        <menu>
+            <item android:id="@+id/iniciarSound" android:title="Sonar"></item>
+            <item android:id="@+id/detenerSound" android:title="Detener Sonido"></item>
+            <item android:id="@+id/toogleLED" android:title="LED"></item>
+        </menu>
+    </item>
+    <item android:id="@+id/Selfie"
         android:icon="@drawable/ic_menu_gps_small"
         android:title="Selfie" />
 
-    <item android:id="@+id/menu_share"
+    <item android:id="@+id/PlayMusic"
         android:icon="@drawable/ic_menu_gps_small"
         android:title="Play/Pause/Music" />
 
-    <item android:id="@+id/menu_delete"
+    <item android:id="@+id/LLamadas"
         android:icon="@drawable/ic_menu_gps_small"
         android:title="Responder/Alta Voz/Colgar" />
 
-    <item android:id="@+id/menu_preferences"
+    <item android:id="@+id/GoogleMaps"
         android:icon="@drawable/ic_menu_gps_small"
         android:title="Abrir GoogleMaps" />
 </menu>

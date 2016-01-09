@@ -1,0 +1,7 @@
+SE AVANZO LA PRIMERA FUNCIONALIDAD DE LOCATION
+- Postea en facebook el cod de alerta
+- Postea en el servidor el cod alerta con la ubicación y más datos..
+- Se optimizó el uso de gps para que solo se active cuando se requiera la ubicación.
+- Se generá notificación en caso de que se haya perdido la sesión con facebook.
+
+- Faltaria agregar el envio de sms desde el servicio. (Saldo).

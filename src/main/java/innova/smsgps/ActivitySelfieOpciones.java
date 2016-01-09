@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 
 /**
@@ -55,18 +54,29 @@ public class ActivitySelfieOpciones extends BaseActivity{
         switch (view.getId())
         {
             case R.id.contenedorCamara:
+//                enviarMensajeIPC(BridgeIPC.INDICE_SELFIE_ANDROID, new String[]{"3|1", "Camera"});
+
                 intent = new Intent(this, ActivityCameraPhoto.class);
                 break;
         }
         startActivity(intent);
     }
 
-    private void imprimitToast(String data) {
-        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+
+    @Override
+    public void RecepcionMensaje(int activity, int tipo) {
+        if (activity == 1 && tipo == 1)
+        {
+            intent = new Intent(this, ActivityCameraPhoto.class);
+        }else if (activity == 1 && tipo == 2)
+        {
+            intent = new Intent(this, ActivityGrabarVideo.class);
+        }
+
+        if (intent != null)
+            startActivity(intent);
+
     }
-
-
-
 }
 
 

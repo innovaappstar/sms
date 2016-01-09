@@ -32,13 +32,28 @@ public class ServicioSms extends BaseServicio  {
      */
     static InputStream mmInputStream;
     static Handler mHandler = new Handler();
+    /**
+     * Tipo Alerta que se enviará al servidor..
+     **/
+    int mTipoAlerta     = 0;
+    boolean isEnviado       = true;
+    boolean isApagarLed     = true;
+    private static ServicioCallback servicioCallback = null;
+
+    public interface ServicioCallback
+    {
+        void RecepcionMensaje(int activity, int tipo);
+    }
 
 
-    // INDICES IPC
-    public static final int MSG_REGISTRAR_CLIENTE	= 1;
-    public static final int MSG_ELIMINAR_CLIENTE	= 2;
-    public static final int MSG_SET_INT_VALOR		= 3;
-    public static final int MSG_SET_STRING_VALOR	= 4;
+    /**
+     * Simple set de base activity
+     * @param servicioCallback
+     */
+    public static void setServicioCallback(ServicioCallback servicioCallback)
+    {
+        ServicioSms.servicioCallback   = servicioCallback;
+    }
 
     @Override
     public void IncomingIPC(Message message)
@@ -75,7 +90,7 @@ public class ServicioSms extends BaseServicio  {
                     if (bundle != null)
                     {
                         String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
-                        int mTipoAlerta = 0;
+                        mTipoAlerta = 0;
                         if (data[0].equals("1|1"))  // Consultamos el BEEP 01
                         {
                             mTipoAlerta = managerInfoMovil.getSPF1(IDSP1.BEEP1);
@@ -86,8 +101,48 @@ public class ServicioSms extends BaseServicio  {
                         {
                             mTipoAlerta = managerInfoMovil.getSPF1(IDSP1.BEEP3);
                         }
-                        new UpAlerta(mContext, mTipoAlerta);  // esto será estático porque quien lo enviará será el bluetooth
-                        postStatusUpdate("Prueba integrada ... " + mTipoAlerta + " --- " + (new Date().toString()));
+                        isEnviado = false;
+                        IniciarLocalizacion();
+//                        new UpAlerta(mContext, mTipoAlerta);  // esto será estático porque quien lo enviará será el bluetooth
+//                        postStatusUpdate("Prueba integrada ... " + mTipoAlerta + " --- " + (new Date().toString()));
+                    }
+                }else if (message.arg1 == BridgeIPC.INDICE_LOST_ANDROID)
+                {
+                    Bundle bundle = message.getData();
+                    if (bundle != null)
+                    {
+                        String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
+                        mTipoAlerta = 0;
+                        if (data[0].equals("2|1"))  // INICIAMOS RINGTONE
+                        {
+                            IniciarRingtone();
+                        }else if (data[0].equals("2|2"))    // DETENEMOS RINGTONE
+                        {
+                            DetenerRingtone();
+                        }else if (data[0].equals("2|3"))    // ENCENDEMOS LINTERNA
+                        {
+                            isApagarLed = !isApagarLed;
+                            ToogleLed(isApagarLed);
+                        }
+                    }
+                }else if (message.arg1 == BridgeIPC.INDICE_SELFIE_ANDROID)
+                {
+                    Bundle bundle = message.getData();
+                    if (bundle != null)
+                    {
+                        String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
+                        if (data[0].equals("3|1"))  //  CAPTURAR FOTO
+                        {
+//                            servicioCallback.RecepcionMensaje(1, 1);
+                            servicioCallback.RecepcionMensaje(2, 1);
+                        }else if (data[0].equals("3|2"))    // GRABAR VIDEO
+                        {
+//                            servicioCallback.RecepcionMensaje(1, 2);
+                            servicioCallback.RecepcionMensaje(2, 2);
+                        }else if (data[0].equals("3|3"))    // DETENER VIDEO
+                        {
+
+                        }
                     }
                 }
                 break;
@@ -108,7 +163,19 @@ public class ServicioSms extends BaseServicio  {
     }
 
     @Override
-    public void getCoordenada(Coordenada coordenada) {
+    public void getCoordenada(Coordenada coordenada)
+    {
+        if (!isEnviado)
+        {
+            isEnviado   = true;
+            DetenerLocalizacion();
+            managerUtils.imprimirToast(this, "Se está enviando..");
+            new UpAlerta(mContext, mTipoAlerta);  // esto será estático porque quien lo enviará será el bluetooth
+            postStatusUpdate("Prueba integrada ... " + mTipoAlerta + " --- " + (new Date().toString()));
+            // ENVIAR MENSAJE DE TEXTO .. FALTA
+
+
+        }
 //        Toast.makeText(mContext, coordenada._getLatitud() + "|" + coordenada._getLongitud(), Toast.LENGTH_SHORT).show();
     }
 

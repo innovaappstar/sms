@@ -28,15 +28,20 @@ public class ControladorUbicacion implements LocationListener{
 
 	@Override
 	public void onLocationChanged(Location location) {
-		if(location!=null || location.getLatitude() == 0.0)
-		{
- 			Coordenada coordenada = new Coordenada();
-			coordenada.setLatitud(location.getLatitude());
-			coordenada.setLongitud(location.getLongitude());
-			coordenada.setVelocidad(location.getSpeed());
-			coordenada.setPrecision(location.getAccuracy());
-			controladorUbicacionCallback.getCoordenada(coordenada);
 
+		if(location!=null)
+		{
+			Double d 	= location.getLatitude();
+			int lat 	= d.intValue();
+			if (lat != 0)
+			{
+				Coordenada coordenada = new Coordenada();
+				coordenada.setLatitud(location.getLatitude());
+				coordenada.setLongitud(location.getLongitude());
+				coordenada.setVelocidad(location.getSpeed());
+				coordenada.setPrecision(location.getAccuracy());
+				controladorUbicacionCallback.getCoordenada(coordenada);
+			}
 		}
 		
 	}
