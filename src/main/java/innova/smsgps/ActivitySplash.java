@@ -20,6 +20,7 @@ import com.facebook.widget.LoginButton;
 
 import innova.smsgps.application.Globals;
 import innova.smsgps.enums.ACTIONS;
+import innova.smsgps.enums.IDSP1;
 import innova.smsgps.enums.IDSP2;
 import innova.smsgps.task.UpLoginUsuario;
 import innova.smsgps.task.UpLoginUsuario.LoginUsuarioCallback;
@@ -189,11 +190,11 @@ public class ActivitySplash extends BaseActivity implements LoginUsuarioCallback
         });
 
         // COMPROBAMOS EL FLAG DEL SPLASH
-//        if (Globals.getInfoMovil().getSPF1(IDSP1.FLAGSPLASH) == 1)
-//        {
-//            startActivity(new Intent(this, ActivityMenu.class));
-//            finish();
-//        }
+        if (Globals.getInfoMovil().getSPF1(IDSP1.FLAGSPLASH) == 1)
+        {
+            startActivity(new Intent(this, ActivityMenu.class));
+            finish();
+        }
 
     }
     //region FACEBOOK

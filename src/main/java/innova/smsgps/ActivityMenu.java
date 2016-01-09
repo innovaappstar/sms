@@ -67,7 +67,7 @@ public class ActivityMenu extends BaseActivity{
                 intent = new Intent(this, ActivitySelfieOpciones.class);
                 break;
             case R.id.contenedor_other:
-                intent = new Intent(this, ActivityMenuOpciones.class);
+                intent = new Intent(this, ActivityOthers.class);
                 break;
             case R.id.contenedor_media:
                 intent = new Intent(this, ActivityMenuOpciones.class);

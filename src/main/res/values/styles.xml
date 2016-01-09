@@ -313,6 +313,8 @@
     <style name="StyleImgBotonFlotanteComprobacion" parent="StyleImgMenuBotones">
         <item name="android:padding">7dp</item>
         <item name="android:src">@drawable/ic_check_button</item>
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">onClick</item>
     </style>
 
 
