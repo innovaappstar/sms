@@ -32,6 +32,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import innova.smsgps.ActivityFacebookAccount;
+import innova.smsgps.ActivityMediaOpciones;
 import innova.smsgps.R;
 import innova.smsgps.application.Globals;
 import innova.smsgps.enums.IDSP2;
@@ -59,8 +60,26 @@ public class Utils implements IUtils {
     @Override
     public void showNotificacionMusic(Context context)
     {
-        showNotificacion(context, R.drawable.img_notificacion_music, "Music", "Selecciona un directorio de Música" ,  ActivityFacebookAccount.class);
+        showNotificacion(context, R.drawable.ic_small_music, "Music", "Selecciona un directorio de Música", ActivityMediaOpciones.class);
+//        mostrarNotificacionCustomizada(context, "Perdido..");
     }
+
+    @Override
+    public void mostrarNotificacionCustomizada(Context context, String nombreCancion)
+    {
+        Notification notification = new Notification.Builder(context).
+                setContentTitle("Música")
+                .setContentText(nombreCancion)
+                .setSmallIcon(R.drawable.ic_small_music)
+                .setAutoCancel(true)
+                .build();
+//        notification.flags = Notification.FLAG_ONGOING_EVENT;
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notification);
+
+    }
+
+
     /**
      * Simple mEtodo que genera una notificación
      * en caso de haber perdido la sesión.

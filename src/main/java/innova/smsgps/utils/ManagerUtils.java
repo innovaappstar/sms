@@ -95,4 +95,9 @@ public class ManagerUtils implements IUtils {
         iUtils.showNotificacionMusic(context);
     }
 
+    @Override
+    public void mostrarNotificacionCustomizada(Context context, String nombreCancion) {
+        iUtils.mostrarNotificacionCustomizada(context, nombreCancion);
+    }
+
 }

@@ -43,4 +43,6 @@ public interface IUtils {
     public SparseArray<String> getCanciones();
 
     public void showNotificacionMusic(Context context);
+
+    public void mostrarNotificacionCustomizada(Context context, String nombreCancion);
 }

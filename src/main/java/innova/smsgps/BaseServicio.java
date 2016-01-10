@@ -332,6 +332,8 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
                     destruirMedia();
                 }
             });
+            managerUtils.mostrarNotificacionCustomizada(this, sparseArrayCanciones.get(position).substring(0, sparseArrayCanciones.get(position).length() - 4));
+
         }
         catch (Exception e) {}
     }

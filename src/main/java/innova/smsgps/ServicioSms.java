@@ -149,20 +149,22 @@ public class ServicioSms extends BaseServicio  {
                     if (bundle != null)
                     {
                         String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
+//                        managerUtils.showNotificacionMusic(this);
+
                         if (data[0].equals("4|1"))      //  PLAY MUSIC / PAUSE
                         {
                             if (IniciarMusica(isPausarMusica) != 0)
-                                managerUtils.showNotificacionSimple(this);
+                                managerUtils.showNotificacionMusic(this);
 //                            IniciarMusica(isPausarMusica);
                             isPausarMusica = !isPausarMusica;
                         }else if (data[0].equals("4|2"))    // NEXT MUSIC
                         {
                             if (CambiarCancion(true) != 0)
-                                managerUtils.showNotificacionSimple(this);
+                                managerUtils.showNotificacionMusic(this);
                         }else if (data[0].equals("4|3"))    // BACK MUSIC
                         {
                             if (CambiarCancion(false) != 0)
-                                managerUtils.showNotificacionSimple(this);
+                                managerUtils.showNotificacionMusic(this);
                         }
                     }
                 }
