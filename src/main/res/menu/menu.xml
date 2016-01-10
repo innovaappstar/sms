@@ -23,7 +23,13 @@
 
     <item android:id="@+id/PlayMusic"
         android:icon="@drawable/ic_menu_gps_small"
-        android:title="Play/Pause/Music" />
+        android:title="Play/Pause/Music" >
+        <menu>
+            <item android:id="@+id/toogleMusic" android:title="Play/Pause"></item>
+            <item android:id="@+id/nextMusic" android:title="Next Song"></item>
+            <item android:id="@+id/backMusic" android:title="Back Song"></item>
+        </menu>
+    </item>
 
     <item android:id="@+id/LLamadas"
         android:icon="@drawable/ic_menu_gps_small"

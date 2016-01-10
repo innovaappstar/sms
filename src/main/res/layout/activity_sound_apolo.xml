@@ -20,7 +20,7 @@
             <!--CONTENEDOR DEVICE - SUPERIOR-->
             <RelativeLayout
                 style="@style/StyleContenedorMenuBotones"
-                android:id="@+id/contenedorCamara"
+                android:id="@+id/contenedorMedia"
                 android:layout_marginTop="20dp" >
                 <ImageView
                     style="@style/StyleImgMenuBotones"
@@ -38,7 +38,7 @@
                 style="@style/StyleTextIndicadoresMenuOpciones"
                 android:id="@+id/txtInfoClick"
                 android:text="@string/infoMedia"
-                android:layout_below="@+id/contenedorCamara"/>
+                android:layout_below="@+id/contenedorMedia"/>
 
         </RelativeLayout>
         <!--CONTENEDOR DE DATOS DE PÉRFIL -->

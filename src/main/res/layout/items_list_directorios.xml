@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@drawable/shape_row_selector">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgDirectorioMusica"
+        android:background="@drawable/ic_folder_music"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_toRightOf="@+id/imgDirectorioMusica">
+
+        <TextView
+            style="@style/StyleTextoItem"
+            android:textColor="@color/gris_fuerte"
+            android:id="@+id/txtNombreDirectorio"
+            android:text="Nombre Directorio"/>
+        <TextView
+            style="@style/StyleTextoItem"
+            android:textSize="14sp"
+            android:id="@+id/txtNumeroArchivos"
+            android:text="Número Archivos :"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

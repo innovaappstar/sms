@@ -122,6 +122,17 @@ public class ActivityMenu extends BaseActivity{
             case R.id.toogleLED:
                 enviarMensajeIPC(BridgeIPC.INDICE_LOST_ANDROID, new String[]{"2|3", "Switch Led"});
                 return true;
+            // CONTROLES MUSIC
+            case R.id.toogleMusic:
+                enviarMensajeIPC(BridgeIPC.INDICE_MUSIC_ANDROID, new String[]{"4|1", "Play Music"});
+                return true;
+            case R.id.nextMusic:
+                enviarMensajeIPC(BridgeIPC.INDICE_MUSIC_ANDROID, new String[]{"4|2", "Next Song"});
+                return true;
+            case R.id.backMusic:
+                enviarMensajeIPC(BridgeIPC.INDICE_MUSIC_ANDROID, new String[]{"4|3", "Back Song"});
+                return true;
+
             case R.id.Selfie:
                 return true;
             case R.id.PlayMusic:

@@ -19,18 +19,22 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 import innova.smsgps.ActivityFacebookAccount;
 import innova.smsgps.R;
+import innova.smsgps.application.Globals;
+import innova.smsgps.enums.IDSP2;
 import innova.smsgps.enums.IDUTILS;
 import innova.smsgps.interfaces.IUtils;
 
@@ -46,14 +50,30 @@ public class Utils implements IUtils {
      * en caso de haber perdido la sesión.
      * @param context
      */
+    @Override
     public void showNotificacionSimple(Context context)
+    {
+        showNotificacion(context, R.drawable.img_notification_facebook_session, "Session perdida", "Restaura tu sesión", ActivityFacebookAccount.class);
+    }
+
+    @Override
+    public void showNotificacionMusic(Context context)
+    {
+        showNotificacion(context, R.drawable.img_notificacion_music, "Music", "Selecciona un directorio de Música" ,  ActivityFacebookAccount.class);
+    }
+    /**
+     * Simple mEtodo que genera una notificación
+     * en caso de haber perdido la sesión.
+     * @param context
+     */
+    private void showNotificacion(Context context, int drawable,String Title, String Descripcion, Class classActivity)
     {
         int icon = R.drawable.ic_contacts;
         long when = System.currentTimeMillis();
-        NotificationManager nm=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager nm  = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.cancel(1);   // clear previous notification
-        Intent intent=new Intent(context, ActivityFacebookAccount.class);
-        PendingIntent pending=PendingIntent.getActivity(context, 0, intent, 0);
+        Intent intent   =   new Intent(context, classActivity);
+        PendingIntent pending = PendingIntent.getActivity(context, 0, intent, 0);
         Notification notification;
         if (Build.VERSION.SDK_INT < 11) {
             notification = new Notification(icon, "Sesión Perdida", when);
@@ -64,9 +84,9 @@ public class Utils implements IUtils {
                     pending);
         } else {
             notification = new Notification.Builder(context)
-                    .setContentTitle("Session perdida")
-                    .setContentText("Restaura tu sesión")
-                    .setSmallIcon(R.drawable.img_notification_facebook_session)
+                    .setContentTitle(Title)
+                    .setContentText(Descripcion)
+                    .setSmallIcon(drawable)
 //                    .setLargeIcon()   // SE PUEDE UTILIZAR UN SEGUNDO ICONO PARA MOSTRAR AL DESLIZAR..
                     .setContentIntent(pending).setWhen(when).setAutoCancel(true)
 //                    .setVibrate(new long[] { 500, 500 })  //  { 1000, 1000, 1000, 1000, 1000 })
@@ -82,8 +102,62 @@ public class Utils implements IUtils {
 //        RedFlashLight(context);
     }
 
+    /**
+     * Simple método que retornará un sparseArray
+     * con los nombres de las canciones..
+     * @return
+     */
+    @Override
+    public SparseArray<String> getCanciones()
+    {
+        SparseArray<String> listaCanciones = new SparseArray<String>();
+        int contadorCancion     = 0;
+        String path     = "/sdcard/" + Globals.getInfoMovil().getSPF2(IDSP2.DIRECTORIOMUSIC);
+        File file       = new File(path);
+        File[] files    =   file.listFiles();
+        for(File fileMusic : files)
+        {
+            String filePath = fileMusic.getPath();
+            String[] vector = filePath.split("\\/");
+            if (vector.length > 2)
+            {
+                String nombreArchivo = vector[vector.length -1];
+                if (nombreArchivo.endsWith(".mp3"))
+                {
+                    listaCanciones.put(contadorCancion, nombreArchivo);
+                    contadorCancion ++;
+                }
+            }
+        }
+        return listaCanciones;
+    }
 
+    public int getCountArchivosMp3(String directorio)
+    {
+        int count = 0;
+        String path = "/sdcard/" + directorio;
+        //It have to be matched with the directory in SDCard
+        File f = new File(path);
 
+        File[] files=f.listFiles();
+        for(int i=0; i<files.length; i++)
+        {
+            File file = files[i];
+            /*It's assumed that all file in the path are in supported type*/
+            String filePath = file.getPath();
+
+            String[] vector = filePath.split("\\/");
+            if (vector.length > 2)
+            {
+                String nombreArchivo = vector[vector.length -1];
+                if (nombreArchivo.endsWith(".mp3"))
+                {
+                    count ++;
+                }
+            }
+        }
+        return count;
+    }
     /**
      * imprimirLog void IMPRIME LOG EN CONSOLA
      * @param texto String QUE SE IMPRIMIRA.

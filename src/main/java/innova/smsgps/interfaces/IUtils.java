@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.SparseArray;
 import android.view.View;
 
 import innova.smsgps.enums.IDUTILS;
@@ -39,4 +40,7 @@ public interface IUtils {
 
     public String getCountry(Context context);
 
+    public SparseArray<String> getCanciones();
+
+    public void showNotificacionMusic(Context context);
 }

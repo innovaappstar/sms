@@ -3,7 +3,6 @@ package innova.smsgps;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Messenger;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,7 +16,6 @@ import java.util.Date;
 
 import innova.smsgps.beans.Coordenada;
 import innova.smsgps.communication.BridgeIPC;
-import innova.smsgps.communication.IncomingIPC;
 import innova.smsgps.enums.IDSP1;
 import innova.smsgps.task.UpAlerta;
 
@@ -39,6 +37,7 @@ public class ServicioSms extends BaseServicio  {
     boolean isEnviado       = true;
     boolean isApagarLed     = true;
     private static ServicioCallback servicioCallback = null;
+    boolean isPausarMusica  = false;
 
     public interface ServicioCallback
     {
@@ -144,6 +143,28 @@ public class ServicioSms extends BaseServicio  {
 
                         }
                     }
+                }else if (message.arg1 == BridgeIPC.INDICE_MUSIC_ANDROID)
+                {
+                    Bundle bundle = message.getData();
+                    if (bundle != null)
+                    {
+                        String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
+                        if (data[0].equals("4|1"))      //  PLAY MUSIC / PAUSE
+                        {
+                            if (IniciarMusica(isPausarMusica) != 0)
+                                managerUtils.showNotificacionSimple(this);
+//                            IniciarMusica(isPausarMusica);
+                            isPausarMusica = !isPausarMusica;
+                        }else if (data[0].equals("4|2"))    // NEXT MUSIC
+                        {
+                            if (CambiarCancion(true) != 0)
+                                managerUtils.showNotificacionSimple(this);
+                        }else if (data[0].equals("4|3"))    // BACK MUSIC
+                        {
+                            if (CambiarCancion(false) != 0)
+                                managerUtils.showNotificacionSimple(this);
+                        }
+                    }
                 }
                 break;
             case MSG_SET_INT_VALOR:
@@ -159,7 +180,7 @@ public class ServicioSms extends BaseServicio  {
     @Override
     public void onCreate() {
         super.onCreate();
-        mMessenger =  new Messenger(new IncomingIPC(this));
+//        mMessenger =  new Messenger(new IncomingIPC(this));
     }
 
     @Override

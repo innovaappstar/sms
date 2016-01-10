@@ -5,17 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Environment;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.util.SparseArray;
 
+import innova.smsgps.application.Globals;
 import innova.smsgps.beans.Coordenada;
 import innova.smsgps.communication.IncomingIPC;
 import innova.smsgps.controlador.ControladorUbicacion;
+import innova.smsgps.enums.IDSP2;
 import innova.smsgps.infomovil.ManagerInfoMovil;
 import innova.smsgps.listener.TimerTarea;
 import innova.smsgps.utils.ManagerUtils;
@@ -48,6 +53,16 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
     Messenger mMessenger = null;
     Ringtone ringtone;
     Camera camera = null;
+
+    /**
+     * Sparse Array que contendra la posición y el nombre
+     * de las canciones..
+     */
+    SparseArray<String> sparseArrayCanciones = new SparseArray<String>();
+    int ContadorCancion = 0;
+    int TotalCanciones  = 0;
+    MediaPlayer mediaPlayer;
+    boolean isMedia     = false;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -143,8 +158,19 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
         ringtone            = RingtoneManager.getRingtone(getApplicationContext(), notification);
 //        IniciarLocalizacion();
         mMessenger =  new Messenger(new IncomingIPC(this));
-
+        instanciarMedia();
 //        if (MacAddress.length() > 1)
+    }
+    private void instanciarMedia()
+    {
+        mediaPlayer = new  MediaPlayer();
+        isMedia = true;
+    }
+    private void destruirMedia()
+    {
+        mediaPlayer.release();
+        mediaPlayer     = null;
+        isMedia         = false;
     }
 
     @Override
@@ -223,6 +249,110 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
         {
             camera.startPreview();
         }
+    }
+
+    /**
+     * Simple método para hacer un switch del
+     * led de la cámara..
+     * @param isPause
+     */
+    public int IniciarMusica(boolean isPause) {
+
+        if (validarExistenciaArchivos() != 0)
+            return -1;
+        // AQUI YA SUPONEMOS QUE SE CARGARON LAS CANCIONES CORRECTAMENTE .. PROCEDEMOS A REPRODUCIR/PAUSAR
+        reproducirMusica(ContadorCancion, isPause);
+        return 0;
+    }
+
+    /**
+     * Esta función validará si el sparse array ya contiene las canciones
+     * ó realizará su primera carga si aún no lo ha hecho..
+     * @return 0 OK , -1 ocurrió un error..
+     */
+    private int validarExistenciaArchivos()
+    {
+        TotalCanciones = getTotalCanciones();
+
+        if (TotalCanciones < 1)
+        {
+            if (cargarMusica() != 0)
+                return -1;  // No se pudieron cargar las canciones..
+        }
+        return 0;
+    }
+
+
+    public int CambiarCancion(boolean isNext)
+    {
+        if (validarExistenciaArchivos() != 0)
+            return -1;
+
+        if (isNext && ContadorCancion < getTotalCanciones())
+        {
+            ContadorCancion++;
+            // Mandamos a reproducir las canciones.. previa validación
+            reproducirMusica(ContadorCancion, false);
+        }
+        else if (!isNext && ContadorCancion >= 1)
+        {
+            ContadorCancion--;
+            // Mandamos a reproducir las canciones.. previa validación
+            reproducirMusica(ContadorCancion, false);
+        }
+
+        return 0;
+    }
+
+    private void reproducirMusica(int position, boolean isPause)
+    {
+        System.gc();
+        try
+        {
+            if (mediaPlayer != null && isMedia && isPause)
+            {
+                destruirMedia();
+                return; // SETEAMOS NULL Y DETENEMOS MÉTODO
+            }
+
+            if (mediaPlayer == null && !isMedia)
+                instanciarMedia();
+
+            if (mediaPlayer.isPlaying())
+            {
+                mediaPlayer.reset();
+            }
+            String filePath = getPathDirectory() + sparseArrayCanciones.get(position);
+            mediaPlayer.setDataSource(filePath);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    destruirMedia();
+                }
+            });
+        }
+        catch (Exception e) {}
+    }
+
+    private String getPathDirectory()
+    {
+//        String filePath = Environment.getExternalStorageDirectory()+"/" + getNombreDirectorio() + "/DePlasticoVerde  Adivinanzas  [ VideoClip Oficial ].mp3";
+        return Environment.getExternalStorageDirectory() + "/" + Globals.getInfoMovil().getSPF2(IDSP2.DIRECTORIOMUSIC) + "/";
+    }
+    private int cargarMusica()
+    {
+        sparseArrayCanciones = managerUtils.getCanciones();
+        TotalCanciones = getTotalCanciones();
+        if (TotalCanciones < 1)
+            return -1;
+        return 0;
+    }
+
+    private int getTotalCanciones()
+    {
+        return sparseArrayCanciones.size() -1;
     }
 
 

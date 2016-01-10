@@ -18,7 +18,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -289,8 +288,4 @@ public class ActivityConfigListaContactos extends BaseActivity {
 //
 //    }
 
-    private void imprimitToast(String data)
-    {
-        Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
-    }
 }
