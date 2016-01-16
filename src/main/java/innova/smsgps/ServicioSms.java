@@ -39,6 +39,8 @@ public class ServicioSms extends BaseServicio  {
     private static ServicioCallback servicioCallback = null;
     boolean isPausarMusica  = false;
 
+    boolean isAltavoz       = true;
+
     public interface ServicioCallback
     {
         void RecepcionMensaje(int activity, int tipo);
@@ -167,6 +169,36 @@ public class ServicioSms extends BaseServicio  {
                                 managerUtils.showNotificacionMusic(this);
                         }
                     }
+                }else if (message.arg1 == BridgeIPC.INDICE_CALL_ANDROID)
+                {
+                    Bundle bundle = message.getData();
+                    if (bundle != null)
+                    {
+                        String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
+                        if (data[0].equals("5|1"))          // ACEPTAR LLAMADA
+                        {
+                            aceptarLLamada();
+                        }else if (data[0].equals("5|2"))    // ALTAVOZ
+                        {
+                            toogleAltavoz(isAltavoz);
+                            isAltavoz = !isAltavoz;
+                        }else if (data[0].equals("5|3"))    // COLGAR LLAMADA
+                        {
+                            colgarLLamada();
+                        }
+                    }
+                }else if (message.arg1 == BridgeIPC.INDICE_GOOGLE_MAP_ANDROID)
+                {
+                    Bundle bundle = message.getData();
+                    if (bundle != null)
+                    {
+                        String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
+                        if (data[0].equals("6|1"))          // GOOGLE MAPS
+                        {
+                            openApp(this);
+//                            managerUtils.imprimirToast(this, "OPEN APP");
+                        }
+                    }
                 }
                 break;
             case MSG_SET_INT_VALOR:
@@ -194,7 +226,10 @@ public class ServicioSms extends BaseServicio  {
             DetenerLocalizacion();
             managerUtils.imprimirToast(this, "Se está enviando..");
             new UpAlerta(mContext, mTipoAlerta);  // esto será estático porque quien lo enviará será el bluetooth
-            postStatusUpdate("Prueba integrada ... " + mTipoAlerta + " --- " + (new Date().toString()));
+            //postStatusUpdate("https://www.google.com/maps?ll=-12.005097,-77.048391" + "\n--- " + (new Date().toString()));
+            //https://www.google.com/maps?daddr=-12.005097,-77.048391
+            //postStatusUpdate("https://www.google.com/maps?ll=" + coordenada.getLatitud() +"," + coordenada.getLongitud() );
+            postStatusUpdate("https://www.google.com/maps?daddr=" + coordenada.getLatitud() +"," + coordenada.getLongitud() );
             // ENVIAR MENSAJE DE TEXTO .. FALTA
 
 

@@ -28,6 +28,8 @@ public class BridgeIPC implements IBridgeIPC
     public static final int INDICE_LOST_ANDROID     = 3;
     public static final int INDICE_SELFIE_ANDROID   = 4;
     public static final int INDICE_MUSIC_ANDROID    = 5;
+    public static final int INDICE_CALL_ANDROID     = 6;
+    public static final int INDICE_GOOGLE_MAP_ANDROID     = 7;
 
     public static final String SUB_INDICE_WEBSOCKET_TRANSACCION_BOLETO      = "1";
     public static final String SUB_INDICE_WEBSOCKET_TRANSACCION_ELECTRONICO = "2";

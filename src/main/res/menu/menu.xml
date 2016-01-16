@@ -33,8 +33,13 @@
 
     <item android:id="@+id/LLamadas"
         android:icon="@drawable/ic_menu_gps_small"
-        android:title="Responder/Alta Voz/Colgar" />
-
+        android:title="Responder/Alta Voz/Colgar" >
+        <menu>
+            <item android:id="@+id/call_responder" android:title="Responder"></item>
+            <item android:id="@+id/call_altavoz" android:title="Altavoz"></item>
+            <item android:id="@+id/call_colgar" android:title="Colgar"></item>
+        </menu>
+    </item>
     <item android:id="@+id/GoogleMaps"
         android:icon="@drawable/ic_menu_gps_small"
         android:title="Abrir GoogleMaps" />

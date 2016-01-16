@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -14,7 +15,15 @@ import android.os.Environment;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.telephony.TelephonyManager;
 import android.util.SparseArray;
+import android.view.KeyEvent;
+
+import com.android.internal.telephony.ITelephony;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Locale;
 
 import innova.smsgps.application.Globals;
 import innova.smsgps.beans.Coordenada;
@@ -359,11 +368,88 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
 
 
 
+    int contador =0;
     @Override
     public void TimerTareaExecute()
     {
         //Log.i("smsgps", "de Nuevo");
+//        if (contador == 20)
+//        {
+//            Intent buttonUp = new Intent(Intent.ACTION_MEDIA_BUTTON);
+//            buttonUp.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_HEADSETHOOK));
+//            sendOrderedBroadcast(buttonUp, "android.permission.CALL_PRIVILEGED");
+//            managerUtils.imprimirToast(this, "UP");
+////            contador = 0;
+//        }
+
+        contador ++;
     }
 
+    /**
+     * Simple función para aceptar llamada..
+     */
+    public void aceptarLLamada()
+    {
+        Intent buttonUp = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        buttonUp.putExtra(Intent.EXTRA_KEY_EVENT, new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_HEADSETHOOK));
+        sendOrderedBroadcast(buttonUp, "android.permission.CALL_PRIVILEGED");
+    }
+
+
+    /**
+     * Simple método para colgar una llamada...
+     */
+    public void colgarLLamada()
+    {
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        Class clazz = null;
+        try {
+            clazz = Class.forName(telephonyManager.getClass().getName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Method method = null;
+        try {
+            method = clazz.getDeclaredMethod("getITelephony");
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        method.setAccessible(true);
+        ITelephony telephonyService = null;
+        try {
+            telephonyService = (ITelephony) method.invoke(telephonyManager);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        telephonyService.endCall();
+    }
+
+    /**
+     * Simple función para intercambiar parlante / audífono
+     * @param isAltavoz boolean
+     */
+    public void toogleAltavoz (boolean isAltavoz)
+    {
+        AudioManager audioManager =  (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setMode(AudioManager.MODE_IN_CALL);
+        audioManager.setSpeakerphoneOn(isAltavoz);
+    }
+
+    /** Open another app.
+     * @param context current Context, like Activity, App, or Service
+     * @return true if likely successful, false if unsuccessful
+     */
+    public static void openApp(Context context)
+    {
+
+//        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?daddr=%f,%f (%s)", 37.827500, -122.481670, "Where the party is at");
+        String uri = String.format(Locale.ENGLISH, "http://maps.google.com/maps?");
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 
 }

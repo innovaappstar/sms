@@ -132,14 +132,21 @@ public class ActivityMenu extends BaseActivity{
             case R.id.backMusic:
                 enviarMensajeIPC(BridgeIPC.INDICE_MUSIC_ANDROID, new String[]{"4|3", "Back Song"});
                 return true;
-
             case R.id.Selfie:
                 return true;
             case R.id.PlayMusic:
                 return true;
-            case R.id.LLamadas:
+            case R.id.call_responder:
+                enviarMensajeIPC(BridgeIPC.INDICE_CALL_ANDROID, new String[]{"5|1", "Responder LLamadas"});
+                return true;
+            case R.id.call_altavoz:
+                enviarMensajeIPC(BridgeIPC.INDICE_CALL_ANDROID, new String[]{"5|2", "Altavoz"});
+                return true;
+            case R.id.call_colgar:
+                enviarMensajeIPC(BridgeIPC.INDICE_CALL_ANDROID, new String[]{"5|3", "Colgar LLamada"});
                 return true;
             case R.id.GoogleMaps:
+                enviarMensajeIPC(BridgeIPC.INDICE_GOOGLE_MAP_ANDROID, new String[]{"6|1", "Open Google Map"});
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
