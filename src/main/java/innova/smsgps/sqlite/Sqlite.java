@@ -98,7 +98,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
             + KeyDescripcion            + " TEXT NOT NULL,"
             + KeyIdTipoDenuncia         + " INTEGER NOT NULL,"
             + KeyNickUsuario            + " TEXT NOT NULL,"
-            + KeyImagenDenuncia         + " BLOB,"
+            + KeyImagenDenuncia         + " TEXT NOT NULL,"
             + KeyFlagServidor           + " INTEGER DEFAULT '0'"
             + ")";
 
@@ -210,7 +210,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                     stmt.bindString(3, registroDenuncias.getFechaHora());
                     stmt.bindString(4, registroDenuncias.getDescripcion());
                     stmt.bindLong(5, Integer.valueOf(registroDenuncias.getIdTipoDenuncia()));
-                    stmt.bindBlob(6, registroDenuncias.getImgDenuncia());
+                    stmt.bindString(6, registroDenuncias.getImgDenuncia());
                     stmt.bindString (7, registroDenuncias.getNickUsuario());
                     stmt.execute();
                     stmt.clearBindings();
@@ -490,7 +490,7 @@ public class Sqlite extends SQLiteOpenHelper implements ISqlite {
                             registroDenuncias.setDescripcion(cursor.getString(1));
                             registroDenuncias.setIdTipoDenuncia(cursor.getString(2));
                             registroDenuncias.setIdFacebookSqlite(cursor.getString(3));
-                            registroDenuncias.setImgDenuncia(cursor.getBlob(4));    // byte
+                            registroDenuncias.setImgDenuncia(cursor.getString(4));    // PATH
                             registroDenuncias.setFlagServidorSqlite(cursor.getString(5));
                             list.add(registroDenuncias);
                             cursor.moveToNext();

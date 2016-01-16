@@ -3,6 +3,10 @@ package innova.smsgps;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import innova.smsgps.beans.Coordenada;
 import innova.smsgps.communication.ManagerBridgeIPC;
 import innova.smsgps.infomovil.ManagerInfoMovil;
 import innova.smsgps.listener.TimerTarea;
@@ -26,6 +30,7 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
     private ManagerBridgeIPC managerBridgeIPC   = null;     // PUENTE DE COMUNICACIÓN ENTRE PROCEDOS.
 
     Httppostaux post;
+    ImageLoader imageLoader     = ImageLoader.getInstance();
 
     /**
      * Habilita sistema NFC en primer plano.
@@ -49,6 +54,7 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
         managerSqlite       = new ManagerSqlite(this);
         post                = new Httppostaux();
         managerBridgeIPC    = new ManagerBridgeIPC(this);
+        imageLoader.init(ImageLoaderConfiguration.createDefault(this));
 
     }
 
@@ -96,5 +102,8 @@ public abstract class BaseActivity extends Activity implements TimerTarea.TimerT
 
     @Override
     public void RecepcionMensaje(int activity, int tipo) {}
+
+    @Override
+    public void RecepcionCoordenadas(int activity, Coordenada coordenada) {}
 
 }

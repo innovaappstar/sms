@@ -17,6 +17,7 @@ import com.facebook.widget.ProfilePictureView;
 import java.util.Arrays;
 
 import innova.smsgps.application.Globals;
+import innova.smsgps.enums.IDSP2;
 
 
 /**
@@ -137,7 +138,7 @@ public class ActivityFacebookAccount extends BaseActivity{
 
         if (user != null) {
 //            pictureProfile.setProfileId(user.getId());
-//            Globals.getInfoMovil().setSpf2(IDSP2.IDFACEBOOK, String.valueOf(user.getId()));
+            Globals.getInfoMovil().setSpf2(IDSP2.IDFACEBOOK, String.valueOf(user.getId()));
 //            managerUtils.imprimirToast(this, "Te damos la bienvenida \n" + user + "\n a AlertaSms");
             profilePictureView.setProfileId(user.getId());
             lblProfileNameUser.setText("Hola\n" + user.getName());

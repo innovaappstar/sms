@@ -82,7 +82,7 @@ public class ActivityMenuOpciones extends BaseActivity{
                 intent = new Intent(this, ActivityMapaAlertas.class);
                 break;
             case R.id.contenedor_denuncias:
-                managerUtils.imprimirToast(this, "denuncias");
+                intent = new Intent(this, ActivityCameraDenuncia.class);
                 break;
 
         }

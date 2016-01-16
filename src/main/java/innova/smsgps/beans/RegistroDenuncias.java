@@ -16,7 +16,8 @@ public class RegistroDenuncias extends Ubicacion
 
     String Descripcion;
     String IdTipoDenuncia;
-    byte[] ImgDenuncia;
+    String ImgDenuncia;
+//    byte[] ImgDenuncia;
 //    public static Bitmap ImgDenunciabmp;
 
 
@@ -44,11 +45,11 @@ public class RegistroDenuncias extends Ubicacion
         FlagServidorSqlite = flagServidorSqlite;
     }
 
-    public byte[] getImgDenuncia() {
+    public String getImgDenuncia() {
         return ImgDenuncia;
     }
 
-    public void setImgDenuncia(byte[] imgDenuncia) {
+    public void setImgDenuncia(String imgDenuncia) {
         ImgDenuncia = imgDenuncia;
     }
 

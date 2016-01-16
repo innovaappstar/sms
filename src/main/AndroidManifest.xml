@@ -52,7 +52,9 @@
     <activity android:name=".SmsActivity">
         </activity>
         <activity android:name=".ActivityListaDispositivosBluetooth"/>
+        <activity android:name=".ActivityCameraDenuncia"/>
         <activity android:name=".ActivityGrabarVideo"/>
+        <activity android:name=".ActivityDenunciaRegistroUpload"/>
         <activity android:name=".ActivitySelfieOpciones"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"

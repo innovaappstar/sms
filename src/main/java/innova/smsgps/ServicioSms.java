@@ -35,6 +35,9 @@ public class ServicioSms extends BaseServicio  {
      **/
     int mTipoAlerta     = 0;
     boolean isEnviado       = true;
+    int mUsoLocalizacion    = 0;
+    public static int ALERTA    = 1;
+    public static int DENUNCIA  = 2;
     boolean isApagarLed     = true;
     private static ServicioCallback servicioCallback = null;
     boolean isPausarMusica  = false;
@@ -44,6 +47,7 @@ public class ServicioSms extends BaseServicio  {
     public interface ServicioCallback
     {
         void RecepcionMensaje(int activity, int tipo);
+        void RecepcionCoordenadas(int activity, Coordenada coordenada);
     }
 
 
@@ -102,7 +106,8 @@ public class ServicioSms extends BaseServicio  {
                         {
                             mTipoAlerta = managerInfoMovil.getSPF1(IDSP1.BEEP3);
                         }
-                        isEnviado = false;
+                        isEnviado           = false;
+                        mUsoLocalizacion    = ALERTA;
                         IniciarLocalizacion();
 //                        new UpAlerta(mContext, mTipoAlerta);  // esto será estático porque quien lo enviará será el bluetooth
 //                        postStatusUpdate("Prueba integrada ... " + mTipoAlerta + " --- " + (new Date().toString()));
@@ -199,6 +204,18 @@ public class ServicioSms extends BaseServicio  {
 //                            managerUtils.imprimirToast(this, "OPEN APP");
                         }
                     }
+                }else if (message.arg1 == BridgeIPC.INDICE_DENUNCIA_ANDROID)
+                {
+                    Bundle bundle = message.getData();
+                    if (bundle != null)
+                    {
+                        String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
+                        if (data[0].equals("7|1"))          // OBTENER COORDENADAS
+                        {
+                            IniciarLocalizacion();
+                            mUsoLocalizacion    = DENUNCIA;
+                        }
+                    }
                 }
                 break;
             case MSG_SET_INT_VALOR:
@@ -220,20 +237,30 @@ public class ServicioSms extends BaseServicio  {
     @Override
     public void getCoordenada(Coordenada coordenada)
     {
-        if (!isEnviado)
+        if (mUsoLocalizacion == ALERTA)
         {
-            isEnviado   = true;
+            if (!isEnviado)
+            {
+                isEnviado   = true;
+                DetenerLocalizacion();
+                managerUtils.imprimirToast(this, "Se está enviando..");
+                new UpAlerta(mContext, mTipoAlerta);  // esto será estático porque quien lo enviará será el bluetooth
+                //postStatusUpdate("https://www.google.com/maps?ll=-12.005097,-77.048391" + "\n--- " + (new Date().toString()));
+                //https://www.google.com/maps?daddr=-12.005097,-77.048391
+                //postStatusUpdate("https://www.google.com/maps?ll=" + coordenada.getLatitud() +"," + coordenada.getLongitud() );
+                postStatusUpdate("https://www.google.com/maps?daddr=" + coordenada.getLatitud() +"," + coordenada.getLongitud() );
+                mUsoLocalizacion    = 0;
+                // ENVIAR MENSAJE DE TEXTO .. FALTA
+
+            }
+        }else if (mUsoLocalizacion == DENUNCIA)
+        {
+            managerUtils.imprimirToast(this, "OBTENER COORDENADAS");
+            servicioCallback.RecepcionCoordenadas(3, coordenada);   // ACTIVITYDENUNCIAREGISTROUPLOAD.JAVA
             DetenerLocalizacion();
-            managerUtils.imprimirToast(this, "Se está enviando..");
-            new UpAlerta(mContext, mTipoAlerta);  // esto será estático porque quien lo enviará será el bluetooth
-            //postStatusUpdate("https://www.google.com/maps?ll=-12.005097,-77.048391" + "\n--- " + (new Date().toString()));
-            //https://www.google.com/maps?daddr=-12.005097,-77.048391
-            //postStatusUpdate("https://www.google.com/maps?ll=" + coordenada.getLatitud() +"," + coordenada.getLongitud() );
-            postStatusUpdate("https://www.google.com/maps?daddr=" + coordenada.getLatitud() +"," + coordenada.getLongitud() );
-            // ENVIAR MENSAJE DE TEXTO .. FALTA
-
-
+            mUsoLocalizacion    = 0;
         }
+
 //        Toast.makeText(mContext, coordenada._getLatitud() + "|" + coordenada._getLongitud(), Toast.LENGTH_SHORT).show();
     }
 
