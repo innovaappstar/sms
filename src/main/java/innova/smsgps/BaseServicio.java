@@ -169,6 +169,7 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
         mMessenger =  new Messenger(new IncomingIPC(this));
         instanciarMedia();
 //        if (MacAddress.length() > 1)
+//        managerUtils.imprimirToast(this, "OnCreate SMSS");
     }
     private void instanciarMedia()
     {

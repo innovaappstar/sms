@@ -255,7 +255,7 @@ public class ServicioSms extends BaseServicio  {
             }
         }else if (mUsoLocalizacion == DENUNCIA)
         {
-            managerUtils.imprimirToast(this, "OBTENER COORDENADAS");
+//            managerUtils.imprimirToast(this, "OBTENER COORDENADAS");
             servicioCallback.RecepcionCoordenadas(3, coordenada);   // ACTIVITYDENUNCIAREGISTROUPLOAD.JAVA
             DetenerLocalizacion();
             mUsoLocalizacion    = 0;
@@ -335,7 +335,7 @@ public class ServicioSms extends BaseServicio  {
                                 managerUtils.showNotificacionSimple(mContext);
                             }else
                             {
-                                managerUtils.imprimirToast(mContext, "Se actualizo correctamente");
+                                managerUtils.imprimirToast(mContext, "Estado de facebook actualizado.");
 //                                managerUtils.imprimirToast(mContext, response.toString());
                             }
 

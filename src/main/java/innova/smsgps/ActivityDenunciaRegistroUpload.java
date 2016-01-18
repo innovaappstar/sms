@@ -128,7 +128,7 @@ public class ActivityDenunciaRegistroUpload extends BaseActivity {
                 {
                     managerUtils.imprimirToast(this, "No hay coordenadas gps..");
                     enviarMensajeIPC(BridgeIPC.INDICE_DENUNCIA_ANDROID, new String[]{"7|1", "DENUNCIA"});
-//                    return;
+                    return;
                 }
 //                managerUtils.imprimirToast(this, getCodigoBeep(spinner) + " << Código beep");
 
@@ -249,7 +249,7 @@ public class ActivityDenunciaRegistroUpload extends BaseActivity {
         if (activity == 3)
         {
             isExistenCoordenadas = true;
-            managerUtils.imprimirToast(this, "Se recibieron coordenadas : " + coordenada._getLatitud());
+//            managerUtils.imprimirToast(this, "Se recibieron coordenadas : " + coordenada._getLatitud());
         }
     }
 
