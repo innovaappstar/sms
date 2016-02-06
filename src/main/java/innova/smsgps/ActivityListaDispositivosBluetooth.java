@@ -98,8 +98,11 @@ public class ActivityListaDispositivosBluetooth extends Activity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String valor = (String)parent.getItemAtPosition(position);
-                        imprimitToast(valor);
-                        connectDevice(valor);
+                        ServicioSms.connectDevice(valor);
+//                        imprimitToast(valor);
+//                        connectDevice(valor);
+
+
                     }
                 });
             }

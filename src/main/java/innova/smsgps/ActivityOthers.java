@@ -84,6 +84,9 @@ public class ActivityOthers extends BaseActivity{
             case R.id.img_add_button_config_beeps:
                 intent = new Intent(this, ActivityConfigBeeps.class);
                 break;
+            case R.id.img_add_button_bluetooth:
+                intent  = new Intent(this, ActivityListaDispositivosBluetooth.class);
+                break;
 
         }
 

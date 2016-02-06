@@ -1,5 +1,8 @@
 package innova.smsgps;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,9 +13,12 @@ import com.facebook.Request;
 import com.facebook.Response;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Date;
+import java.util.UUID;
 
 import innova.smsgps.beans.Coordenada;
 import innova.smsgps.communication.BridgeIPC;
@@ -28,7 +34,6 @@ public class ServicioSms extends BaseServicio  {
     /**
      * Instancias bluetooth y objetos.
      */
-    static InputStream mmInputStream;
     static Handler mHandler = new Handler();
     /**
      * Tipo Alerta que se enviará al servidor..
@@ -231,6 +236,7 @@ public class ServicioSms extends BaseServicio  {
     @Override
     public void onCreate() {
         super.onCreate();
+        managerUtils.imprimirToast(mContext, "onCreate");
 //        mMessenger =  new Messenger(new IncomingIPC(this));
     }
 
@@ -264,7 +270,29 @@ public class ServicioSms extends BaseServicio  {
 //        Toast.makeText(mContext, coordenada._getLatitud() + "|" + coordenada._getLongitud(), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Instancias bluetooth y objetos.
+     */
+    static OutputStream mmOutputStream;
+    static InputStream mmInputStream;
 
+    /************* Funciones Bluetooth ***************/
+    public static void connectDevice(String address){
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
+        try {
+            managerUtils.imprimirToast(mContext, "connectDevice()..");
+            UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //Standard SerialPortService ID
+            BluetoothSocket mmSocket = device.createRfcommSocketToServiceRecord(uuid);
+            mmSocket.connect();
+            mmOutputStream = mmSocket.getOutputStream();
+            mmInputStream = mmSocket.getInputStream();
+            escuchar();
+        }
+        catch (  IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     static BufferedReader r = null;
     static String mSalida="";

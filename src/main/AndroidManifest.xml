@@ -51,7 +51,12 @@
 
     <activity android:name=".SmsActivity">
         </activity>
-        <activity android:name=".ActivityListaDispositivosBluetooth"/>
+        <activity android:name=".ActivityListaDispositivosBluetooth">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".ActivityCameraDenuncia"/>
         <activity android:name=".ActivityGrabarVideo"/>
         <activity android:name=".ActivityDenunciaRegistroUpload"/>
@@ -116,10 +121,7 @@
             android:theme="@style/MyTheme" />
         <activity android:name=".ActivitySplash"
             android:configChanges="orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
         <activity android:name=".ActivityBienvenidaInfoAplicativo"/>
         <activity android:name=".ActivityBienvenidaInfoGps"/>
