@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TextView
+            style="@style/StyleTextoSplash"
+            android:id="@+id/txtPaso"
+            android:layout_marginTop="30dp"
+            android:textSize="34sp"
+            android:textColor="@color/black"
+            android:text="Autenticación"/>
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:layout_below="@+id/txtPaso"
+            android:id="@+id/txtDetallePaso"
+            android:layout_centerInParent="true"
+            android:textColor="@color/gris_fuerte"
+            android:text="Autenticate con facebook"/>
+
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:id="@+id/txtDetalleAplicativo"
+            android:layout_below="@+id/txtDetallePaso"
+            android:textColor="@color/gris_suave_texto"
+            android:text="Tu sesión aún no ha sido iniciada o se perdió.\nPorfavor autenticate nuevamente."/>
+
+        <ImageView
+            android:layout_margin="20dp"
+            android:layout_above="@+id/login_button"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sticker_bun_medium"/>
+
+
+        <com.facebook.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            facebook:confirm_logout="false"
+            facebook:fetch_user_info="true"
+            />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

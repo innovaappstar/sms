@@ -12,7 +12,7 @@
         android:textSize="18sp"
         android:layout_marginBottom="20dp"
         android:layout_above="@+id/contenedor_device"
-        android:text="To connect please click 5 times\nthe location icon on your phone"/>
+        android:text="To connect please click 5 times\nthe location icon on your phone" />
 
     <!--CONTENEDOR DEVICE - SUPERIOR-->
     <RelativeLayout

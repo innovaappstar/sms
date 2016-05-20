@@ -81,7 +81,7 @@ public class SmsActivity extends Activity implements TimerTarea.TimerTareaCallba
             case R.id.btnBluetooth:
                 //ServicioSms.AsynTaskOrden AsynkOrden = new ServicioSms.AsynTaskOrden();
                 //AsynkOrden.execute(Ordenes[0]);
-                ServicioSms.escuchar();
+//                ServicioSms.escuchar();
                 break;
         }
     }

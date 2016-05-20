@@ -112,6 +112,7 @@ public class ActivityMenu extends BaseActivity{
             case R.id.compartirUbicacion:
                 enviarMensajeIPC(BridgeIPC.INDICE_LOCATION, new String[]{"1|1", "Bye Mundo"});
                 //managerUtils.imprimirToast(this, "Locación");
+//                finish();
                 return true;
             case R.id.iniciarSound:
                 enviarMensajeIPC(BridgeIPC.INDICE_LOST_ANDROID, new String[]{"2|1", "Iniciar Sonido"});

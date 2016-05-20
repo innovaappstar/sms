@@ -1,15 +1,18 @@
 package innova.smsgps;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.facebook.LoggingBehavior;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
+import com.facebook.Settings;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.ProfilePictureView;
@@ -38,6 +41,8 @@ public class ActivityFacebookAccount extends BaseActivity{
 
     innova.smsgps.beans.Session sessionbeans = new innova.smsgps.beans.Session();
 
+    // id del activityForResult...
+    public static int ACTIVITY_FOR_RESULT_AUTENTICACION_FACEBOOK = 1;
 
     //region guardado y lectura de instancias guardadas.
 
@@ -48,6 +53,7 @@ public class ActivityFacebookAccount extends BaseActivity{
         super.onCreate(savedInstanceState);
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Settings.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
         uiHelper = new UiLifecycleHelper(this, callback);
         uiHelper.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facebook_account_apolo);
@@ -60,7 +66,7 @@ public class ActivityFacebookAccount extends BaseActivity{
     {
         Log.d("FACEBOOK", "performFacebookLogin");
         final Session.NewPermissionsRequest newPermissionsRequest = new Session.NewPermissionsRequest(this, Arrays.asList("email"));
-        Session openActiveSession = Session.openActiveSession(this, true, new Session.StatusCallback() {
+        openActiveSession = Session.openActiveSession(this, true, new Session.StatusCallback() {
             @Override
             public void call(Session session, SessionState state, Exception exception) {
                 Log.d("FACEBOOK", "call");
@@ -79,18 +85,35 @@ public class ActivityFacebookAccount extends BaseActivity{
                                 updateUI();
 
                             }
+                            managerUtils.imprimirLog("onCompleted : " + response.toString());
                         }
                     });
                     getMe.executeAsync();
-                } else {
+                } else
+                {
+//                    managerUtils.imprimirLog("-----FRACASÓ-------\n"+ exception.getMessage());
                     if (!session.isOpened())
                         Log.d("FACEBOOK", "!session.isOpened()");
                     else
                         Log.d("FACEBOOK", "isFetching");
 
+                    cerrarIntentoConexion();
+                    // iniciamos actividad esperando respuesta...
+//                    startActivityForResult(new Intent(ActivityFacebookAccount.this, ActivityAutenticationFacebook.class), ACTIVITY_FOR_RESULT_AUTENTICACION_FACEBOOK);
+
+
                 }
             }
         });
+    }
+
+    Session openActiveSession ;
+    private void cerrarIntentoConexion()
+    {
+        if (openActiveSession != null)
+            openActiveSession.close();
+        startActivity(new Intent(ActivityFacebookAccount.this, ActivityAutenticationFacebook.class));
+        finish();
     }
 
 
@@ -107,6 +130,7 @@ public class ActivityFacebookAccount extends BaseActivity{
         }
     };
 
+    //region ciclos
     @Override
     public void onResume()
     {
@@ -124,6 +148,7 @@ public class ActivityFacebookAccount extends BaseActivity{
         super.onDestroy();
         uiHelper.onDestroy();
     }
+    //endregion
 
     @Override
     public void listenerTimer() {
@@ -133,7 +158,8 @@ public class ActivityFacebookAccount extends BaseActivity{
     /**Manejado para acciones pendientes.*/
 
     /**Actualizaci�n de detalles de vista (Nombres , etc)*/
-    private void updateUI() {
+    private void updateUI()
+    {
         sessionbeans.getSession().getActiveSession();
 
         if (user != null) {

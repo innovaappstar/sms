@@ -21,7 +21,7 @@
             <!--CONTENEDOR DEVICE - SUPERIOR-->
             <RelativeLayout
                 style="@style/StyleContenedorMenuBotones"
-                android:id="@+id/contenedor_gps"
+                android:id="@+id/contenedor_other"
                 android:layout_marginTop="20dp" >
                 <ImageView
                     style="@style/StyleImgMenuBotones"
@@ -39,7 +39,7 @@
                 style="@style/StyleTextIndicadoresMenuOpciones"
                 android:id="@+id/txtInfoClick"
                 android:text="@string/infoConfigure"
-                android:layout_below="@+id/contenedor_gps"/>
+                android:layout_below="@+id/contenedor_other"/>
 
         </RelativeLayout>
         <!--CONTENEDOR DE DATOS DE PÉRFIL -->

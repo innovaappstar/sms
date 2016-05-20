@@ -20,9 +20,12 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.UUID;
 
+import innova.smsgps.application.Globals;
 import innova.smsgps.beans.Coordenada;
 import innova.smsgps.communication.BridgeIPC;
+import innova.smsgps.constantes.Constantes;
 import innova.smsgps.enums.IDSP1;
+import innova.smsgps.enums.IDSP2;
 import innova.smsgps.task.UpAlerta;
 
 /**
@@ -38,7 +41,7 @@ public class ServicioSms extends BaseServicio  {
     /**
      * Tipo Alerta que se enviará al servidor..
      **/
-    int mTipoAlerta     = 0;
+    static int mTipoAlerta     = 0;
     boolean isEnviado       = true;
     int mUsoLocalizacion    = 0;
     public static int ALERTA    = 1;
@@ -48,6 +51,13 @@ public class ServicioSms extends BaseServicio  {
     boolean isPausarMusica  = false;
 
     boolean isAltavoz       = true;
+
+
+    /**
+     * contadores auxiliares
+     */
+    private int contadorConectarseConBluetooth = 0;
+
 
     public interface ServicioCallback
     {
@@ -221,6 +231,15 @@ public class ServicioSms extends BaseServicio  {
                             mUsoLocalizacion    = DENUNCIA;
                         }
                     }
+                }else if (message.arg1 == BridgeIPC.INDICE_CONECTARSE_BLUETOOTH)
+                {
+                    Bundle bundle = message.getData();
+                    if (bundle != null)
+                    {
+//                        String[] data = bundle.getStringArray(BridgeIPC.NOMBRE_BUNDLE);
+                        connectDevice();
+                        managerUtils.imprimirToast(this, "conectando..");
+                    }
                 }
                 break;
             case MSG_SET_INT_VALOR:
@@ -270,34 +289,72 @@ public class ServicioSms extends BaseServicio  {
 //        Toast.makeText(mContext, coordenada._getLatitud() + "|" + coordenada._getLongitud(), Toast.LENGTH_SHORT).show();
     }
 
+
+    @Override
+    public void listenerTimer()
+    {
+
+        if (contadorConectarseConBluetooth >= 10)
+        {
+            // verificamos si podemos conectarnos al dispositivo...
+            if (mmSocket != null)
+            {
+                if (!mmSocket.isConnected())
+                {
+                    connectDevice();
+                }
+            }
+
+            contadorConectarseConBluetooth = 0;
+        }
+
+
+
+        // contadores +1
+        contadorConectarseConBluetooth = contadorConectarseConBluetooth ++;
+    }
+
     /**
      * Instancias bluetooth y objetos.
      */
     static OutputStream mmOutputStream;
     static InputStream mmInputStream;
+    static BluetoothSocket mmSocket;
 
     /************* Funciones Bluetooth ***************/
-    public static void connectDevice(String address){
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
-        try {
-            managerUtils.imprimirToast(mContext, "connectDevice()..");
-            UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //Standard SerialPortService ID
-            BluetoothSocket mmSocket = device.createRfcommSocketToServiceRecord(uuid);
-            mmSocket.connect();
-            mmOutputStream = mmSocket.getOutputStream();
-            mmInputStream = mmSocket.getInputStream();
-            escuchar();
+//    public static void connectDevice(String address){
+    public void connectDevice()
+    {
+        String macAddress = Globals.getInfoMovil().getSPF2(IDSP2.MACADDRESS);
+        if (macAddress.length() > 0)
+        {
+            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(macAddress);
+            try
+            {
+                managerUtils.imprimirLog("Conectando con el dispositivo bluetooth....");
+//                managerUtils.imprimirToast(mContext, "connectDevice()..");
+                UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //Standard SerialPortService ID
+                mmSocket = device.createRfcommSocketToServiceRecord(uuid);
+                mmSocket.connect();
+                mmOutputStream  = mmSocket.getOutputStream();
+                mmInputStream   = mmSocket.getInputStream();
+                escuchar();
+            }
+            catch (  IOException e) {
+                e.printStackTrace();
+            }
+        }else
+        {
+            managerUtils.imprimirLog("No se encontró una macAddress registrada anteriormente..");
         }
-        catch (  IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     static BufferedReader r = null;
     static String mSalida="";
 
-    static void escuchar()
+    void escuchar()
     {
         /**
          *  Correr funcin de lectura con las claves obtenidas
@@ -317,16 +374,40 @@ public class ServicioSms extends BaseServicio  {
                         Log.i("smsgps", "2");
                         try {
                             mSalida = r.readLine().toString();
+
                             mHandler.post(new Runnable()
                             {
                                 @Override
                                 public void run()
                                 {
-                                    if (mSalida.equals("1"))
+
+                                    //region comandos bluetooth
+                                    String[] data = mSalida.split(Constantes.SEP2);
+                                    try
                                     {
-                                        new UpAlerta(mContext, 0);
-                                        //postStatusUpdate("Prueba integrada ... " + (new Date().toString()));
+                                        if (data[0].equals("1"))
+                                        {
+                                            mTipoAlerta = 0;
+                                            if (data[1].equals("1"))
+                                            {
+                                                mTipoAlerta = Globals.getInfoMovil().getSPF1(IDSP1.BEEP1);
+                                            }else if (data[1].equals("2"))
+                                            {
+                                                mTipoAlerta = Globals.getInfoMovil().getSPF1(IDSP1.BEEP2);
+                                            }else if (data[1].equals("3"))
+                                            {
+                                                mTipoAlerta = Globals.getInfoMovil().getSPF1(IDSP1.BEEP3);
+                                            }
+                                            isEnviado           = false;
+                                            mUsoLocalizacion    = ALERTA;
+                                            IniciarLocalizacion();
+                                        }
+                                    }catch (Exception e)
+                                    {
+
                                     }
+
+                                    //endregion
                                     Toast.makeText(mContext, mSalida, Toast.LENGTH_SHORT).show();
 //                                    SmsActivity.Contador = 0;
                                 }

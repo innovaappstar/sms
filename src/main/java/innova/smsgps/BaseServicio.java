@@ -368,11 +368,14 @@ public class BaseServicio extends IntentService implements TimerTarea.TimerTarea
     }
 
 
+    public void listenerTimer()
+    {}
 
     int contador =0;
     @Override
     public void TimerTareaExecute()
     {
+        listenerTimer();
         //Log.i("smsgps", "de Nuevo");
 //        if (contador == 20)
 //        {

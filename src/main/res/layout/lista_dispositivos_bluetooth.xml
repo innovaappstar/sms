@@ -3,6 +3,62 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TextView
+            style="@style/StyleTextoSplash"
+            android:id="@+id/txtPaso"
+            android:layout_marginTop="30dp"
+            android:textSize="34sp"
+            android:textColor="@color/black"
+            android:text="Bluetooth"/>
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:layout_below="@+id/txtPaso"
+            android:id="@+id/txtDetallePaso"
+            android:layout_centerInParent="true"
+            android:textColor="@color/gris_fuerte"
+            android:text="Conectate con tu dispositivo"/>
+
+        <TextView
+            style="@style/StyleTextoBienvenida"
+            android:id="@+id/txtDetalleAplicativo"
+            android:layout_below="@+id/txtDetallePaso"
+            android:textColor="@color/gris_suave_texto"
+            android:text="Selecciona tu dispositivo bluetooth para conectarte a el."/>
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtDetalleAplicativo"
+            android:id="@+id/listDispositivosBluetooth"/>
+
+
+        <Button
+            style="@style/StyleButtonAceptar"
+            android:id="@+id/btnListarDispositivosBluetooth"
+            android:onClick="onClick"
+            android:text="Buscar"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
+
+
+
+<!--
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <Button
         android:id="@+id/btnListarDispositivosBluetooth"
         android:layout_width="fill_parent"
@@ -18,3 +74,8 @@
         android:id="@+id/listDispositivosBluetooth"/>
 
 </RelativeLayout>
+
+
+
+
+-->

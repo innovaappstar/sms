@@ -87,10 +87,12 @@ public class ActivityOthers extends BaseActivity{
             case R.id.img_add_button_bluetooth:
                 intent  = new Intent(this, ActivityListaDispositivosBluetooth.class);
                 break;
+            default:
+                return;
 
         }
 
-        if (intent != null)
+//        if (intent != null)
             startActivityForResult(intent, 1);
     }
 

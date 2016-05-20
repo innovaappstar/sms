@@ -32,6 +32,7 @@ public class BridgeIPC implements IBridgeIPC
     public static final int INDICE_GOOGLE_MAP_ANDROID   = 7;
     // INDICES RECURSIVOS PARA LOCALIZACIÓN
     public static final int INDICE_DENUNCIA_ANDROID     = 8;
+    public static final int INDICE_CONECTARSE_BLUETOOTH = 9;
 
     public static final String SUB_INDICE_WEBSOCKET_TRANSACCION_BOLETO      = "1";
     public static final String SUB_INDICE_WEBSOCKET_TRANSACCION_ELECTRONICO = "2";
