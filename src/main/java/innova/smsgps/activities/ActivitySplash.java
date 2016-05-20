@@ -17,7 +17,7 @@ public class ActivitySplash extends BaseActivity
 
     // contador splash
     private int iContadorSplash = 0;
-    private int iTiempoLimiteSplash = 5;
+    private int iTiempoLimiteSplash = 2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
