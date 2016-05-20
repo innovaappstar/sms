@@ -315,9 +315,6 @@ public class ActivitySplash extends BaseActivity implements LoginUsuarioCallback
     public void onClick(View view) {
         switch (view.getId())
         {
-            case R.id.imgSplashFacebook:
-                imprimitToast("Autenticando...");
-                break;
             case R.id.inputTextCrearCuenta:
                 Intent i = new Intent(this, ActivityRegistroUsuario.class);
                 startActivityForResult(i, 1);

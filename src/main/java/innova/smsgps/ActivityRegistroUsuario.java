@@ -94,9 +94,6 @@ public class ActivityRegistroUsuario extends BaseActivity implements RegistroUsu
     {
         switch (view.getId())
         {
-            case R.id.imgSplashFacebook:
-                imprimitToast("Autenticando...");
-                break;
             case R.id.btnAceptar:
                 String nick         = editNick.getText().toString();
                 String password     = editPassword.getText().toString();

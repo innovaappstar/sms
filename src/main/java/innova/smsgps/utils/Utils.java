@@ -44,7 +44,7 @@ import innova.smsgps.interfaces.IUtils;
  * Created by innovaapps on 23/10/2015.
  */
 public class Utils implements IUtils {
-    public static String TAG = "PrintReader";
+    public static String TAG = "smsgps";
 
     /**
      * Simple mEtodo que genera una notificación

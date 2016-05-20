@@ -59,9 +59,6 @@ public class ActivityMenu extends BaseActivity{
     {
         switch (view.getId())
         {
-            case R.id.imgSplashFacebook:
-                imprimitToast("Autenticando...");
-                break;
             case R.id.contenedor_device:
                 intent = new Intent(this, ActivityCameraPhoto.class);
                 break;
