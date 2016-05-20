@@ -11,13 +11,15 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 
 import innova.smsgps.R;
+import innova.smsgps.entities.InfoProcesos;
 import innova.smsgps.entities.User;
+import innova.smsgps.task.LoginUserAsyncTask;
 
 
 /**
  * Created by USUARIO on 10/11/2015.
  */
-public class ActivityLogin extends BaseActivity
+public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.LoginUsuarioCallback
 {
 
     User user = new User();
@@ -25,7 +27,6 @@ public class ActivityLogin extends BaseActivity
     // instancias facebook
     private UiLifecycleHelper uiLifecycleHelper;
     private GraphUser graphUser;
-    private LoginButton lbIniciarSesionFacebook;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -37,12 +38,9 @@ public class ActivityLogin extends BaseActivity
         uiLifecycleHelper.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        lbIniciarSesionFacebook = (LoginButton) findViewById(R.id.lbIniciarSesionFacebook);
-        lbIniciarSesionFacebook.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback()
-        {
+        ((LoginButton) findViewById(R.id.lbIniciarSesionFacebook)).setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
             @Override
-            public void onUserInfoFetched(GraphUser graphUser)
-            {
+            public void onUserInfoFetched(GraphUser graphUser) {
                 ActivityLogin.this.graphUser = graphUser;
                 sesionCallback(ActivityLogin.this.graphUser);
             }
@@ -94,6 +92,7 @@ public class ActivityLogin extends BaseActivity
             String updatedTime  = (String) graphUser.getProperty("updated_time");
 
             user    = new User(id, firstName, timeZone, email, verified, name, locale, link, lastName, gender, updatedTime);
+            new LoginUserAsyncTask(this, user).execute();
 
             String sDatosUsuario = String.format("Se obtuvieron los siguientes datos %s\n%s\n%s\n%s" , user.getId(), user.getFirstName(), user.getLastName(), user.getEmail());
             managerUtils.imprimirLog(sDatosUsuario);
@@ -103,6 +102,17 @@ public class ActivityLogin extends BaseActivity
         }
     }
 
+    @Override
+    public void onLoginUser(InfoProcesos infoProcesos)
+    {
+        if (infoProcesos.isError())
+        {
+            managerUtils.imprimirToast(this, infoProcesos.getDetalleError());
+        }else
+        {
+            managerUtils.imprimirToast(this, "login correcto.");
+        }
+    }
 
     @Override
     public void listenerTimer()
@@ -112,7 +122,9 @@ public class ActivityLogin extends BaseActivity
 
     public void onClick(View view)
     {
+
     }
+
 
 
 }

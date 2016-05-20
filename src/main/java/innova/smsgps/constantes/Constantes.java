@@ -17,4 +17,9 @@ public class Constantes
     public static String SEP6   = "|";      // SEPARADOR VALORES WS
     public static String SEP7   = "*";      // SEPARADOR COLUMNA
     public static String SEP8   = "~";      // SEPARADOR FILA
+
+    // resultados de operaciones
+    public static int RESULT_OK     = 1;
+    public static int RESULT_ERROR  = 0;
+
 }
