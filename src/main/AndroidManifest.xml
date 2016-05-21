@@ -141,16 +141,21 @@
         <!-- actividad login iris-->
         <activity android:name=".activities.ActivityLogin"
             android:configChanges="orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
         <!-- actividad registro iris-->
         <activity android:name=".activities.ActivityRegistro"
             android:configChanges="orientation|screenSize">
         </activity>
-
+        <!-- actividad menu principal iris-->
+        <activity android:name=".activities.ActivityMenuPrincipal"
+            android:configChanges="orientation|screenSize"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <activity android:name=".ActivityBienvenidaInfoAplicativo"/>
         <activity android:name=".ActivityBienvenidaInfoGps"/>

@@ -147,6 +147,8 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
         }else
         {
             managerUtils.imprimirToast(this, loginUser.getDescription());
+            startActivity(new Intent(this, ActivityMenuPrincipal.class));
+            finish();
         }
     }
 

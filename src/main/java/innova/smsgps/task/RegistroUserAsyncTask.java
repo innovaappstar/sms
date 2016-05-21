@@ -45,7 +45,7 @@ public class RegistroUserAsyncTask extends AsyncTask< String, Integer, Integer >
     // region ciclos asynctask
     protected Integer doInBackground(String... params)
     {
-        return autenticacion(params);
+        return autenticacion();
     }
 
 
@@ -58,7 +58,7 @@ public class RegistroUserAsyncTask extends AsyncTask< String, Integer, Integer >
 
 
     // función de fondo..
-    private int autenticacion(String[] parametros)
+    private int autenticacion()
     {
         int status = 0;
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();

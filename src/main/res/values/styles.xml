@@ -132,7 +132,11 @@
         <item name="android:onClick">onClick</item>
     </style>
 
-    <!--ESTILO PARA CONTENEDORES MENU DE BOTONES APOLO-->
+    <!--ESTILO PARA CONTENEDORES MENU PRINCIPALDE BOTONES APOLO-->
+    <style name="StyleContenedorCircularMenuPrincipal" parent="WidgetContenedorBotones">
+        <item name="android:layout_width">170dp</item>
+        <item name="android:layout_height">170dp</item>
+    </style>
 
     <!--ESTILO PARA TEXTOS PERFIL-->
     <style name="StyleContenedorMenuBotones" parent="WidgetContenedorBotones">
@@ -219,9 +223,16 @@
         <item name="android:onClick">onClick</item>
     </style>
 
+    <style name="StyleImagenDeContenedorCircular" parent="WidgetImgBotones">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">70dp</item>
+    </style>
+
     <!--ESTILO PARA IMÁGENES DE MENU  APOLO-->
     <style name="StyleImgMenuBotones" parent="WidgetImgBotones">
     </style>
+
+
 
     <style name="WidgetImgBotones">
         <item name="android:layout_width">50dp</item>

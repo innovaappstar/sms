@@ -12,6 +12,7 @@
     <string name="apellidos_registro">Last name</string>
     <string name="registrar_registro">Register</string>
     <string name="idioma_seleccion">Languaje</string>
-
-
+    <!-- xml activity menu -->
+    <string name="status_connection_bluetooth">Connected</string>
+    <string name="status_disconnected_bluetooth">Disconnected</string>
 </resources>
