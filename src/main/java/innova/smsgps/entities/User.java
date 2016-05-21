@@ -60,15 +60,24 @@ public class User
         this.ACTION_LOGIN = FACEBOOK;   // login por facebook
     }
 
+    /**
+     * @param email email
+     * @param password contrasenia
+     */
+    public User(String email, String password)
+    {
+        this.email = email;
+        this.password = password;
+        this.ACTION_LOGIN = MANUAL; // login sin facebook
+    }
 
     /**
      * @param firstName primer nombre
      * @param email email
      * @param password contrasenia
      * @param lastName apellidos
-     * @param ACTION_LOGIN indicador de tipo de sesión (fb/manual)
      */
-    public User(String firstName, String email, String password, String lastName, String ACTION_LOGIN)
+    public User(String firstName, String email, String password, String lastName)
     {
         this.firstName = firstName;
         this.email = email;

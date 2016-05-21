@@ -40,14 +40,14 @@
 
     <Button
         style="@style/StyleButtonCuenta"
-        android:id="@+id/btAceptar"
+        android:id="@+id/btIniciarSesion"
         android:layout_below="@+id/vSeparadorCentral"
         android:text="Login"
         android:visibility="visible"
         />
     <com.facebook.widget.LoginButton
         android:id="@+id/lbIniciarSesionFacebook"
-        android:layout_below="@id/btAceptar"
+        android:layout_below="@id/btIniciarSesion"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"

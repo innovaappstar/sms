@@ -5,13 +5,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 
 import innova.smsgps.R;
-import innova.smsgps.entities.InfoProcesos;
+import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
 import innova.smsgps.task.LoginUserAsyncTask;
 
@@ -21,6 +22,8 @@ import innova.smsgps.task.LoginUserAsyncTask;
  */
 public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.LoginUsuarioCallback
 {
+
+    EditText etEmail, etPassword;
 
     User user = new User();
 
@@ -37,6 +40,9 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
         uiLifecycleHelper = new UiLifecycleHelper(this, null);
         uiLifecycleHelper.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        etEmail     = (EditText)findViewById(R.id.etEmail);
+        etPassword  = (EditText)findViewById(R.id.etPassword);
+
 
         ((LoginButton) findViewById(R.id.lbIniciarSesionFacebook)).setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
             @Override
@@ -103,14 +109,14 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
     }
 
     @Override
-    public void onLoginUser(InfoProcesos infoProcesos)
+    public void onLoginUser(LoginUser loginUser)
     {
-        if (infoProcesos.isError())
+        if (!loginUser.isCorrecto())
         {
-            managerUtils.imprimirToast(this, infoProcesos.getDetalleError());
+            managerUtils.imprimirToast(this, loginUser.getDescription());
         }else
         {
-            managerUtils.imprimirToast(this, "login correcto.");
+            managerUtils.imprimirToast(this, loginUser.getDescription());
         }
     }
 
@@ -122,7 +128,21 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
 
     public void onClick(View view)
     {
-
+        switch (view.getId())
+        {
+            case R.id.btIniciarSesion:
+                String email = etEmail.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+                if (email.length() > 0 && password.length() > 0)
+                {
+                    user    = new User(email, password);
+                    new LoginUserAsyncTask(this, user).execute();
+                }else
+                {
+                    managerUtils.imprimirToast(this, "complete las casillas..");
+                }
+                break;
+        }
     }
 
 

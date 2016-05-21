@@ -2,8 +2,8 @@
 	<shape  android:shape="rectangle" >
 		<!-- Fondo -->
 		<gradient
-			android:startColor="@color/celeste_button_press_customizado"
-			android:endColor="@color/celeste_button_press_customizado"
+			android:startColor="@color/celeste_oscuro_02"
+			android:endColor="@color/celeste_oscuro_02"
 			android:angle="0"/>
 		<!-- Borde -->
    		<stroke

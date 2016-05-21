@@ -11,8 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import innova.smsgps.constantes.CONSTANT;
-import innova.smsgps.constantes.Constantes;
-import innova.smsgps.entities.InfoProcesos;
+import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
 import innova.smsgps.managerhttp.Httppostaux;
 
@@ -23,7 +22,8 @@ public class LoginUserAsyncTask extends AsyncTask< String, Integer, Integer > {
 
 
     String URL = CONSTANT.PATH_WS + CONSTANT.WS_LOGIN_USUARIO;
-    String detalle = "";
+
+    String description = "";
 
     User user = null;
     LoginUsuarioCallback luCallback;
@@ -32,7 +32,7 @@ public class LoginUserAsyncTask extends AsyncTask< String, Integer, Integer > {
 
     public interface LoginUsuarioCallback
     {
-        void onLoginUser(InfoProcesos infoProcesos);
+        void onLoginUser(LoginUser loginUser);
     }
 
     public LoginUserAsyncTask(LoginUsuarioCallback luCallback, User user)
@@ -51,11 +51,8 @@ public class LoginUserAsyncTask extends AsyncTask< String, Integer, Integer > {
 
     protected void onPostExecute(Integer result)
     {
-        InfoProcesos infoProcesos = new InfoProcesos();
-        if (result == Constantes.RESULT_ERROR)
-            infoProcesos.setDetalleError(detalle);
-
-        luCallback.onLoginUser(infoProcesos);
+        LoginUser loginUser = new LoginUser(result, description);
+        luCallback.onLoginUser(loginUser);
     }
     //endregion
 
@@ -85,14 +82,15 @@ public class LoginUserAsyncTask extends AsyncTask< String, Integer, Integer > {
             {
                 jsonObject  =   jsonArray.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
                 status      =   jsonObject.getInt("status");
+                description =   jsonObject.getString("description");
             } catch (JSONException e)
             {
-                detalle = e.getMessage();
+                description = e.getMessage();
             }
             return status; // [{"status":"0"}] -- [{"status":"1"}] -- [{"status":"-1"}]
         }else   //json obtenido invalido verificar parte WEB.
         {
-            detalle = "json null.";
+            description = "json null.";
             return status;
         }
     }
