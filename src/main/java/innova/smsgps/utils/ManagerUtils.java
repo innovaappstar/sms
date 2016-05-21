@@ -100,4 +100,9 @@ public class ManagerUtils implements IUtils {
         iUtils.mostrarNotificacionCustomizada(context, nombreCancion);
     }
 
+    @Override
+    public void deslizadoVertical(View view, Context context, boolean isMostrar) {
+        iUtils.deslizadoVertical(view, context, isMostrar);
+    }
+
 }

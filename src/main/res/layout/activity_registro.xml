@@ -85,13 +85,15 @@
             />
 
     </LinearLayout>
-
-    <Button
-        style="@style/StyleButtonCuenta"
-        android:id="@+id/btRegistrarse"
+    <TextView
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        style="@style/StyleTextoSplash"
+        android:textSize="16sp"
+        android:id="@+id/tvRegistrarse"
         android:layout_below="@+id/llLenguaje"
+        android:textColor="@color/text_color"
         android:text="@string/registrar_registro"
-        android:visibility="visible"
         />
 
 </RelativeLayout>

@@ -117,7 +117,7 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
     {
         switch (view.getId())
         {
-            case R.id.btRegistrarse:
+            case R.id.tvRegistrarse:
                 String email             = etEmail.getText().toString();
                 String password          = etPassword.getText().toString();
                 String repeatPassword    = etRepeatPassword.getText().toString();

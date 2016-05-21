@@ -37,16 +37,19 @@
         android:layout_centerInParent="true"/>
 
 
-    <Button
-        style="@style/StyleButtonCuenta"
-        android:id="@+id/btIniciarSesion"
+    <TextView
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        style="@style/StyleTextoSplash"
+        android:textSize="16sp"
+        android:id="@+id/tvIniciarSesion"
         android:layout_below="@+id/vSeparadorCentral"
+        android:textColor="@color/text_color"
         android:text="@string/autenticarse_login"
-        android:visibility="visible"
         />
     <com.facebook.widget.LoginButton
         android:id="@+id/lbIniciarSesionFacebook"
-        android:layout_below="@id/btIniciarSesion"
+        android:layout_below="@id/tvIniciarSesion"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="35dp"
@@ -56,10 +59,11 @@
         facebook:fetch_user_info="true"
         />
     <TextView
+        android:layout_margin="20dp"
         style="@style/StyleTextoSplash"
         android:id="@+id/tvRegistrarse"
         android:padding="10dp"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textColor="@color/text_color"
         android:layout_below="@id/lbIniciarSesionFacebook"
         android:text="@string/crear_cuenta"/>

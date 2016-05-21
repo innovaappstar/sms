@@ -120,7 +120,7 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
     {
         switch (view.getId())
         {
-            case R.id.btIniciarSesion:
+            case R.id.tvIniciarSesion:
                 String email = etEmail.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
                 if (email.length() > 0 && password.length() > 0)

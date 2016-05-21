@@ -16,33 +16,35 @@ import innova.smsgps.enums.IDUTILS;
  */
 public interface IUtils {
 
-    public void imprimirLog(String texto);
+     void imprimirLog(String texto);
 
-    public void imprimirToast(Context context, String texto);
+     void imprimirToast(Context context, String texto);
 
-    public String getFechaHora(IDUTILS idutils);
+     String getFechaHora(IDUTILS idutils);
 
-    public String getRecursos(Context context, int idRecurso);
+     String getRecursos(Context context, int idRecurso);
 
-    public void showNotificacionSimple(Context context);
+     void showNotificacionSimple(Context context);
 
-    public Drawable getDrawable(Context context, int id);
+     Drawable getDrawable(Context context, int id);
 
-    public Bitmap getBitmapCanvas(Activity activity, View view);
+     Bitmap getBitmapCanvas(Activity activity, View view);
 
-    public Uri getImageUri(Context inContext, Bitmap inImage);
+     Uri getImageUri(Context inContext, Bitmap inImage);
 
-    public String getRealPathFromURI(Context context, Uri uri);
+     String getRealPathFromURI(Context context, Uri uri);
 
-    public byte[] getImagenComprimida(String path);
+     byte[] getImagenComprimida(String path);
 
-    public Bitmap getBitmap(String path);
+     Bitmap getBitmap(String path);
 
-    public String getCountry(Context context);
+     String getCountry(Context context);
 
-    public SparseArray<String> getCanciones();
+     SparseArray<String> getCanciones();
 
-    public void showNotificacionMusic(Context context);
+     void showNotificacionMusic(Context context);
 
-    public void mostrarNotificacionCustomizada(Context context, String nombreCancion);
+     void mostrarNotificacionCustomizada(Context context, String nombreCancion);
+
+     void deslizadoVertical(View view,  Context context , boolean isMostrar);
 }

@@ -5,6 +5,66 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <LinearLayout
+        android:id="@+id/llFuncionesActionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:background="@color/gris_claro_card_view"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:visibility="gone"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center|left|start"
+            android:textSize="16sp"
+            android:textColor="@color/action_text_color"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="@string/action_connect_bluetooth" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/gris_suave_fondo"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:gravity="center|left|start"
+            android:textColor="@color/action_text_color"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="@string/action_profile" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/gris_suave_fondo"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:gravity="center|left|start"
+            android:textColor="@color/action_text_color"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="@string/action_contact_mail" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp" />
+    </LinearLayout>
+
+
+
     <RelativeLayout
         style="@style/StyleContenedorCircularMenuPrincipal"
         android:id="@+id/rlLocation"

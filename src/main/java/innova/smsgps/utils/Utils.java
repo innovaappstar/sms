@@ -34,6 +34,7 @@ import java.util.Locale;
 import innova.smsgps.ActivityFacebookAccount;
 import innova.smsgps.ActivityMediaOpciones;
 import innova.smsgps.R;
+import innova.smsgps.anim.AnimViews;
 import innova.smsgps.application.Globals;
 import innova.smsgps.enums.IDSP2;
 import innova.smsgps.enums.IDUTILS;
@@ -313,6 +314,19 @@ public class Utils implements IUtils {
         String CountryID            = tlfManager.getSimCountryIso().toUpperCase();
         Locale l                    = new Locale("", CountryID);
         return l.getDisplayCountry();
+    }
+
+    /**
+     * Deslizado Top-Bottom
+     * @param view View
+     * @param context Context
+     * @param isMostrar boolean
+     */
+    @Override
+    public void deslizadoVertical(View view,  Context context , boolean isMostrar)
+    {
+        AnimViews animViews = new AnimViews();
+        animViews.deslizadoVertical(view, context, isMostrar);
     }
 
 }

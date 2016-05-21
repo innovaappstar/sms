@@ -14,6 +14,9 @@
     <string name="registrar_registro">Registrar</string>
     <string name="idioma_seleccion">Lenguaje</string>
     <!-- xml activity menu -->
+    <string name="action_connect_bluetooth">Conectar</string>
+    <string name="action_profile">Pérfil</string>
+    <string name="action_contact_mail">support@iris-smartsecurity.com</string>
     <string name="status_connected_bluetooth">Conectado</string>
     <string name="status_disconnected_bluetooth">Desconectado</string>
 
