@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">IRIS</string>
+
+    <!-- xml activity login -->
+    <string name="crear_cuenta">Create an Account</string>
+    <!-- xml activity registro -->
+    <string name="autenticarse_login">Login</string>
+    <string name="email_registro">Email</string>
+    <string name="password_registro">Password</string>
+    <string name="repetir_password">Repeat Password</string>
+    <string name="nombre_registro">First Name</string>
+    <string name="apellidos_registro">Last name</string>
+    <string name="registrar_registro">Register</string>
+    <string name="idioma_seleccion">Languaje</string>
+
+
+</resources>

@@ -73,16 +73,16 @@ public class User
 
     /**
      * @param firstName primer nombre
+     * @param lastName apellidos
      * @param email email
      * @param password contrasenia
-     * @param lastName apellidos
      */
-    public User(String firstName, String email, String password, String lastName)
+    public User(String firstName,  String lastName, String email, String password)
     {
         this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.lastName = lastName;
         this.ACTION_LOGIN = MANUAL; // login sin facebook
     }
 

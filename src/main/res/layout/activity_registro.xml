@@ -11,21 +11,21 @@
         android:layout_marginBottom="20dp"
         android:textSize="44sp"
         android:textStyle="bold"
-        android:text="IRIS"/>
+        android:text="@string/app_name"/>
 
-    <EditText
+    <innova.smsgps.views.EditTextListener
         style="@style/StyleEdittextCuentaRegistro"
         android:id="@+id/etEmail"
         android:layout_above="@+id/etPassword"
         android:inputType="textEmailAddress"
-        android:hint="Email"/>
+        android:hint="@string/email_registro"/>
 
-    <EditText
+    <innova.smsgps.views.EditTextListener
         style="@style/StyleEdittextCuentaRegistro"
         android:id="@+id/etPassword"
         android:layout_above="@+id/view_medio"
         android:inputType="textPassword"
-        android:hint="Password"/>
+        android:hint="@string/password_registro"/>
 
     <!--SEPARADOR-->
     <View
@@ -34,29 +34,29 @@
         android:layout_height="0dp"
         android:layout_centerInParent="true"/>
 
-    <EditText
+    <innova.smsgps.views.EditTextListener
         style="@style/StyleEdittextCuentaRegistro"
         android:id="@+id/etRepeatPassword"
         android:layout_below="@+id/view_medio"
         android:inputType="textPassword"
         android:visibility="visible"
-        android:hint="Repeated Password"/>
+        android:hint="@string/repetir_password"/>
 
-    <EditText
+    <innova.smsgps.views.EditTextListener
         style="@style/StyleEdittextCuentaRegistro"
         android:id="@+id/etFirstName"
         android:layout_below="@+id/etRepeatPassword"
         android:inputType="textPersonName"
         android:visibility="visible"
-        android:hint="First Name"/>
+        android:hint="@string/nombre_registro"/>
 
-    <EditText
+    <innova.smsgps.views.EditTextListener
         style="@style/StyleEdittextCuentaRegistro"
         android:id="@+id/etLastName"
         android:layout_below="@+id/etFirstName"
         android:inputType="textPersonName"
         android:visibility="visible"
-        android:hint="Last Name"/>
+        android:hint="@string/apellidos_registro"/>
     <LinearLayout
         android:id="@+id/llLenguaje"
         android:layout_width="fill_parent"
@@ -73,7 +73,7 @@
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@color/white"
-            android:text="Lenguaje" />
+            android:text="@string/idioma_seleccion" />
 
         <Spinner
             android:background="@drawable/shape_selector_spinner"
@@ -90,7 +90,7 @@
         style="@style/StyleButtonCuenta"
         android:id="@+id/btRegistrarse"
         android:layout_below="@+id/llLenguaje"
-        android:text="Register"
+        android:text="@string/registrar_registro"
         android:visibility="visible"
         />
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import innova.smsgps.R;
+import innova.smsgps.entities.Idioma;
 
 /**
  * Created by USUARIO on 21/05/2016.
@@ -18,7 +19,7 @@ import innova.smsgps.R;
 public class SpinnerAdapter extends BaseAdapter implements android.widget.SpinnerAdapter
 {
     private Context context;
-    private ArrayList<String> alIdiomas = new ArrayList<String>();
+    private ArrayList<Idioma> alIdiomas = new ArrayList<Idioma>();
 
     private LayoutInflater lyInflater;
 
@@ -26,7 +27,7 @@ public class SpinnerAdapter extends BaseAdapter implements android.widget.Spinne
      * @param context Context
      * @param alIdiomas ArrayList
      */
-    public SpinnerAdapter(Context context, ArrayList<String> alIdiomas)
+    public SpinnerAdapter(Context context, ArrayList<Idioma> alIdiomas)
     {
         this.alIdiomas  = alIdiomas;
         this.context    = context;
@@ -62,11 +63,11 @@ public class SpinnerAdapter extends BaseAdapter implements android.widget.Spinne
     // función inflar view
     public View getCustomView(int position, View convertView, ViewGroup parent, boolean isTitulo) {
 
-        View row = lyInflater.inflate(R.layout.item_spinner, parent, false);
-        TextView label = (TextView) row.findViewById(R.id.tvTextoItemSpinner);
-        label.setText(alIdiomas.get(position));
+        View row                        = lyInflater.inflate(R.layout.item_spinner, parent, false);
+        TextView tvTextoItemSpinner     = (TextView) row.findViewById(R.id.tvTextoItemSpinner);
+        tvTextoItemSpinner.setText(alIdiomas.get(position).getNombre());
         if (isTitulo)
-            label.setGravity(Gravity.CENTER);
+            tvTextoItemSpinner.setGravity(Gravity.CENTER);
         return row;
     }
 }
