@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/celeste_oscuro_02">
+
+    <TextView
+        style="@style/StyleTextoSplash"
+        android:layout_above="@+id/etEmail"
+        android:layout_marginBottom="20dp"
+        android:textSize="44sp"
+        android:textStyle="bold"
+        android:text="IRIS"/>
+
+    <EditText
+        style="@style/StyleEdittextCuentaRegistro"
+        android:id="@+id/etEmail"
+        android:layout_above="@+id/etPassword"
+        android:inputType="textEmailAddress"
+        android:hint="Email"/>
+
+    <EditText
+        style="@style/StyleEdittextCuentaRegistro"
+        android:id="@+id/etPassword"
+        android:layout_above="@+id/view_medio"
+        android:inputType="textPassword"
+        android:hint="Password"/>
+
+    <!--SEPARADOR-->
+    <View
+        android:id="@+id/view_medio"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"/>
+
+    <EditText
+        style="@style/StyleEdittextCuentaRegistro"
+        android:id="@+id/etRepeatPassword"
+        android:layout_below="@+id/view_medio"
+        android:inputType="textPassword"
+        android:visibility="visible"
+        android:hint="Repeated Password"/>
+
+    <EditText
+        style="@style/StyleEdittextCuentaRegistro"
+        android:id="@+id/etFirstName"
+        android:layout_below="@+id/etRepeatPassword"
+        android:inputType="textPersonName"
+        android:visibility="visible"
+        android:hint="First Name"/>
+
+    <EditText
+        style="@style/StyleEdittextCuentaRegistro"
+        android:id="@+id/etLastName"
+        android:layout_below="@+id/etFirstName"
+        android:inputType="textPersonName"
+        android:visibility="visible"
+        android:hint="Last Name"/>
+    <LinearLayout
+        android:id="@+id/llLenguaje"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etLastName"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".7"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:text="Lenguaje" />
+
+        <Spinner
+            android:background="@drawable/shape_selector_spinner"
+            android:spinnerMode="dropdown"
+            android:id="@+id/spIdiomas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.3"
+            />
+
+    </LinearLayout>
+
+    <Button
+        style="@style/StyleButtonCuenta"
+        android:id="@+id/btRegistrarse"
+        android:layout_below="@+id/llLenguaje"
+        android:text="Register"
+        android:visibility="visible"
+        />
+
+</RelativeLayout>

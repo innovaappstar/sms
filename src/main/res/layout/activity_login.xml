@@ -61,6 +61,7 @@
         android:id="@+id/tvRegistrarse"
         android:padding="10dp"
         android:textSize="18sp"
+        android:textColor="@color/text_color"
         android:layout_below="@id/lbIniciarSesionFacebook"
         android:text="Create an Account"/>
 

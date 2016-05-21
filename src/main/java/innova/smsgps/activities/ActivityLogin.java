@@ -108,17 +108,7 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
         }
     }
 
-    @Override
-    public void onLoginUser(LoginUser loginUser)
-    {
-        if (!loginUser.isCorrecto())
-        {
-            managerUtils.imprimirToast(this, loginUser.getDescription());
-        }else
-        {
-            managerUtils.imprimirToast(this, loginUser.getDescription());
-        }
-    }
+
 
     @Override
     public void listenerTimer()
@@ -142,10 +132,23 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
                     managerUtils.imprimirToast(this, "complete las casillas..");
                 }
                 break;
+            case R.id.tvRegistrarse:
+                startActivity(new Intent(this, ActivityRegistro.class));
+                break;
         }
     }
 
-
+    @Override
+    public void onLoginUser(LoginUser loginUser)
+    {
+        if (!loginUser.isCorrecto())
+        {
+            managerUtils.imprimirToast(this, loginUser.getDescription());
+        }else
+        {
+            managerUtils.imprimirToast(this, loginUser.getDescription());
+        }
+    }
 
 }
 

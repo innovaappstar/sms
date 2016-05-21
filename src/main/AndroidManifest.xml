@@ -136,13 +136,18 @@
         <!-- actividad splash screen iris-->
         <activity android:name=".activities.ActivitySplash"
             android:configChanges="orientation|screenSize">
+
+        </activity>
+        <!-- actividad login iris-->
+        <activity android:name=".activities.ActivityLogin"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!-- actividad login iris-->
-        <activity android:name=".activities.ActivityLogin"
+        <!-- actividad registro iris-->
+        <activity android:name=".activities.ActivityRegistro"
             android:configChanges="orientation|screenSize">
         </activity>
 
