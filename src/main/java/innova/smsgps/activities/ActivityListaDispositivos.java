@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import innova.smsgps.R;
 import innova.smsgps.base.adapters.DispositivosAdapter;
@@ -41,14 +40,12 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
 
 
     //-------------------------------
-    ThreadConnectBTdevice myThreadConnectBTdevice;
-    private UUID myUUID;
-    private final String UUID_STRING_WELL_KNOWN_SPP = "00001101-0000-1000-8000-00805F9B34FB";
-    ThreadConnected myThreadConnected;
-    private static boolean RUNING_THREAD_CONNECTED = true;
-
     TextView tvStatusConnectionDispositivo;
     //----------------------------------
+    ThreadConectarConDispositivo threadConectarConDispositivo;
+    ThreadIniciarComunicacion threadIniciarComunicacion;
+    private static boolean RUNING_THREAD_COMUNICACION = false;
+    //-------------------------------
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +65,7 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
         this.registerReceiver(broadcastReceiverBluetooth, new IntentFilter(BluetoothDevice.ACTION_FOUND));
 
         bluetoothAdapter        = BluetoothAdapter.getDefaultAdapter();
-
+        buscarDispositivos();
     }
 
     @Override
@@ -99,7 +96,7 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
                 isMostrarListaAbs = !isMostrarListaAbs;
                 break;
             case R.id.tvActionConectar:
-                buscarDispositivos();
+
                 break;
             default:
                 break;
@@ -147,200 +144,204 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
         managerUtils.imprimirToast(this, dispositivo.getMacAddress());
         // obtenemos device..
         BluetoothDevice device = bluetoothAdapter.getRemoteDevice(dispositivo.getMacAddress());
-        myUUID = UUID.fromString(UUID_STRING_WELL_KNOWN_SPP); //Standard SerialPortService ID
 
-        myThreadConnectBTdevice = new ThreadConnectBTdevice(device);
-        myThreadConnectBTdevice.start();
+        threadConectarConDispositivo = new ThreadConectarConDispositivo(device);
+        threadConectarConDispositivo.start();
     }
 
 
-    //Called in ThreadConnectBTdevice once connect successed
-    //to start ThreadConnected
-    private void startThreadConnected(BluetoothSocket socket){
+    /**
+     * método que iniciará el thread de comunicación , luego de que
+     * nos hayamos conectado con el dispositivo bt.
+     * @param socket BluetoothSocket
+     */
+    private void iniciarThreadComunicacion(BluetoothSocket socket){
 
-        myThreadConnected = new ThreadConnected(socket);
-        myThreadConnected.start();
+        threadIniciarComunicacion = new ThreadIniciarComunicacion(socket);
+        threadIniciarComunicacion.start();
     }
 
-
-    /*
-       ThreadConnectBTdevice:
-       Background Thread to handle BlueTooth connecting
-       */
-    private class ThreadConnectBTdevice extends Thread {
-
+    /**
+     * Thread de conexión con dispositivo...
+     * Primero creará un objeto bluetooth Socket ..
+     * Segundo , intentará conectarse en segundo plano...
+     * Tercero, comprobará si la conexión fue un éxito o no para
+     * poder iniciar el thread de comunicación..
+     */
+    private class ThreadConectarConDispositivo extends Thread
+    {
+        private BluetoothDevice bluetoothDevice ;
         private BluetoothSocket bluetoothSocket = null;
-        private final BluetoothDevice bluetoothDevice;
 
-
-        private ThreadConnectBTdevice(BluetoothDevice device) {
-            bluetoothDevice = device;
-            try {
-                bluetoothSocket = device.createRfcommSocketToServiceRecord(myUUID);
-                tvStatusConnectionDispositivo.setText("bluetoothSocket: \n" + bluetoothSocket);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        private ThreadConectarConDispositivo(BluetoothDevice bluetoothDevice)
+        {
+            this.bluetoothDevice = bluetoothDevice;
+            try
+            {
+                bluetoothSocket = bluetoothDevice.createRfcommSocketToServiceRecord(Dispositivo.getUUID()); // creando bluetooth socket
+            }catch (Exception e) {}
         }
 
         @Override
-        public void run() {
+        public void run()
+        {
             boolean success = false;
-            try {
+            try
+            {
                 bluetoothSocket.connect();
                 success = true;
-            } catch (IOException e) {
-                e.printStackTrace();
-
+            }catch (IOException e)
+            {
                 final String eMessage = e.getMessage();
                 runOnUiThread(new Runnable() {
-
                     @Override
                     public void run() {
-                        tvStatusConnectionDispositivo.setText("something wrong bluetoothSocket.connect(): \n" + eMessage);
+                        // salió algo mal en la conexión... eMessage
                     }
                 });
 
-                try {
+                try
+                {
                     bluetoothSocket.close();
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
             }
 
-            if(success){
-                //connect successful
-                final String msgconnected = "connect successful:\n"
-                        + "BluetoothSocket: " + bluetoothSocket + "\n"
-                        + "BluetoothDevice: " + bluetoothDevice;
+            if(success)
+            {
+                final String msgconnected = "connect successful:\n" + "BluetoothSocket: " + bluetoothSocket + "\n" + "BluetoothDevice: " + bluetoothDevice;
 
-                runOnUiThread(new Runnable(){
-
+                runOnUiThread(new Runnable()
+                {
                     @Override
                     public void run()
                     {
                         tvStatusConnectionDispositivo.setText(msgconnected);
-
-//                        listViewPairedDevice.setVisibility(View.GONE);
-//                        inputPane.setVisibility(View.VISIBLE);
+                        // conexión exitosa... msgconnected
                     }});
-                RUNING_THREAD_CONNECTED = true;
-                startThreadConnected(bluetoothSocket);
-            }else{
-                //fail
+                RUNING_THREAD_COMUNICACION = true;
+                iniciarThreadComunicacion(bluetoothSocket);
+            }else
+            {
+                // error
             }
         }
 
-        public void cancel() {
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Toast.makeText(getApplicationContext(),
-//                            "close bluetoothSocket",
-//                            Toast.LENGTH_LONG).show();
-//                }
-//            });
-
-
-            try {
+        public void cancel()
+        {
+            try
+            {
                 bluetoothSocket.close();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
+            } catch (IOException e)
+            {
                 e.printStackTrace();
             }
 
         }
-
     }
 
-    /*
-   ThreadConnected:
-   Background Thread to handle Bluetooth data communication
-   after connected
-    */
-    private class ThreadConnected extends Thread {
-        private final BluetoothSocket connectedBluetoothSocket;
-        private final InputStream connectedInputStream;
-        private final OutputStream connectedOutputStream;
 
-        public ThreadConnected(BluetoothSocket socket) {
-            connectedBluetoothSocket = socket;
-            InputStream in = null;
-            OutputStream out = null;
+    /**
+     * Thread de comunicación con dispositivo bt. despues de conectarnos..
+     * Primero, Seteamos el bluetoothSocket en el constructor y enseguida obtenemos los valores de entrada y salida del bluetoothSocket.. (I/O)
+     * Segundo, Definimos un array byte[] para que contenga los datos recibidos que se leeran del inputStream en un segundo plano mientas RUNING_THREAD_CONNECTED sea true..
+     * Tercero, Si la conexión se pierde, entonces resetearemos los thread's (connection , comunication)
+     */
+    private class ThreadIniciarComunicacion extends Thread
+    {
+        private BluetoothSocket bluetoothSocket;
+        private InputStream inputStream = null;
+        private OutputStream outputStream = null;
 
-            try {
-                in = socket.getInputStream();
-                out = socket.getOutputStream();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
+        public ThreadIniciarComunicacion(BluetoothSocket bluetoothSocket)
+        {
+            this.bluetoothSocket = bluetoothSocket;
+
+            try // obtenemos objetos de entrada y salida..
+            {
+                inputStream     = this.bluetoothSocket.getInputStream();
+                outputStream    = this.bluetoothSocket.getOutputStream();
+            } catch (IOException e)
+            {
                 e.printStackTrace();
             }
-
-            connectedInputStream = in;
-            connectedOutputStream = out;
         }
 
         @Override
-        public void run() {
+        public void run()
+        {
             byte[] buffer = new byte[1024];
             int bytes;
 
-            while (RUNING_THREAD_CONNECTED) {
-                try {
-                    bytes = connectedInputStream.read(buffer);
-                    String strReceived = new String(buffer, 0, bytes);
-                    final String msgReceived = String.valueOf(bytes) +
-                            " bytes received:\n"
-                            + strReceived;
+            while (RUNING_THREAD_COMUNICACION) // boolean constante - flag
+            {
+                try
+                {
+                    bytes = inputStream.read(buffer);
+                    String dataRecibida = new String(buffer, 0, bytes);
+                    final String message = String.valueOf(bytes) + " bytes received:\n" + dataRecibida;
 
                     runOnUiThread(new Runnable()
                     {
                         @Override
-                        public void run() {
-                            tvStatusConnectionDispositivo.setText(msgReceived);
-//                            managerUtils.imprimirToast(ActivityListaDispositivos.this, msgReceived);
-                        }});
+                        public void run()
+                        {
+                            // message recibido.. message
+                            managerUtils.imprimirToast(ActivityListaDispositivos.this, message);
+                        }
+                    });
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-
-
-                    final String msgConnectionLost = "Connection perdida:\n"
-                            + e.getMessage();
-                    runOnUiThread(new Runnable(){
-
+                } catch (IOException e)
+                {
+                    final String msgConnectionLost = "Connection perdida:\n" + e.getMessage();
+                    runOnUiThread(new Runnable()
+                    {
                         @Override
-                        public void run() {
-                            tvStatusConnectionDispositivo.setText(msgConnectionLost);
-                        }});
-                    resetThread();
+                        public void run()
+                        {
+                            // conexión perdida... msgConnectionLost
+                        }
+                    });
+                    resetThread();  // reset
                 }
             }
         }
 
-        public void write(byte[] buffer) {
-            try {
-                connectedOutputStream.write(buffer);
-            } catch (IOException e) {
+        public void write(byte[] buffer)
+        {
+            try
+            {
+                outputStream.write(buffer);
+            } catch (IOException e)
+            {
                 e.printStackTrace();
             }
         }
 
-        public void cancel() {
-            try {
-                connectedBluetoothSocket.close();
-            } catch (IOException e) {
+        public void cancel()
+        {
+            try
+            {
+                bluetoothSocket.close();
+            } catch (IOException e)
+            {
                 e.printStackTrace();
             }
         }
+
+
     }
 
+    /**
+     * Simple método que reseteará los thread y detendra el de la
+     * comunicación a la primera excepción..
+     */
     private void resetThread()
     {
-        myThreadConnected = null;
-        myThreadConnectBTdevice = null;
-        RUNING_THREAD_CONNECTED = false;
+        threadConectarConDispositivo    = null;
+        threadIniciarComunicacion       = null;
+        RUNING_THREAD_COMUNICACION         = false;
     }
 
 
