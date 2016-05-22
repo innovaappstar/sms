@@ -3,6 +3,7 @@ package innova.smsgps.infomovil;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import innova.smsgps.entities.Idioma;
 import innova.smsgps.enums.IDSP1;
 import innova.smsgps.enums.IDSP2;
 import innova.smsgps.interfaces.IInfoMovil;
@@ -51,7 +52,9 @@ public class InfoMovil implements IInfoMovil
             case BEEP3:
                 editorspf.putInt("BEEP3", i);
                 break;
-
+            case IDIOMA:
+                editorspf.putInt("IDIOMA", i);
+                break;
 //            case NUMERO01:
 //                editorspf.putInt("NUMERO01", i);
 //                break;
@@ -90,6 +93,9 @@ public class InfoMovil implements IInfoMovil
                 return spf.getInt("BEEP2", 1);  // default : 1 = Asalto
             case BEEP3:
                 return spf.getInt("BEEP3", 1);  // default : 1 = Asalto
+
+            case IDIOMA:
+                return spf.getInt("IDIOMA", Idioma.ESPANIOL);
 
 //            case NUMERO01:
 //                return spf.getInt("NUMERO01", 0);
@@ -145,6 +151,9 @@ public class InfoMovil implements IInfoMovil
             case MACADDRESS:
                 editorspf.putString("MACADDRESS", s);
                 break;
+
+
+
         }
         editorspf.commit();
     }

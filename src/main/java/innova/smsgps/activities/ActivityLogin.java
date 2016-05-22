@@ -11,7 +11,10 @@ import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 
+import java.sql.SQLException;
+
 import innova.smsgps.R;
+import innova.smsgps.dao.UserDAO;
 import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
 import innova.smsgps.task.LoginUserAsyncTask;
@@ -85,7 +88,7 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
     {
         if (graphUser != null)
         {
-            String id           = (String) graphUser.getProperty("id");
+            String idFacebook   = (String) graphUser.getProperty("id");
             String firstName    = (String) graphUser.getProperty("first_name");
             String timeZone     = graphUser.getProperty("timezone").toString();
             String email        = (String) graphUser.getProperty("email");
@@ -97,10 +100,11 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
             String gender       = (String) graphUser.getProperty("gender");
             String updatedTime  = (String) graphUser.getProperty("updated_time");
 
-            user    = new User(id, firstName, timeZone, email, verified, name, locale, link, lastName, gender, updatedTime);
+            user    = new User(idFacebook, firstName, timeZone, email, verified, name, locale, link, lastName, gender, updatedTime);
+
             new LoginUserAsyncTask(this, user).execute();
 
-            String sDatosUsuario = String.format("Se obtuvieron los siguientes datos %s\n%s\n%s\n%s" , user.getId(), user.getFirstName(), user.getLastName(), user.getEmail());
+            String sDatosUsuario = String.format("Se obtuvieron los siguientes datos %s\n%s\n%s\n%s" , user.getIdFacebook(), user.getFirstName(), user.getLastName(), user.getEmail());
             managerUtils.imprimirLog(sDatosUsuario);
         }else
         {
@@ -146,6 +150,18 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
             managerUtils.imprimirToast(this, loginUser.getDescription());
         }else
         {
+            try
+            {
+                // en dos casos se insertara/actualizara el registro del usuario ...
+                // login por facebook (insert/update)
+                // login manual (sin un registro previo-reinstalación del aplicativo) user-email...
+                UserDAO userDAO = new UserDAO();
+                userDAO.insertUser(this, user);
+            } catch (SQLException e)
+            {
+                managerUtils.imprimirToast(this, e.getMessage());
+            }
+
             managerUtils.imprimirToast(this, loginUser.getDescription());
             startActivity(new Intent(this, ActivityMenuPrincipal.class));
             finish();

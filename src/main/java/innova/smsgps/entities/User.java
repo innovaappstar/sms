@@ -12,8 +12,10 @@ public class User
 
     private String ACTION_LOGIN = "";   // indicador de tipo de sesión (fb/manual)
 
+
+
     // datos obtenidos de la api facebook
-    private String id           = "";
+    private String idFacebook           = "";
     private String firstName    = "";
     private String timeZone     = "";
     private String email        = "";
@@ -28,11 +30,13 @@ public class User
     // datos ingresados por el usuario o establecido de facebook
     private String password     = "";
 
+    // _id sqlite para crud update/delete
+    private String _id          = "";
 
     public User(){}
 
     /**
-     * @param id id único de facebook
+     * @param idFacebook idFacebook único de facebook
      * @param firstName primer nombre
      * @param timeZone zona horaria
      * @param email email
@@ -44,9 +48,9 @@ public class User
      * @param gender género
      * @param updatedTime tiempo de actualización
      */
-    public User(String id, String firstName, String timeZone, String email, String verified, String name, String locale, String link, String lastName, String gender, String updatedTime)
+    public User(String idFacebook, String firstName, String timeZone, String email, String verified, String name, String locale, String link, String lastName, String gender, String updatedTime)
     {
-        this.id = id;
+        this.idFacebook = idFacebook;
         this.firstName = firstName;
         this.timeZone = timeZone;
         this.email = email;
@@ -86,10 +90,8 @@ public class User
         this.ACTION_LOGIN = MANUAL; // login sin facebook
     }
 
-
-
-    public String getId() {
-        return id;
+    public String getIdFacebook() {
+        return idFacebook;
     }
 
     public String getFirstName() {
@@ -133,13 +135,28 @@ public class User
     }
 
 
+    public String get_id() {
+        return _id;
+    }
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+
     public String getACTION_LOGIN() {
         return ACTION_LOGIN;
     }
     public String getPassword()
     {
         if (this.password.length() == 0)
-            return this.getId();    // se envía id de facebook como contrasenia...
+            return this.getIdFacebook();    // se envía idFacebook de facebook como contrasenia...
         return password;    // se envía psssword ingresado..
     }
+
+    // obtener del spf
+    public String getLanguaje()
+    {
+        return "ESPANISH";
+    }
+
 }

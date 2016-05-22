@@ -72,7 +72,7 @@ public class LoginUserAsyncTask extends AsyncTask< String, Integer, Integer > {
             nameValuePairs.add(new BasicNameValuePair("apellidosUsuario"  ,user.getLastName()));
             nameValuePairs.add(new BasicNameValuePair("generoUsuario"     ,user.getGender()));
             nameValuePairs.add(new BasicNameValuePair("ciudadUsuario"     ,user.getLocale()));
-            nameValuePairs.add(new BasicNameValuePair("idFacebook"        ,user.getId()));
+            nameValuePairs.add(new BasicNameValuePair("idFacebook"        ,user.getIdFacebook()));
         }
         JSONArray jsonArray =   httppostaux.getserverdata(nameValuePairs, URL);
         if (jsonArray != null && jsonArray.length() > 0)

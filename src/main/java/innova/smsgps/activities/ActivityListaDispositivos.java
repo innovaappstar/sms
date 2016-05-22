@@ -154,8 +154,8 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
      * nos hayamos conectado con el dispositivo bt.
      * @param socket BluetoothSocket
      */
-    private void iniciarThreadComunicacion(BluetoothSocket socket){
-
+    private void iniciarThreadComunicacion(BluetoothSocket socket)
+    {
         threadIniciarComunicacion = new ThreadIniciarComunicacion(socket);
         threadIniciarComunicacion.start();
     }

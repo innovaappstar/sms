@@ -9,16 +9,18 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import innova.smsgps.R;
 import innova.smsgps.base.adapters.SpinnerAdapter;
+import innova.smsgps.dao.UserDAO;
 import innova.smsgps.entities.Idioma;
 import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
+import innova.smsgps.enums.IDSP1;
 import innova.smsgps.task.RegistroUserAsyncTask;
 import innova.smsgps.views.EditTextListener;
 
@@ -31,6 +33,10 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
     boolean isPermitirSeleccionSpiner = false;
     EditTextListener etEmail, etPassword, etRepeatPassword, etFirstName, etLastName;
     Spinner spIdiomas;
+
+    private boolean IS_RUNING_ASYNC_TASK = false;
+
+    User user = new User();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -57,11 +63,11 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
         spIdiomas.setAdapter(spinnerAdapter);
         spIdiomas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
                 if (isPermitirSeleccionSpiner)
                 {
                     Configuration configuration = new Configuration();
-
                     String nmbre    = ((Idioma)parent.getAdapter().getItem(position)).getNombre();
                     int codigo      = ((Idioma)parent.getAdapter().getItem(position)).getCodigo();
                     if (codigo == Idioma.ESPANIOL)
@@ -71,8 +77,9 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
 
                     getResources().updateConfiguration(configuration, null);
 
-                    Toast.makeText(parent.getContext(), nmbre + "\n" + codigo, Toast.LENGTH_SHORT).show();
-                } else {
+//                    Toast.makeText(parent.getContext(), nmbre + "\n" + codigo, Toast.LENGTH_SHORT).show();
+                } else
+                {
                     isPermitirSeleccionSpiner = true;
                 }
 
@@ -118,12 +125,17 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
         switch (view.getId())
         {
             case R.id.tvRegistrarse:
-                String email             = etEmail.getText().toString();
-                String password          = etPassword.getText().toString();
-                String repeatPassword    = etRepeatPassword.getText().toString();
-                String firstName         = etFirstName.getText().toString();
-                String lastname          = etLastName.getText().toString();
+                String email            = etEmail.getText().toString();
+                String password         = etPassword.getText().toString();
+                String repeatPassword   = etRepeatPassword.getText().toString();
+                String firstName        = etFirstName.getText().toString();
+                String lastname         = etLastName.getText().toString();
 
+                if (IS_RUNING_ASYNC_TASK)
+                {
+                    managerUtils.imprimirToast(this, "registro en progreso aún.");
+                    return;
+                }
                 if (!(email.length() > 0 && password.length() > 0 && repeatPassword.length() >0 && firstName.length() > 0 && lastname.length() > 0))
                 {
                     managerUtils.imprimirToast(this, "casillas incompletas");
@@ -134,7 +146,10 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
                     etRepeatPassword.setError("no coinciden");
                     return;
                 }
-                new RegistroUserAsyncTask(this, new User(firstName, lastname, email, password)).execute();
+
+                this.user = new User(firstName, lastname, email, password);
+                new RegistroUserAsyncTask(this, this.user).execute();
+                IS_RUNING_ASYNC_TASK = true;
                 break;
         }
     }
@@ -185,8 +200,22 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
             managerUtils.imprimirToast(this, loginUser.getDescription());
         }else
         {
-            managerUtils.imprimirToast(this, loginUser.getDescription());
+            try
+            {
+                // registramos o actualizamos nuevo usuario...
+                UserDAO userDAO = new UserDAO();
+                userDAO.insertUser(this, this.user);
+                // grabamos código idioma
+                managerInfoMovil.setSpf1(IDSP1.IDIOMA, ((Idioma) spIdiomas.getAdapter().getItem(spIdiomas.getSelectedItemPosition())).getCodigo());
+                managerUtils.imprimirToast(this, loginUser.getDescription());
+                startActivity(new Intent(this, ActivityMenuPrincipal.class));
+                finish();
+            } catch (SQLException e)
+            {
+                managerUtils.imprimirToast(this, e.getMessage());
+            }
         }
+        IS_RUNING_ASYNC_TASK = false;
     }
 
 }

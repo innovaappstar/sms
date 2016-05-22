@@ -25,6 +25,9 @@ public enum IDSP1
     TA8         (18),
     TA9         (19),
     TA10        (20),
+
+
+    IDIOMA      (30),
     SINVALOR    (99);
 
     private int n;
