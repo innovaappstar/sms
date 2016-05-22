@@ -151,6 +151,11 @@
         <activity android:name=".activities.ActivityMenuPrincipal"
             android:configChanges="orientation|screenSize"
             >
+
+        </activity>
+        <!-- actividad lista dispositivos iris-->
+        <activity android:name=".activities.ActivityListaDispositivos"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

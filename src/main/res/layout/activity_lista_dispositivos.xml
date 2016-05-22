@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/llFuncionesActionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:background="@color/gris_claro_card_view"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:visibility="gone"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/tvActionConectar"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center|left|start"
+            android:textSize="16sp"
+            android:textColor="@color/action_text_color"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="@string/action_connect_bluetooth" />
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/lvDispositivos"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llFuncionesActionBar"
+        />
+    <TextView
+        android:id="@+id/tvStatusConnectionDispositivo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:text=""/>
+</RelativeLayout>

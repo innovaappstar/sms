@@ -301,7 +301,7 @@ public class ServicioSms extends BaseServicio  {
             {
                 if (!mmSocket.isConnected())
                 {
-                    connectDevice();
+//                    connectDevice();
                 }
             }
 

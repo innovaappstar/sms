@@ -1,6 +1,7 @@
 package innova.smsgps.activities;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -43,6 +44,18 @@ public class ActivityMenuPrincipal extends BaseActivity
             case R.id.ivActionAbs:
                 managerUtils.deslizadoVertical(llFuncionesActionBar, this, isMostrarListaAbs);
                 isMostrarListaAbs = !isMostrarListaAbs;
+                break;
+            case R.id.tvActionConectar:
+                startActivity(new Intent(this, ActivityListaDispositivos.class));
+                break;
+            case R.id.tvActionProfile:
+//                startActivity(new Intent(this, ActivityOthers.class));
+                break;
+            case R.id.tvAcionContactMail:
+//                startActivity(new Intent(this, ActivityOthers.class));
+                break;
+
+            default:
                 break;
         }
     }
