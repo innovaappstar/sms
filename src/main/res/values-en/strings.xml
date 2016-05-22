@@ -18,4 +18,7 @@
     <string name="action_contact_mail">support@iris-smartsecurity.com</string>
     <string name="status_connection_bluetooth">Connected</string>
     <string name="status_disconnected_bluetooth">Disconnected</string>
+    <!-- xml activity listar dispositivos -->
+    <string name="status_connect_bluetooth_whit">Connected with\n%s</string>
+    <string name="status_not_connect_bluetooth_whit">Not connected with\n%s</string>
 </resources>

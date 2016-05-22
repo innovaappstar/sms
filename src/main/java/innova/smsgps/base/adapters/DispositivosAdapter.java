@@ -57,17 +57,19 @@ public class DispositivosAdapter extends BaseAdapter
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Dispositivo dispositivo = getItem(position);
+        viewHolder.tvNombre.setText(dispositivo.getNombre());
         viewHolder.tvMacAddress.setText(dispositivo.getMacAddress());
         return convertView;
     }
 
     private class ViewHolder
     {
-        TextView tvMacAddress;
+        TextView tvMacAddress, tvNombre;
 
         public ViewHolder(View item)
         {
-            tvMacAddress              = (TextView) item.findViewById(R.id.tvMacAddress);
+            tvNombre        = (TextView) item.findViewById(R.id.tvNombre);
+            tvMacAddress    = (TextView) item.findViewById(R.id.tvMacAddress);
         }
     }
 }

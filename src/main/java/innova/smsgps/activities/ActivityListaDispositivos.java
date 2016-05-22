@@ -41,6 +41,7 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
 
     //-------------------------------
     TextView tvStatusConnectionDispositivo;
+    TextView tvDetalleEstado;
     //----------------------------------
     ThreadConectarConDispositivo threadConectarConDispositivo;
     ThreadIniciarComunicacion threadIniciarComunicacion;
@@ -57,6 +58,7 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
         setContentView(R.layout.activity_lista_dispositivos);
         //region casting vistas
         tvStatusConnectionDispositivo   = (TextView)findViewById(R.id.tvStatusConnectionDispositivo);
+        tvDetalleEstado                 = (TextView)findViewById(R.id.tvDetalleEstado);
         llFuncionesActionBar            = (LinearLayout)findViewById(R.id.llFuncionesActionBar);
         lvDispositivos                  = (ListView)findViewById(R.id.lvDispositivos);
         lvDispositivos.setOnItemClickListener(this);
@@ -130,7 +132,7 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
                         if (alDispositivo.get(i).getMacAddress().equals(bluetoothDevice.getAddress()))
                             return;
                 }
-                alDispositivo.add(new Dispositivo(bluetoothDevice.getAddress()));
+                alDispositivo.add(new Dispositivo(bluetoothDevice.getAddress(), bluetoothDevice.getName()));
                 lvDispositivos.setAdapter(new DispositivosAdapter(alDispositivo, ActivityListaDispositivos.this));
             }
         }
@@ -141,10 +143,7 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         Dispositivo dispositivo = (Dispositivo)parent.getItemAtPosition(position);
-        managerUtils.imprimirToast(this, dispositivo.getMacAddress());
-        // obtenemos device..
         BluetoothDevice device = bluetoothAdapter.getRemoteDevice(dispositivo.getMacAddress());
-
         threadConectarConDispositivo = new ThreadConectarConDispositivo(device);
         threadConectarConDispositivo.start();
     }
@@ -193,10 +192,15 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
             }catch (IOException e)
             {
                 final String eMessage = e.getMessage();
-                runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable()
+                {
                     @Override
-                    public void run() {
+                    public void run()
+                    {
                         // salió algo mal en la conexión... eMessage
+                        String nombreDispositivo = (bluetoothDevice.getName() != null) ? bluetoothDevice.getName() : bluetoothDevice.getAddress();
+                        tvDetalleEstado.setText(String.format(getResources().getString(R.string.status_not_connect_bluetooth_whit) , nombreDispositivo));
+                        tvDetalleEstado.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -217,7 +221,10 @@ public class ActivityListaDispositivos extends BaseActivity implements ListView.
                     @Override
                     public void run()
                     {
-                        tvStatusConnectionDispositivo.setText(msgconnected);
+                        String nombreDispositivo = (bluetoothDevice.getName() != null) ? bluetoothDevice.getName() : bluetoothDevice.getAddress();
+                        tvDetalleEstado.setText(String.format(getResources().getString(R.string.status_connect_bluetooth_whit) , nombreDispositivo));
+                        tvDetalleEstado.setVisibility(View.VISIBLE);
+//                        tvStatusConnectionDispositivo.setText(msgconnected);
                         // conexión exitosa... msgconnected
                     }});
                 RUNING_THREAD_COMUNICACION = true;

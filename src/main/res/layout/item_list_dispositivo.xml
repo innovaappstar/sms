@@ -5,12 +5,21 @@
     android:layout_height="wrap_content"
     android:background="@drawable/shape_row_selector"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="20dp">
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/action_text_color"
+        android:text=""/>
     <TextView
         android:id="@+id/tvMacAddress"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:textColor="@color/action_text_color"
         android:text=""/>
 
