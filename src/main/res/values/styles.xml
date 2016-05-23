@@ -90,7 +90,7 @@
         <item name="android:layout_marginRight">35dp</item>
         <item name="android:textColorHint">@color/secondary_text</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:enabled">false</item>
+        <item name="android:enabled">true</item> 
         <!--APLICAMOS UN PARENT LEFT PARA NO REUTILIZAR ESTE ESTILO CON SU PADRE-->
         <item name="android:layout_alignParentLeft">true</item>
     </style>

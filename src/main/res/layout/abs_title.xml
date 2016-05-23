@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/celeste_oscuro_02">
+    android:background="@color/celeste_oscuro_03">
     <ImageView
         android:id="@+id/ivActionAbs"
         android:layout_alignParentLeft="true"

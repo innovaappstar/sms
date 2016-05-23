@@ -49,7 +49,7 @@ public class ActivityMenuPrincipal extends BaseActivity
                 startActivity(new Intent(this, ActivityListaDispositivos.class));
                 break;
             case R.id.tvActionProfile:
-//                startActivity(new Intent(this, ActivityOthers.class));
+                startActivity(new Intent(this, ActivityProfile.class));
                 break;
             case R.id.tvAcionContactMail:
 //                startActivity(new Intent(this, ActivityOthers.class));

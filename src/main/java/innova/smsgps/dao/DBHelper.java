@@ -17,15 +17,16 @@ public class DBHelper extends SQLiteOpenHelper
 {
 	//region definición de tablas...
 	private String sCrearTablaUser	= "CREATE TABLE " + UserDataContract.TABLA.getValue() + "("
-			+ UserDataContract.ID.getValue()    	+ " INTEGER PRIMARY KEY,"
-			+ UserDataContract.EMAIL.getValue()     + " TEXT NOT NULL,"
-			+ UserDataContract.PASSWORD.getValue() 	+ " TEXT NOT NULL,"
-			+ UserDataContract.FIRSTNAME.getValue() + " TEXT,"
-			+ UserDataContract.LASTNAME.getValue()  + " TEXT,"
-			+ UserDataContract.LANGUAJE.getValue()  + " TEXT,"
-			+ UserDataContract.GENDER.getValue()    + " TEXT,"
-			+ UserDataContract.BIRTHDAY.getValue()  + " TEXT,"
-			+ UserDataContract.COUNTRY.getValue()  	+ " TEXT"
+			+ UserDataContract.ID.getValue()    		+ " INTEGER PRIMARY KEY,"
+			+ UserDataContract.EMAIL.getValue()     	+ " TEXT NOT NULL,"
+			+ UserDataContract.PASSWORD.getValue() 		+ " TEXT NOT NULL,"
+			+ UserDataContract.FIRSTNAME.getValue() 	+ " TEXT,"
+			+ UserDataContract.LASTNAME.getValue()  	+ " TEXT,"
+			+ UserDataContract.LANGUAJE.getValue()  	+ " TEXT,"
+			+ UserDataContract.GENDER.getValue()    	+ " TEXT,"
+			+ UserDataContract.BIRTHDAY.getValue()  	+ " TEXT,"
+			+ UserDataContract.COUNTRY.getValue()  		+ " TEXT,"
+			+ UserDataContract.ID_FACEBOOK.getValue()  	+ " TEXT"
 			+ ")";
 
 	//endregion

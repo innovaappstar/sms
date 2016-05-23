@@ -57,6 +57,7 @@
         android:inputType="textPersonName"
         android:visibility="visible"
         android:hint="@string/apellidos_registro"/>
+
     <LinearLayout
         android:id="@+id/llLenguaje"
         android:layout_width="fill_parent"

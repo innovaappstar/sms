@@ -22,6 +22,17 @@
     <!-- xml activity listar dispositivos -->
     <string name="status_connect_bluetooth_whit">Conectado correctamente con\n%s</string>
     <string name="status_not_connect_bluetooth_whit">No se pudó conectar con\n%s</string>
+    <!-- xml activity profile -->
+    <string name="guardar_profile">Guardar</string>
+    <string name="detalle_profile">Active | Male | Lima, Perú</string>
+    <string name="username_profile">Username</string>
+
+    <string name="gender_profile">Género</string>
+    <string name="birhtday_profile">Cumpleaños</string>
+    <string name="country_profile">País</string>
+
+    <string name="action_activity_atras">Retroceder</string>
+
 
     <string name="cancelled">Cancelled</string>
     <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>

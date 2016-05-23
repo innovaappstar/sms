@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/celeste_oscuro_02">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="5.5">
+
+        <!--CONTENEDOR DONDE SE MOSTRARA SI ESTÁ ACTIVO, EL GÉNERO Y LUGAR DE RESIDENCIA DE LA PERSONA-->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+
+            <innova.smsgps.CircleImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_contacts"
+                android:layout_centerInParent="true"/>
+
+            <TextView
+                style="@style/StyleTextoDatosPerfil"
+                android:id="@+id/tvProfileNombre"
+                android:text="@string/username_profile"
+                android:textSize="18sp"
+                android:layout_below="@+id/ivProfile"/>
+
+            <TextView
+                style="@style/StyleTextoDatosPerfil"
+                android:id="@+id/tvProfileDetalle"
+                android:text="@string/detalle_profile"
+                android:textSize="14sp"
+                android:layout_below="@+id/tvProfileNombre"/>
+
+        </RelativeLayout>
+        <!--SEPARADOR DE CONTENEDORES-->
+        <RelativeLayout
+            android:id="@+id/view_medio_separador_contenedor"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+            <ImageView
+                style="@style/StyleButtonCamaraPerfil"
+                android:src="@drawable/ic_camera_white_small"
+                android:id="@+id/ivProfileGalery" />
+        </RelativeLayout>
+        <!--CONTENEDOR DE DATOS DE PÉRFIL -->
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@color/white">
+
+            <ScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_alignParentTop="true"
+                android:layout_above="@+id/btProfileGuardar"
+                android:id="@+id/svDatosProfile">
+
+                <FrameLayout
+                    android:id="@+id/scroll_view_frame"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical">
+                        <EditText
+                            style="@style/StyleEdittextCuentaPerfil"
+                            android:id="@+id/etEmail"
+                            android:inputType="textEmailAddress"
+                            android:hint="@string/email_registro"/>
+
+                        <EditText
+                            style="@style/StyleEdittextCuentaPerfil"
+                            android:id="@+id/etPassword"
+                            android:inputType="textPassword"
+                            android:hint="@string/password_registro"/>
+                        <EditText
+                            style="@style/StyleEdittextCuentaPerfil"
+                            android:id="@+id/etRepeatPassword"
+                            android:inputType="textPassword"
+                            android:hint="@string/repetir_password"/>
+                        <EditText
+                            style="@style/StyleEdittextCuentaPerfil"
+                            android:id="@+id/etFirstName"
+                            android:inputType="textPersonName"
+                            android:visibility="visible"
+                            android:hint="@string/nombre_registro"/>
+                        <EditText
+                            style="@style/StyleEdittextCuentaPerfil"
+                            android:id="@+id/etLastName"
+                            android:inputType="textPersonName"
+                            android:visibility="visible"
+                            android:hint="@string/apellidos_registro"/>
+
+                        <LinearLayout
+                            android:id="@+id/llLenguaje"
+                            android:layout_width="fill_parent"
+                            android:layout_height="60dp"
+                            android:gravity="center"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginLeft="35dp"
+                            android:weightSum="2">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="fill_parent"
+                                android:layout_weight=".7"
+                                android:gravity="center"
+                                android:textSize="18sp"
+                                android:textColor="@color/secondary_text"
+                                android:text="@string/idioma_seleccion" />
+                            <Spinner
+                                android:background="@drawable/shape_selector_spinner"
+                                android:spinnerMode="dropdown"
+                                android:id="@+id/spIdiomas"
+                                android:gravity="center"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1.3"
+                                />
+                        </LinearLayout>
+
+                        <EditText
+                            style="@style/StyleEdittextCuentaPerfil"
+                            android:id="@+id/etGender"
+                            android:inputType="textPersonName"
+                            android:visibility="visible"
+                            android:hint="@string/gender_profile"/>
+                        <EditText
+                            style="@style/StyleEdittextCuentaPerfil"
+                            android:id="@+id/etBirthday"
+                            android:inputType="datetime"
+                            android:visibility="visible"
+                            android:hint="@string/birhtday_profile"/>
+                        <EditText
+                            style="@style/StyleEdittextCuentaPerfil"
+                            android:id="@+id/etCountry"
+                            android:inputType="textPersonName"
+                            android:visibility="visible"
+                            android:hint="@string/country_profile"/>
+
+
+                    </LinearLayout>
+                </FrameLayout>
+            </ScrollView>
+
+            <Button
+                style="@style/StyleButtonCuenta"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/btProfileGuardar"
+                android:text="@string/guardar_profile"
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFuncionesActionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:background="@color/gris_claro_card_view"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:visibility="gone"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/tvActionConectar"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center|left|start"
+            android:textSize="16sp"
+            android:textColor="@color/action_text_color"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="@string/action_activity_atras" />
+    </LinearLayout>
+
+
+</RelativeLayout>

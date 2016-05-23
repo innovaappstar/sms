@@ -1,5 +1,8 @@
 package innova.smsgps.entities;
 
+import innova.smsgps.application.Globals;
+import innova.smsgps.enums.IDSP1;
+
 /**
  * Created by USUARIO on 19/05/2016.
  * Entidad User - Login Facebook
@@ -15,7 +18,7 @@ public class User
 
 
     // datos obtenidos de la api facebook
-    private String idFacebook           = "";
+    private String idFacebook   = "";
     private String firstName    = "";
     private String timeZone     = "";
     private String email        = "";
@@ -153,10 +156,10 @@ public class User
         return password;    // se envía psssword ingresado..
     }
 
-    // obtener del spf
+    // obtenemos idioma seleccionado..
     public String getLanguaje()
     {
-        return "ESPANISH";
+        return (Globals.getInfoMovil().getSPF1(IDSP1.IDIOMA) == Idioma.ESPANIOL) ? Idioma.SPANISH : Idioma.ENGLISH;
     }
 
 }

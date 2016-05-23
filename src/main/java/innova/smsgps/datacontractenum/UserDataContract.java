@@ -11,7 +11,8 @@ public enum UserDataContract
 	LANGUAJE	("LANGUAJE"),
 	GENDER		("GENDER"),
 	BIRTHDAY	("BIRTHDAY"),
-	COUNTRY		("COUNTRY");
+	COUNTRY		("COUNTRY"),
+	ID_FACEBOOK	("ID_FACEBOOK");
 
 	private String s;
 
