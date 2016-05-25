@@ -1,20 +1,23 @@
 package innova.smsgps.activities;
 
-import android.annotation.SuppressLint;
 import android.app.ActionBar;
-import android.app.DatePickerDialog;
-import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
-import java.lang.reflect.Field;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,7 +25,15 @@ import java.util.Locale;
 
 import innova.smsgps.R;
 import innova.smsgps.base.adapters.SpinnerAdapter;
+import innova.smsgps.base.adapters.SpinnerGenderAdapter;
+import innova.smsgps.dao.UserDAO;
+import innova.smsgps.datacontractenum.UserDataContract;
+import innova.smsgps.dialogs.BirthDayDialog;
+import innova.smsgps.entities.Gender;
 import innova.smsgps.entities.Idioma;
+import innova.smsgps.entities.User;
+import innova.smsgps.utils.Utils;
+import innova.smsgps.views.EditTextListener;
 
 import static android.app.DatePickerDialog.OnDateSetListener;
 
@@ -30,20 +41,20 @@ import static android.app.DatePickerDialog.OnDateSetListener;
 /**
  * Created by USUARIO on 10/11/2015.
  */
-public class ActivityProfile extends BaseActivity implements  OnDateSetListener
+public class ActivityProfile extends BaseActivity implements  OnDateSetListener, EditTextListener.EditTextListenerCallback, View.OnTouchListener
 {
+    UserDAO userDAO = new UserDAO();
+
     LinearLayout llFuncionesActionBar;
     boolean isMostrarListaAbs = false;
 
     boolean isPermitirSeleccionSpiner = false;
     Spinner spIdiomas;
+    Spinner spGender;
 
-    //-----------------------
-    private DatePickerDialog fromDatePickerDialog;
-    private DatePickerDialog toDatePickerDialog;
-
-    private SimpleDateFormat dateFormatter;
-    //----------------------
+    TextView tvProfileNombre, tvProfileDetalle, tvActionRetroceder;
+    EditTextListener etEmail, etPassword, etRepeatPassword, etFirstName, etLastName, etBirthDay, etCountry;
+    String idFacebook = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,12 +65,29 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener
 
         setContentView(R.layout.activity_profile);
         llFuncionesActionBar = (LinearLayout)findViewById(R.id.llFuncionesActionBar);
+
+        tvProfileNombre     = (TextView)findViewById(R.id.tvProfileNombre);
+        tvProfileDetalle    = (TextView)findViewById(R.id.tvProfileDetalle);
+        tvActionRetroceder  = (TextView)findViewById(R.id.tvActionRetroceder);
+
+        EditTextListener.setOnTextListener(this);
+        etEmail             = (EditTextListener)findViewById(R.id.etEmail);
+        etPassword          = (EditTextListener)findViewById(R.id.etPassword);
+        etRepeatPassword    = (EditTextListener)findViewById(R.id.etRepeatPassword);
+        etFirstName         = (EditTextListener)findViewById(R.id.etFirstName);
+        etLastName          = (EditTextListener)findViewById(R.id.etLastName);
+        etBirthDay          = (EditTextListener)findViewById(R.id.etBirthDay);
+        etCountry           = (EditTextListener)findViewById(R.id.etCountry);
+
+        etBirthDay.setOnTouchListener(this);
         spIdiomas           = (Spinner)findViewById(R.id.spIdiomas);
+        spGender            = (Spinner)findViewById(R.id.spGender);
+
 
         //region cargar spinner
         ArrayList<Idioma> alIdiomas = new ArrayList<Idioma>();
-        alIdiomas.add(new Idioma(Idioma.SPANISH, Idioma.ESPANIOL));
-        alIdiomas.add(new Idioma(Idioma.ENGLISH, Idioma.INGLES));
+        alIdiomas.add(new Idioma(getResources().getString(R.string.item_spanish), Idioma.ESPANIOL_id));
+        alIdiomas.add(new Idioma(getResources().getString(R.string.item_english), Idioma.INGLES_id));
 
         SpinnerAdapter spinnerAdapter=new SpinnerAdapter(ActivityProfile.this, alIdiomas);
         spIdiomas.setAdapter(spinnerAdapter);
@@ -69,9 +97,9 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener
                 if (isPermitirSeleccionSpiner) {
                     Configuration configuration = new Configuration();
                     int codigo = ((Idioma) parent.getAdapter().getItem(position)).getCodigo();
-                    if (codigo == Idioma.ESPANIOL)
+                    if (codigo == Idioma.ESPANIOL_id)
                         configuration.locale = Locale.getDefault();
-                    else if (codigo == Idioma.INGLES)
+                    else if (codigo == Idioma.INGLES_id)
                         configuration.locale = Locale.ENGLISH;
 
                     getResources().updateConfiguration(configuration, null);
@@ -85,9 +113,39 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener
 
             }
         });
+        //-----------------------------------------------------------------------------------------------------
+        ArrayList<Gender> alGenders = new ArrayList<Gender>();
+        alGenders.add(new Gender(getResources().getString(R.string.item_male), Gender.MALE_id));
+        alGenders.add(new Gender(getResources().getString(R.string.item_female), Gender.FEMALE_id));
+
+        SpinnerGenderAdapter spinnerGenderAdapter=new SpinnerGenderAdapter(ActivityProfile.this, alGenders);
+        spGender.setAdapter(spinnerGenderAdapter);
         //endregion
 
-        dateFormatter = new SimpleDateFormat("dd/MM", Locale.US);
+        try
+        {
+            Cursor cursorUser = userDAO.getCursorObtenerUser(ActivityProfile.this);
+            if (cursorUser != null && cursorUser.getCount() > 0)
+            {
+
+                tvProfileNombre.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.FIRSTNAME.getValue())));
+                this.idFacebook = cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.ID_FACEBOOK.getValue()));  // mantendremos esta variable para su uso en la actualización...
+                etEmail.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.EMAIL.getValue())));
+                etPassword.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.PASSWORD.getValue())));
+                etRepeatPassword.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.PASSWORD.getValue())));
+                etFirstName.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.FIRSTNAME.getValue())));
+                etLastName.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.LASTNAME.getValue())));
+                spIdiomas.setSelection(Idioma.GETITEMPOSITION(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.LANGUAJE.getValue()))));
+                spGender.setSelection(Gender.GETITEMPOSITION(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.GENDER.getValue())) ));
+//                etGender.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.GENDER.getValue())));
+                etBirthDay.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.BIRTHDAY.getValue())));
+                etCountry.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.COUNTRY.getValue())));
+//                etEmail.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.ID_FACEBOOK.getValue())));
+            }
+        } catch (SQLException e)
+        {
+            Utils.LOG("cursor profile : " + e.getMessage() );
+        }
 
     }
 
@@ -103,68 +161,6 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener
     {
     }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-    {
-        Calendar newDate = Calendar.getInstance();
-        newDate.set(year, monthOfYear, dayOfMonth);
-        managerUtils.imprimirToast(ActivityProfile.this, dateFormatter.format(newDate.getTime()));
-    }
-
-
-    //--------------------------------------------
-    // clase customizada para mostrar un datepickerDialog - derivarla..
-    class CustomDatePickerDialog extends DatePickerDialog implements DatePicker.OnDateChangedListener {
-
-        private DatePickerDialog mDatePicker;
-
-        @SuppressLint("NewApi")
-        public CustomDatePickerDialog(Context context,int theme, OnDateSetListener callBack,
-                                      int year, int monthOfYear, int dayOfMonth) {
-            super(context, theme,callBack, year, monthOfYear, dayOfMonth);
-            mDatePicker = new DatePickerDialog(context,theme,callBack, year, monthOfYear, dayOfMonth);
-
-            mDatePicker.getDatePicker().init(2013, 7, 16, this);
-
-            updateTitle(dayOfMonth, monthOfYear);
-
-        }
-        public void onDateChanged(DatePicker view, int year,
-                                  int month, int day) {
-            updateTitle(day, month);
-        }
-        private void updateTitle(int day, int month) {
-            Calendar mCalendar = Calendar.getInstance();
-//            mCalendar.set(Calendar.YEAR, year);
-            mCalendar.set(Calendar.MONTH, month);
-            mCalendar.set(Calendar.DAY_OF_MONTH, day);
-            mDatePicker.setTitle(getFormat().format(mCalendar.getTime()));
-
-        }
-
-        public DatePickerDialog getPicker(){
-
-            return this.mDatePicker;
-        }
-        /*
-         * the format for dialog tile,and you can override this method
-         */
-        public SimpleDateFormat getFormat(){
-            return new SimpleDateFormat("dd, MMM", Locale.getDefault());//"MMM, yyyy");
-        }
-    }
-
-
-
-    //----------------------------------------------
-
-
-
-
-
-
-
-
 
 
     public void onClick(View view)
@@ -176,45 +172,105 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener
                 isMostrarListaAbs = !isMostrarListaAbs;
                 break;
             case R.id.btProfileGuardar:
-//                CustomDatePickerDialog dp = new CustomDatePickerDialog(this , android.R.style.Theme_Holo_Light_Dialog,  this, 1, 1, 22);
-                CustomDatePickerDialog dp = new CustomDatePickerDialog(this , android.R.style.Theme_Holo_Light_Dialog_NoActionBar,  this, 1, 1, 22);
-                // oculta la vista yeard
-                DatePickerDialog obj = dp.getPicker();
-                try{
-                    Field[] datePickerDialogFields = obj.getClass().getDeclaredFields();
-                    for (Field datePickerDialogField : datePickerDialogFields) {
-                        if (datePickerDialogField.getName().equals("mDatePicker")) {
-                            datePickerDialogField.setAccessible(true);
-                            DatePicker datePicker = (DatePicker) datePickerDialogField.get(obj);
-                            Field datePickerFields[] = datePickerDialogField.getType().getDeclaredFields();
-                            for (Field datePickerField : datePickerFields)
-                            {
-                                if ("mYearPicker".equals(datePickerField.getName()) || "mYearSpinner".equals(datePickerField.getName()))    // mDayPicker-mDaySpinner
-                                {
-                                    datePickerField.setAccessible(true);
-                                    Object dayPicker = new Object();
-                                    dayPicker = datePickerField.get(datePicker);
-                                    ((View) dayPicker).setVisibility(View.GONE);
-                                }
-                            }
-                        }
 
-                    }
-                }catch(Exception ex){
+                String firstName        = etFirstName.getText().toString();
+                String email            = etEmail.getText().toString();
+                String lastName         = etLastName.getText().toString();
+                String gender           = ((Gender) spGender.getAdapter().getItem(spGender.getSelectedItemPosition())).getNombre();
+                String password         = etPassword.getText().toString();
+                String languaje         = ((Idioma) spIdiomas.getAdapter().getItem(spIdiomas.getSelectedItemPosition())).getNombre();
+                String birthDay         = etBirthDay.getText().toString();
+                String country          = etCountry.getText().toString();
+                String repeatPassword   = etRepeatPassword.getText().toString();
+                if (!(firstName.length() > 0 && email.length() > 0 && lastName.length() >0 && gender.length() > 0 && password.length() > 0 && languaje.length() > 0 && birthDay.length() > 0 && country.length() > 0 && repeatPassword.length() > 0))
+                {
+                    managerUtils.imprimirToast(this, "casillas incompletas");
+                    return;
                 }
-                obj.show();
-
+                if (!password.equals(repeatPassword))
+                {
+                    etRepeatPassword.setError("no coinciden");
+                    return;
+                }
+                //User(String idFacebook, String firstName, String email, String lastName, String gender, String password, String languajeEdit, String birthDayEdit, String countryEdit) {
+                try
+                {
+                    if (userDAO.insertUser(this, new User(this.idFacebook, firstName, email, lastName, gender, password, languaje, birthDay, country)))
+                        managerUtils.imprimirToast(this, "pérfil actualizado.");
+                } catch (SQLException e)
+                {
+                    managerUtils.imprimirToast(this, "no se pudó actualizar el pérfil.");
+                }
                 break;
-
+            case R.id.tvActionRetroceder:
+                startActivity(new Intent(this, ActivityMenuPrincipal.class));
+                finish();
+                break;
             default:
                 break;
         }
     }
 
 
+    @Override
+    public void onAfterTextChanged(EditText editText, String texto, int tamanio)
+    {
+        switch (editText.getId())
+        {
+            case R.id.etPassword:
+                if (tamanio < 6)
+                    etPassword.setError("mínimo 6 dígitos");
+                else
+                {
+                    etPassword.setError(null);
+                    if (etRepeatPassword.getText().toString().equals(etPassword.getText().toString()))
+                        etRepeatPassword.setError(null);
+                }
+                break;
+            case R.id.etRepeatPassword:
+                // el password al ser modificado podra quitar la advertencia del repeatPassword... (ambos)
+                if (etPassword.getText().toString().length() > 5 && etRepeatPassword.getText().toString().length() > 5)
+                {
+                    if (etRepeatPassword.getText().toString().equals(etPassword.getText().toString()))
+                        etRepeatPassword.setError(null);
+                    else
+                        etRepeatPassword.setError("no coinciden las contraseñas.");
+                }else
+                    etRepeatPassword.setError(null);
+                break;
+            default:
+                break;
+        }
+    }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+    {
+        String formato = "dd/MM";
+        Calendar newDate = Calendar.getInstance();
+        newDate.set(year, monthOfYear, dayOfMonth);
+        String fechaSeleccionada = new SimpleDateFormat(formato, Locale.US).format(newDate.getTime());
+        etBirthDay.setText(fechaSeleccionada);
+    }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event)
+    {
+        if(event.getAction() == MotionEvent.ACTION_UP)
+        {
+            switch (v.getId())
+            {
+                case R.id.etBirthDay:
+                    BirthDayDialog birthDayDialog = new BirthDayDialog(this, this);
+                    birthDayDialog.getDatePickerBirthDay().show();
+                    break;
 
+            }
+            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return true;
+    }
 }
 
 

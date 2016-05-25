@@ -13,6 +13,10 @@
     <string name="apellidos_registro">Apellidos</string>
     <string name="registrar_registro">Registrar</string>
     <string name="idioma_seleccion">Lenguaje</string>
+
+    <string name="item_spanish">Español</string>
+    <string name="item_english">Ingles</string>
+
     <!-- xml activity menu -->
     <string name="action_connect_bluetooth">Conectar</string>
     <string name="action_profile">Pérfil</string>
@@ -32,6 +36,8 @@
     <string name="country_profile">País</string>
 
     <string name="action_activity_atras">Retroceder</string>
+    <string name="item_male">Masculino</string>
+    <string name="item_female">Femenino</string>
 
 
     <string name="cancelled">Cancelled</string>

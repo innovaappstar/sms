@@ -20,13 +20,13 @@ public class DBHelper extends SQLiteOpenHelper
 			+ UserDataContract.ID.getValue()    		+ " INTEGER PRIMARY KEY,"
 			+ UserDataContract.EMAIL.getValue()     	+ " TEXT NOT NULL,"
 			+ UserDataContract.PASSWORD.getValue() 		+ " TEXT NOT NULL,"
-			+ UserDataContract.FIRSTNAME.getValue() 	+ " TEXT,"
-			+ UserDataContract.LASTNAME.getValue()  	+ " TEXT,"
-			+ UserDataContract.LANGUAJE.getValue()  	+ " TEXT,"
-			+ UserDataContract.GENDER.getValue()    	+ " TEXT,"
-			+ UserDataContract.BIRTHDAY.getValue()  	+ " TEXT,"
-			+ UserDataContract.COUNTRY.getValue()  		+ " TEXT,"
-			+ UserDataContract.ID_FACEBOOK.getValue()  	+ " TEXT"
+			+ UserDataContract.FIRSTNAME.getValue() 	+ " TEXT DEFAULT '',"
+			+ UserDataContract.LASTNAME.getValue()  	+ " TEXT DEFAULT '',"
+			+ UserDataContract.LANGUAJE.getValue()  	+ " TEXT DEFAULT '1',"	// SPANISH
+			+ UserDataContract.GENDER.getValue()    	+ " TEXT DEFAULT '',"
+			+ UserDataContract.BIRTHDAY.getValue()  	+ " TEXT DEFAULT '',"
+			+ UserDataContract.COUNTRY.getValue()  		+ " TEXT DEFAULT '',"
+			+ UserDataContract.ID_FACEBOOK.getValue()  	+ " TEXT DEFAULT ''"
 			+ ")";
 
 	//endregion

@@ -57,8 +57,8 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
         //endregion
         //region cargar spinner
         ArrayList<Idioma> alIdiomas = new ArrayList<Idioma>();
-        alIdiomas.add(new Idioma(Idioma.SPANISH, Idioma.ESPANIOL));
-        alIdiomas.add(new Idioma(Idioma.ENGLISH, Idioma.INGLES));
+        alIdiomas.add(new Idioma(getResources().getString(R.string.item_spanish),  Idioma.ESPANIOL_id));
+        alIdiomas.add(new Idioma(getResources().getString(R.string.item_english), Idioma.INGLES_id));
         SpinnerAdapter spinnerAdapter=new SpinnerAdapter(ActivityRegistro.this,alIdiomas);
         spIdiomas.setAdapter(spinnerAdapter);
         spIdiomas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -70,9 +70,9 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
                     Configuration configuration = new Configuration();
                     String nmbre    = ((Idioma)parent.getAdapter().getItem(position)).getNombre();
                     int codigo      = ((Idioma)parent.getAdapter().getItem(position)).getCodigo();
-                    if (codigo == Idioma.ESPANIOL)
+                    if (codigo == Idioma.ESPANIOL_id)
                         configuration.locale = Locale.getDefault(); // new Locale("es") -- alternativo
-                    else if (codigo == Idioma.INGLES)
+                    else if (codigo == Idioma.INGLES_id)
                         configuration.locale = Locale.ENGLISH;
 
                     getResources().updateConfiguration(configuration, null);
@@ -130,6 +130,7 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
                 String repeatPassword   = etRepeatPassword.getText().toString();
                 String firstName        = etFirstName.getText().toString();
                 String lastname         = etLastName.getText().toString();
+                String languaje         = ((Idioma) spIdiomas.getAdapter().getItem(spIdiomas.getSelectedItemPosition())).getNombre();
 
                 if (IS_RUNING_ASYNC_TASK)
                 {
@@ -147,7 +148,7 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
                     return;
                 }
 
-                this.user = new User(firstName, lastname, email, password);
+                this.user = new User(firstName, lastname, email, password, languaje); // laguaje
                 new RegistroUserAsyncTask(this, this.user).execute();
                 IS_RUNING_ASYNC_TASK = true;
                 break;
@@ -190,6 +191,7 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
                 break;
         }
     }
+
 
 
     @Override

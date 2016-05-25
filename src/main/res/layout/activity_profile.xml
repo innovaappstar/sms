@@ -75,29 +75,29 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:orientation="vertical">
-                        <EditText
+                        <innova.smsgps.views.EditTextListener
                             style="@style/StyleEdittextCuentaPerfil"
                             android:id="@+id/etEmail"
                             android:inputType="textEmailAddress"
                             android:hint="@string/email_registro"/>
 
-                        <EditText
+                        <innova.smsgps.views.EditTextListener
                             style="@style/StyleEdittextCuentaPerfil"
                             android:id="@+id/etPassword"
                             android:inputType="textPassword"
                             android:hint="@string/password_registro"/>
-                        <EditText
+                        <innova.smsgps.views.EditTextListener
                             style="@style/StyleEdittextCuentaPerfil"
                             android:id="@+id/etRepeatPassword"
                             android:inputType="textPassword"
                             android:hint="@string/repetir_password"/>
-                        <EditText
+                        <innova.smsgps.views.EditTextListener
                             style="@style/StyleEdittextCuentaPerfil"
                             android:id="@+id/etFirstName"
                             android:inputType="textPersonName"
                             android:visibility="visible"
                             android:hint="@string/nombre_registro"/>
-                        <EditText
+                        <innova.smsgps.views.EditTextListener
                             style="@style/StyleEdittextCuentaPerfil"
                             android:id="@+id/etLastName"
                             android:inputType="textPersonName"
@@ -131,25 +131,38 @@
                                 />
                         </LinearLayout>
 
-                        <EditText
+                        <LinearLayout
+                            android:id="@+id/llGender"
+                            android:layout_width="fill_parent"
+                            android:layout_height="60dp"
+                            android:gravity="center"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginLeft="35dp"
+                            android:weightSum="2">
+                            <Spinner
+                                android:background="@drawable/shape_selector_spinner"
+                                android:spinnerMode="dropdown"
+                                android:id="@+id/spGender"
+                                android:gravity="center"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                />
+                        </LinearLayout>
+
+                        <innova.smsgps.views.EditTextListener
                             style="@style/StyleEdittextCuentaPerfil"
-                            android:id="@+id/etGender"
-                            android:inputType="textPersonName"
-                            android:visibility="visible"
-                            android:hint="@string/gender_profile"/>
-                        <EditText
-                            style="@style/StyleEdittextCuentaPerfil"
-                            android:id="@+id/etBirthday"
+                            android:id="@+id/etBirthDay"
                             android:inputType="datetime"
                             android:visibility="visible"
                             android:hint="@string/birhtday_profile"/>
-                        <EditText
+
+                        <innova.smsgps.views.EditTextListener
                             style="@style/StyleEdittextCuentaPerfil"
                             android:id="@+id/etCountry"
-                            android:inputType="textPersonName"
+                            android:inputType="text"
                             android:visibility="visible"
                             android:hint="@string/country_profile"/>
-
 
                     </LinearLayout>
                 </FrameLayout>
@@ -183,7 +196,7 @@
         android:weightSum="2">
 
         <TextView
-            android:id="@+id/tvActionConectar"
+            android:id="@+id/tvActionRetroceder"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

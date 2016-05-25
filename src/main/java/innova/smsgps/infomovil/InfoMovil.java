@@ -95,7 +95,7 @@ public class InfoMovil implements IInfoMovil
                 return spf.getInt("BEEP3", 1);  // default : 1 = Asalto
 
             case IDIOMA:
-                return spf.getInt("IDIOMA", Idioma.ESPANIOL);
+                return spf.getInt("IDIOMA", Idioma.ESPANIOL_id);
 
 //            case NUMERO01:
 //                return spf.getInt("NUMERO01", 0);

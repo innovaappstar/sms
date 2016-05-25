@@ -178,6 +178,16 @@ public class Utils implements IUtils {
         }
         return count;
     }
+
+    /**
+     * imprime LOG EN CONSOLA - cualquier clase
+     * @param texto String .
+     **/
+    public static void LOG(String texto)
+    {
+        Log.i(TAG, texto);
+    }
+
     /**
      * imprimirLog void IMPRIME LOG EN CONSOLA
      * @param texto String QUE SE IMPRIMIRA.

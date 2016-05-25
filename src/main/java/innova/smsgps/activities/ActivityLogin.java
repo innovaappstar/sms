@@ -104,8 +104,8 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
 
             new LoginUserAsyncTask(this, user).execute();
 
-            String sDatosUsuario = String.format("Se obtuvieron los siguientes datos %s\n%s\n%s\n%s" , user.getIdFacebook(), user.getFirstName(), user.getLastName(), user.getEmail());
-            managerUtils.imprimirLog(sDatosUsuario);
+//            String sDatosUsuario = String.format("Se obtuvieron los siguientes datos %s\n%s\n%s\n%s" , user.getIdFacebook(), user.getFirstName(), user.getLastName(), user.getEmail());
+//            managerUtils.imprimirLog(graphUser.toString());
         }else
         {
             managerUtils.imprimirLog("El graphUser es null");

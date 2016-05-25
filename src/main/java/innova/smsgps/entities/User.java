@@ -1,8 +1,5 @@
 package innova.smsgps.entities;
 
-import innova.smsgps.application.Globals;
-import innova.smsgps.enums.IDSP1;
-
 /**
  * Created by USUARIO on 19/05/2016.
  * Entidad User - Login Facebook
@@ -33,10 +30,39 @@ public class User
     // datos ingresados por el usuario o establecido de facebook
     private String password     = "";
 
+    // datos editados manualmente - ActivityProfile.java
+    private String languajeEdit = "";
+    private String birthDayEdit = "";
+    private String countryEdit  = "";
+
     // _id sqlite para crud update/delete
     private String _id          = "";
 
     public User(){}
+
+    /**
+     * Constructor que será llamado seteado en las actualizaciones de pérfil de usuario..
+     * @param idFacebook String
+     * @param firstName String
+     * @param email String
+     * @param lastName String
+     * @param gender String
+     * @param password String
+     * @param languajeEdit String
+     * @param birthDayEdit String
+     * @param countryEdit String
+     */
+    public User(String idFacebook, String firstName, String email, String lastName, String gender, String password, String languajeEdit, String birthDayEdit, String countryEdit) {
+        this.idFacebook = idFacebook;
+        this.firstName = firstName;
+        this.email = email;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.password = password;
+        this.languajeEdit = languajeEdit;
+        this.birthDayEdit = birthDayEdit;
+        this.countryEdit = countryEdit;
+    }
 
     /**
      * @param idFacebook idFacebook único de facebook
@@ -84,12 +110,13 @@ public class User
      * @param email email
      * @param password contrasenia
      */
-    public User(String firstName,  String lastName, String email, String password)
+    public User(String firstName,  String lastName, String email, String password, String languajeEdit)
     {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.languajeEdit = languajeEdit;
         this.ACTION_LOGIN = MANUAL; // login sin facebook
     }
 
@@ -156,10 +183,21 @@ public class User
         return password;    // se envía psssword ingresado..
     }
 
-    // obtenemos idioma seleccionado..
+    public String getBirthDayEdit() {
+        return birthDayEdit;
+    }
+
+    public String getCountryEdit() {
+        return countryEdit;
+    }
+
+    // obtenemos idioma seleccionado.. "locale":"es_ES" <- facebook  || "locale":"" <- manual
     public String getLanguaje()
     {
-        return (Globals.getInfoMovil().getSPF1(IDSP1.IDIOMA) == Idioma.ESPANIOL) ? Idioma.SPANISH : Idioma.ENGLISH;
+        if (this.languajeEdit.length() == 0) // si estamos logueandonos con fb o registrandonos por primera vez...
+            return (getLocale().equals("es_ES")) ? Idioma.ESPANIOL : (getLocale().length() == 0) ? Idioma.ESPANIOL : "Ingles";
+        else
+            return this.languajeEdit;   // sino , entonces enviaremos el idioma seleccionado
     }
 
 }

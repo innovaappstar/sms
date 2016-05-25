@@ -50,8 +50,7 @@ public class EditTextListener extends EditText
     public void textChangedListener()
     {
         this.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 String texto = EditTextListener.this.getText().toString();
                 int tamanio = EditTextListener.this.getText().toString().length();
                 if (editTextListenerCallback != null)
@@ -65,4 +64,23 @@ public class EditTextListener extends EditText
             }
         });
     }
+
+
+    /*
+    public void textOnTouchListener(OnTouchListener onTouchListener)
+    {
+        this.setOnTouchListener(onTouchListener);
+        this.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                if (editTextListenerCallback != null)
+                    editTextListenerCallback.onTouchListener(v, event);
+                return true;
+            }
+        });
+    }
+    */
+
 }

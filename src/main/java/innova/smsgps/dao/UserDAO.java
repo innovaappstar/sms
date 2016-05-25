@@ -28,10 +28,10 @@ public class UserDAO
         cv.put(UserDataContract.LASTNAME.getValue(), user.getLastName());
         cv.put(UserDataContract.GENDER.getValue(), user.getGender());
         cv.put(UserDataContract.PASSWORD.getValue(), user.getPassword());
-        cv.put(UserDataContract.LANGUAJE.getValue(), user.getLanguaje());
+        cv.put(UserDataContract.LANGUAJE.getValue(), user.getLanguaje());   // hay dos tipos casos distintos en este get.. (login o registro y edición)
         cv.put(UserDataContract.ID_FACEBOOK.getValue(), user.getIdFacebook());
-//        cv.put(UserDataContract.BIRTHDAY.getValue(), user);
-//        cv.put(UserDataContract.COUNTRY.getValue(), user);
+        cv.put(UserDataContract.BIRTHDAY.getValue(), user.getBirthDayEdit());
+        cv.put(UserDataContract.COUNTRY.getValue(), user.getCountryEdit());
         return cv;
     }
 
@@ -76,7 +76,15 @@ public class UserDAO
      */
     public Cursor getCursorObtenerUser(Context context) throws SQLException
     {
-        String[] columnas = new String[]{UserDataContract.ID.getValue(), UserDataContract.EMAIL.getValue()} ;
+//        String[] columnas = new String[]{UserDataContract.ID.getValue(), UserDataContract.EMAIL.getValue()} ;
+        String[] columnas = new String[]
+                {
+                UserDataContract.ID.getValue(), UserDataContract.ID_FACEBOOK.getValue() ,
+                UserDataContract.EMAIL.getValue(), UserDataContract.PASSWORD.getValue(),
+                UserDataContract.FIRSTNAME.getValue(), UserDataContract.LASTNAME.getValue(),
+                UserDataContract.LANGUAJE.getValue(), UserDataContract.GENDER.getValue(),
+                UserDataContract.BIRTHDAY.getValue(), UserDataContract.COUNTRY.getValue()
+                };
         Cursor c = DBHelperSingleton.getDatabase(context).query(true, UserDataContract.TABLA.getValue(), columnas, null, null, null, null, null, null);
         if (c != null)
             c.moveToFirst();

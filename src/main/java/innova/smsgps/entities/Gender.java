@@ -4,11 +4,10 @@ package innova.smsgps.entities;
  * Created by USUARIO on 21/05/2016.
  * Idioma seleccionado por el usuario...
  */
-public class Idioma
+public class Gender
 {
-    public static String ESPANIOL = "ESPAÑOL";  // User.java - Idioma.java
-    public static int ESPANIOL_id  = 0;
-    public static int INGLES_id    = 1;
+    public static int MALE_id   = 0;
+    public static int FEMALE_id = 1;
 
     public String nombre    = "";
     public int codigo       = 0;
@@ -17,7 +16,7 @@ public class Idioma
      * @param nombre String
      * @param codigo int
      */
-    public Idioma(String nombre, int codigo) {
+    public Gender(String nombre, int codigo) {
         this.nombre = nombre;
         this.codigo = codigo;
     }
@@ -30,19 +29,19 @@ public class Idioma
         return codigo;
     }
 
+
     /**
      * Simple función para obtener posición de spinner
-     * @param idioma String
+     * @param gender String
      * @return
      * <ul>
-     *     <li>  0 : Español..</li>
-     *     <li> -1 : Ingles..</li>
+     *     <li>  0 : masculino..</li>
+     *     <li> -1 : femenino..</li>
      * </ul>
      */
-    public static int GETITEMPOSITION(String idioma)
+    public static int GETITEMPOSITION(String gender)
     {
-        idioma = idioma.toUpperCase();
-        return  (idioma.equals(ESPANIOL))? ESPANIOL_id : (idioma.equals("Spanish"))? ESPANIOL_id : INGLES_id;
+        gender = gender.toUpperCase();
+        return  (gender.equals("MALE"))? MALE_id : (gender.equals("MASCULINO"))? MALE_id : (gender.length() == 0)? MALE_id : FEMALE_id;
     }
-
 }
