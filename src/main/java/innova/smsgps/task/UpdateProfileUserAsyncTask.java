@@ -22,7 +22,7 @@ import innova.smsgps.utils.Utils;
 public class UpdateProfileUserAsyncTask extends AsyncTask< String, Integer, Integer > {
 
 
-    String URL = CONSTANT.PATH_WS + CONSTANT.WS_UPDATE_PROFILE_USUARIO;
+    String URL = CONSTANT.PATH_WS + CONSTANT.WS_UPDATE_PROFILE_DATOS_USUARIO;
 
     String description = "";
 

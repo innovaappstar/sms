@@ -14,7 +14,8 @@ public enum IDSP2
     IDREGISTRODENUNCIAMOVIL (7),
     NICKUSUARIO             (8),
     DIRECTORIOMUSIC         (9),
-    MACADDRESS              (10);
+    MACADDRESS              (10),
+    URIFOTOPROFILE          (11);
 
     private int n;
 

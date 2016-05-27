@@ -47,4 +47,5 @@ public interface IUtils {
      void mostrarNotificacionCustomizada(Context context, String nombreCancion);
 
      void deslizadoVertical(View view,  Context context , boolean isMostrar);
+     boolean isExisteFile(Context context, String uri);
 }

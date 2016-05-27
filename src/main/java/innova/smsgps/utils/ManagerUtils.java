@@ -105,4 +105,9 @@ public class ManagerUtils implements IUtils {
         iUtils.deslizadoVertical(view, context, isMostrar);
     }
 
+    @Override
+    public boolean isExisteFile(Context context, String uri) {
+        return iUtils.isExisteFile(context, uri);
+    }
+
 }

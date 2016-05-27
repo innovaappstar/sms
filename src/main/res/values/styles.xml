@@ -116,7 +116,8 @@
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:src">@drawable/ic_camara</item>
-
+        <item name="android:onClick">onClick</item>
+        <item name="android:clickable">true</item>
     </style>
     <!--ESTILO PARA TEXTOS PERFIL-->
     <style name="StyleTextoEditarPerfil" parent="WidgetTextEditarPerfil">

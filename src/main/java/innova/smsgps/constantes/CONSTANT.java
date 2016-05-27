@@ -13,7 +13,8 @@ public class CONSTANT
     public  static String PATH_WS                   =  NOMBRE_SERVIDOR + "/" + FOLDER_ANDROID + "/";
     public  static String WS_LOGIN_USUARIO          = "ws_login_usuario.php";
     public  static String WS_REGISTRO_USUARIO       = "ws_registro_usuario.php";
-    public  static String WS_UPDATE_PROFILE_USUARIO = "ws_update_profile.php";
+    public  static String WS_UPDATE_PROFILE_DATOS_USUARIO   = "ws_update_profile.php";
+    public  static String WS_UPDATE_PROFILE_PHOTO_USUARIO   = "ws_upload_foto.php";
 
     public  static String WS_REGISTRO_ALERTA        = "ws_registro_alerta.php";
     public  static String WS_LISTAR_ALERTAS         = "ws_listar_registros.php";

@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,16 +20,34 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import innova.smsgps.CircleImageView;
 import innova.smsgps.R;
 import innova.smsgps.base.adapters.SpinnerAdapter;
 import innova.smsgps.base.adapters.SpinnerGenderAdapter;
+import innova.smsgps.constantes.CONSTANT;
+import innova.smsgps.constantes.Constantes;
 import innova.smsgps.dao.UserDAO;
 import innova.smsgps.datacontractenum.UserDataContract;
 import innova.smsgps.dialogs.BirthDayDialog;
@@ -33,6 +55,7 @@ import innova.smsgps.entities.Gender;
 import innova.smsgps.entities.Idioma;
 import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
+import innova.smsgps.enums.IDSP2;
 import innova.smsgps.task.UpdateProfileUserAsyncTask;
 import innova.smsgps.utils.Utils;
 import innova.smsgps.views.EditTextListener;
@@ -47,6 +70,12 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
 {
     UserDAO userDAO = new UserDAO();
     User user       = new User();
+    // http library org apache
+    HttpEntity resEntity;
+    private Handler mHandler    = new Handler();
+
+    private static final int REQUEST_CODE_GALERY = 100;
+    private static String URI = "";
 
     LinearLayout llFuncionesActionBar;
     boolean isMostrarListaAbs = false;
@@ -55,6 +84,7 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
     Spinner spIdiomas;
     Spinner spGender;
 
+    CircleImageView ivProfile;
     TextView tvProfileNombre, tvProfileDetalle, tvActionRetroceder;
     EditTextListener etEmail, etPassword, etRepeatPassword, etFirstName, etLastName, etBirthDay, etCountry;
     String idFacebook = "";
@@ -69,6 +99,7 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
         setContentView(R.layout.activity_profile);
         llFuncionesActionBar = (LinearLayout)findViewById(R.id.llFuncionesActionBar);
 
+        ivProfile           = (CircleImageView)findViewById(R.id.ivProfile);
         tvProfileNombre     = (TextView)findViewById(R.id.tvProfileNombre);
         tvProfileDetalle    = (TextView)findViewById(R.id.tvProfileDetalle);
         tvActionRetroceder  = (TextView)findViewById(R.id.tvActionRetroceder);
@@ -86,6 +117,10 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
         spIdiomas           = (Spinner)findViewById(R.id.spIdiomas);
         spGender            = (Spinner)findViewById(R.id.spGender);
 
+        if (managerUtils.isExisteFile(this, managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE)))
+        {
+            imageLoader.displayImage(managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE), ivProfile);
+        }
 
         //region cargar spinner
         ArrayList<Idioma> alIdiomas = new ArrayList<Idioma>();
@@ -205,11 +240,59 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
                 startActivity(new Intent(this, ActivityMenuPrincipal.class));
                 finish();
                 break;
+            case R.id.ivProfileGalery:
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, REQUEST_CODE_GALERY);
+                break;
             default:
                 break;
         }
     }
 
+    /**
+     * @param requestCode int codigo de solicitud
+     * @param resultCode int resultado de operación
+     * @param intent Intent
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent)
+    {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        switch(requestCode)
+        {
+            case REQUEST_CODE_GALERY:
+                if(resultCode == RESULT_OK)
+                {
+                    Uri uriPhoto = intent.getData();
+                    URI = uriPhoto.toString();
+                    managerInfoMovil.setSpf2(IDSP2.URIFOTOPROFILE, URI);    // almacenamos el spf uri
+                    imageLoader.displayImage(URI, ivProfile);
+                    Thread thread=new Thread(new Runnable(){
+                        public void run()
+                        {
+                            postFotoProfile(etEmail.getText().toString());
+                            runOnUiThread(new Runnable(){
+                                public void run()
+                                {
+//                                    managerUtils.imprimirToast(ActivityProfile.this, "postDenuncia finish..");
+                                }
+                            });
+                        }
+                    });
+                    thread.start();
+
+
+                    /*
+                    if (managerUtils.isExisteFile(ActivityProfile.this, uriPhoto.toString()))
+                        Utils.LOG("si existe el archivo");
+                    else
+                        Utils.LOG("NO existe el archivo");
+                    */
+                }
+        }
+    }
 
     @Override
     public void onAfterTextChanged(EditText editText, String texto, int tamanio)
@@ -287,6 +370,75 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
         }else
         {
             managerUtils.imprimirToast(this, loginUser.getDescription());
+        }
+    }
+
+    /**
+     * Función que devuelve objeto byte comprimido de una imágen...
+     **/
+    public byte[] getImagenComprimida(Bitmap bitmap)
+    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Bitmap bm = bitmap;
+        bm.compress(Bitmap.CompressFormat.JPEG, 75, bos); // Compresion
+        byte[] data = bos.toByteArray();
+        return data;
+    }
+
+    private void postFotoProfile(String nickUsuario)
+    {
+        String URL = CONSTANT.PATH_WS + CONSTANT.WS_UPDATE_PROFILE_PHOTO_USUARIO;
+        try
+        {
+            String fileNameSegments[]   = URI.split("/");
+            String nombreArchivo        = fileNameSegments[fileNameSegments.length - 1] + ".jpg";
+            ByteArrayBody bab = new ByteArrayBody(getImagenComprimida(imageLoader.loadImageSync(URI)), nombreArchivo);
+
+            HttpClient client = new DefaultHttpClient();
+            HttpPost post = new HttpPost(URL);
+            MultipartEntity reqEntity = new MultipartEntity();
+            reqEntity.addPart("uploadedfile1"   , bab);
+            reqEntity.addPart("nickUsuario"     , new StringBody(nickUsuario));
+            reqEntity.addPart("imgPath"         , new StringBody(nombreArchivo));
+
+            post.setEntity(reqEntity);
+            HttpResponse response = client.execute(post);
+            resEntity = response.getEntity();
+            final String response_str = EntityUtils.toString(resEntity);
+            if (resEntity != null)
+            {
+                Log.i("RESPONSE", response_str);
+                runOnUiThread(new Runnable()
+                {
+                    public void run()
+                    {
+                        try {
+                            JSONArray jdata = new JSONArray(response_str);
+                            JSONObject jsonData =   jdata.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
+                            String result = "";
+                            if (jsonData.getInt("status") == Constantes.RESULT_OK)
+                            {
+                                result = "Subida de archivo exitosa.";
+                                // ACTUALIZAMOS FLAG DE TBDENUNCIAS
+                                managerSqlite.ejecutarConsulta(23 , null, null, null);
+                            }else
+                            {
+                                result = "Ocurrio un error al subir el archivo.";
+                            }
+                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+//                            finish();
+                        } catch (JSONException e)
+                        {
+                            managerUtils.imprimirToast(getApplicationContext(), e.getMessage());
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        }
+        catch (Exception ex){
+            managerUtils.imprimirToast(this, ex.getMessage());
+            Log.e("Debug", "error: " + ex.getMessage(), ex);
         }
     }
 }

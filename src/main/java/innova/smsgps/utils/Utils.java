@@ -253,6 +253,33 @@ public class Utils implements IUtils {
     }
 
     /**
+     * @param context Context activity
+     * @param uri Uri almacenada..
+     * @return boolean
+     */
+    public boolean isExisteFile(Context context, String uri)
+    {
+        Cursor cursor = null;
+        boolean resultado = false;
+        try
+        {
+            Uri uriFile = Uri.parse(uri);
+            String[] listColumns = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(uriFile, listColumns, null, null, null);
+            int columIndex    = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            File file = new File(cursor.getString(columIndex));
+            if (file.exists())
+                resultado = true;
+        } finally
+        {
+            if (cursor != null)
+                cursor.close();
+            return resultado;
+        }
+    }
+
+    /**
      * Simple void que devolverA un objeto de tipo BITMAP de
      * un layout.xml .
      * @param activity Actividad que la requiera.
