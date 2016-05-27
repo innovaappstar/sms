@@ -14,31 +14,32 @@ import innova.smsgps.constantes.CONSTANT;
 import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
 import innova.smsgps.managerhttp.Httppostaux;
+import innova.smsgps.utils.Utils;
 
 /**
  * Created by USUARIO on 19/05/2016.
  */
-public class RegistroUserAsyncTask extends AsyncTask< String, Integer, Integer > {
+public class UpdateProfileUserAsyncTask extends AsyncTask< String, Integer, Integer > {
 
 
-    String URL = CONSTANT.PATH_WS + CONSTANT.WS_REGISTRO_USUARIO;
+    String URL = CONSTANT.PATH_WS + CONSTANT.WS_UPDATE_PROFILE_USUARIO;
 
     String description = "";
 
     User user = null;
-    RegistroUsuarioCallback ruCallback;
+    UpdateProfileUsuarioCallback upCallback;
     Httppostaux httppostaux;
 
 
-    public interface RegistroUsuarioCallback
+    public interface UpdateProfileUsuarioCallback
     {
-        void onLoginUser(LoginUser loginUser);
+        void onUpdateProfileUser(LoginUser loginUser);
     }
 
-    public RegistroUserAsyncTask(RegistroUsuarioCallback ruCallback, User user)
+    public UpdateProfileUserAsyncTask(UpdateProfileUsuarioCallback upCallback, User user)
     {
         httppostaux = new Httppostaux();
-        this.ruCallback = ruCallback;
+        this.upCallback = upCallback;
         this.user       = user;
     }
 
@@ -52,7 +53,7 @@ public class RegistroUserAsyncTask extends AsyncTask< String, Integer, Integer >
     protected void onPostExecute(Integer result)
     {
         LoginUser loginUser = new LoginUser(result, description);
-        ruCallback.onLoginUser(loginUser);
+        upCallback.onUpdateProfileUser(loginUser);
     }
     //endregion
 
@@ -63,11 +64,16 @@ public class RegistroUserAsyncTask extends AsyncTask< String, Integer, Integer >
         int status = 0;
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 
-        nameValuePairs.add(new BasicNameValuePair("nickUsuario"         , user.getEmail()));
-        nameValuePairs.add(new BasicNameValuePair("passwordUsuario"     , user.getPassword()));
-        nameValuePairs.add(new BasicNameValuePair("nombreUsuario"       , user.getFirstName()));
-        nameValuePairs.add(new BasicNameValuePair("apellidosUsuario"    , user.getLastName()));
-        nameValuePairs.add(new BasicNameValuePair("lenguajeUsuario"     , user.getLanguaje())); // agregado..
+//        nameValuePairs.add(new BasicNameValuePair("actionLogin"       , user.getACTION_LOGIN()));
+        nameValuePairs.add(new BasicNameValuePair("nickUsuario"         ,user.getEmail()));
+        nameValuePairs.add(new BasicNameValuePair("passwordUsuario"     ,user.getPassword()));
+        nameValuePairs.add(new BasicNameValuePair("nombreUsuario"       ,user.getFirstName()));
+        nameValuePairs.add(new BasicNameValuePair("apellidosUsuario"    ,user.getLastName()));
+        nameValuePairs.add(new BasicNameValuePair("lenguajeUsuario"     ,user.getLanguaje()));
+        nameValuePairs.add(new BasicNameValuePair("generoUsuario"       ,user.getGender()));
+        nameValuePairs.add(new BasicNameValuePair("ciudadUsuario"       ,user.getCountryEdit()));
+        nameValuePairs.add(new BasicNameValuePair("birthDay"            ,user.getBirthDayEdit()));
+
         JSONArray jsonArray =   httppostaux.getserverdata(nameValuePairs, URL);
         if (jsonArray != null && jsonArray.length() > 0)
         {
@@ -77,6 +83,7 @@ public class RegistroUserAsyncTask extends AsyncTask< String, Integer, Integer >
                 jsonObject  =   jsonArray.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
                 status      =   jsonObject.getInt("status");
                 description =   jsonObject.getString("description");
+                Utils.LOG(jsonArray.toString());
             } catch (JSONException e)
             {
                 description = e.getMessage();

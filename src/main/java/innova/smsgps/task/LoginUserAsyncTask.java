@@ -14,6 +14,7 @@ import innova.smsgps.constantes.CONSTANT;
 import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
 import innova.smsgps.managerhttp.Httppostaux;
+import innova.smsgps.utils.Utils;
 
 /**
  * Created by USUARIO on 19/05/2016.
@@ -45,7 +46,7 @@ public class LoginUserAsyncTask extends AsyncTask< String, Integer, Integer > {
     // region ciclos asynctask
     protected Integer doInBackground(String... params)
     {
-        return autenticacion(params);
+        return autenticacion();
     }
 
 
@@ -58,7 +59,7 @@ public class LoginUserAsyncTask extends AsyncTask< String, Integer, Integer > {
 
 
     // función de fondo..
-    private int autenticacion(String[] parametros)
+    private int autenticacion()
     {
         int status = 0;
         ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -66,10 +67,11 @@ public class LoginUserAsyncTask extends AsyncTask< String, Integer, Integer > {
         nameValuePairs.add(new BasicNameValuePair("actionLogin"       , user.getACTION_LOGIN()));
         nameValuePairs.add(new BasicNameValuePair("nickUsuario"       , user.getEmail()));
         nameValuePairs.add(new BasicNameValuePair("passwordUsuario"   , user.getPassword()));
-        if (parametros.length > 3)
+        if (user.getACTION_LOGIN().equals(User.FACEBOOK))
         {
             nameValuePairs.add(new BasicNameValuePair("nombreUsuario"     ,user.getFirstName()));
             nameValuePairs.add(new BasicNameValuePair("apellidosUsuario"  ,user.getLastName()));
+            nameValuePairs.add(new BasicNameValuePair("lenguajeUsuario"   ,user.getLanguaje())); // agregado..
             nameValuePairs.add(new BasicNameValuePair("generoUsuario"     ,user.getGender()));
             nameValuePairs.add(new BasicNameValuePair("ciudadUsuario"     ,user.getLocale()));
             nameValuePairs.add(new BasicNameValuePair("idFacebook"        ,user.getIdFacebook()));
@@ -83,6 +85,7 @@ public class LoginUserAsyncTask extends AsyncTask< String, Integer, Integer > {
                 jsonObject  =   jsonArray.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
                 status      =   jsonObject.getInt("status");
                 description =   jsonObject.getString("description");
+                Utils.LOG(jsonArray.toString());
             } catch (JSONException e)
             {
                 description = e.getMessage();

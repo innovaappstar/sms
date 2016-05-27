@@ -31,7 +31,9 @@ import innova.smsgps.datacontractenum.UserDataContract;
 import innova.smsgps.dialogs.BirthDayDialog;
 import innova.smsgps.entities.Gender;
 import innova.smsgps.entities.Idioma;
+import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
+import innova.smsgps.task.UpdateProfileUserAsyncTask;
 import innova.smsgps.utils.Utils;
 import innova.smsgps.views.EditTextListener;
 
@@ -41,9 +43,10 @@ import static android.app.DatePickerDialog.OnDateSetListener;
 /**
  * Created by USUARIO on 10/11/2015.
  */
-public class ActivityProfile extends BaseActivity implements  OnDateSetListener, EditTextListener.EditTextListenerCallback, View.OnTouchListener
+public class ActivityProfile extends BaseActivity implements  OnDateSetListener, EditTextListener.EditTextListenerCallback, View.OnTouchListener , UpdateProfileUserAsyncTask.UpdateProfileUsuarioCallback
 {
     UserDAO userDAO = new UserDAO();
+    User user       = new User();
 
     LinearLayout llFuncionesActionBar;
     boolean isMostrarListaAbs = false;
@@ -172,7 +175,8 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
                 isMostrarListaAbs = !isMostrarListaAbs;
                 break;
             case R.id.btProfileGuardar:
-
+//                public function ActualizarPerfilUsuario ($nickUsuario, $passwordUsuario, $nombreUsuario, $apellidosUsuario, $lenguajeUsuario, $generoUsuario, $ciudadUsuario)
+                // brithday , country
                 String firstName        = etFirstName.getText().toString();
                 String email            = etEmail.getText().toString();
                 String lastName         = etLastName.getText().toString();
@@ -192,15 +196,10 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
                     etRepeatPassword.setError("no coinciden");
                     return;
                 }
-                //User(String idFacebook, String firstName, String email, String lastName, String gender, String password, String languajeEdit, String birthDayEdit, String countryEdit) {
-                try
-                {
-                    if (userDAO.insertUser(this, new User(this.idFacebook, firstName, email, lastName, gender, password, languaje, birthDay, country)))
-                        managerUtils.imprimirToast(this, "pérfil actualizado.");
-                } catch (SQLException e)
-                {
-                    managerUtils.imprimirToast(this, "no se pudó actualizar el pérfil.");
-                }
+
+                user    = new User(this.idFacebook, firstName, email, lastName, gender, password, languaje, birthDay, country);
+                new UpdateProfileUserAsyncTask(this, user).execute();
+
                 break;
             case R.id.tvActionRetroceder:
                 startActivity(new Intent(this, ActivityMenuPrincipal.class));
@@ -270,6 +269,25 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
         return true;
+    }
+
+    @Override
+    public void onUpdateProfileUser(LoginUser loginUser)
+    {
+        if (loginUser.isCorrecto())
+        {
+            try
+            {
+                if (userDAO.insertUser(this, user))
+                    managerUtils.imprimirToast(this, loginUser.getDescription());
+            } catch (SQLException e)
+            {
+                managerUtils.imprimirToast(this, "no se pudó actualizar el pérfil.");
+            }
+        }else
+        {
+            managerUtils.imprimirToast(this, loginUser.getDescription());
+        }
     }
 }
 

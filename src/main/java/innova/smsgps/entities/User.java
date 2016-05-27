@@ -7,8 +7,8 @@ package innova.smsgps.entities;
 public class User
 {
     // código de acciones para que la ws identifique ..
-    protected String MANUAL     = "1";
-    protected String FACEBOOK   = "2";
+    public static String MANUAL     = "1";
+    public static String FACEBOOK   = "2";
 
     private String ACTION_LOGIN = "";   // indicador de tipo de sesión (fb/manual)
 
