@@ -59,7 +59,7 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
         ArrayList<Idioma> alIdiomas = new ArrayList<Idioma>();
         alIdiomas.add(new Idioma(getResources().getString(R.string.item_spanish),  Idioma.ESPANIOL_id));
         alIdiomas.add(new Idioma(getResources().getString(R.string.item_english), Idioma.INGLES_id));
-        SpinnerAdapter spinnerAdapter=new SpinnerAdapter(ActivityRegistro.this,alIdiomas);
+        SpinnerAdapter spinnerAdapter=new SpinnerAdapter(ActivityRegistro.this,alIdiomas, SpinnerAdapter.LIGHT_BLUE);
         spIdiomas.setAdapter(spinnerAdapter);
         spIdiomas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

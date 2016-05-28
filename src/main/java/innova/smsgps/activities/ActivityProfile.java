@@ -126,7 +126,7 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
         alIdiomas.add(new Idioma(getResources().getString(R.string.item_spanish), Idioma.ESPANIOL_id));
         alIdiomas.add(new Idioma(getResources().getString(R.string.item_english), Idioma.INGLES_id));
 
-        SpinnerAdapter spinnerAdapter=new SpinnerAdapter(ActivityProfile.this, alIdiomas);
+        SpinnerAdapter spinnerAdapter=new SpinnerAdapter(ActivityProfile.this, alIdiomas, SpinnerAdapter.WHITE);
         spIdiomas.setAdapter(spinnerAdapter);
         spIdiomas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
