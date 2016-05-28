@@ -79,6 +79,7 @@
                             style="@style/StyleEdittextCuentaPerfil"
                             android:id="@+id/etEmail"
                             android:inputType="textEmailAddress"
+                            android:enabled="false"
                             android:hint="@string/email_registro"/>
 
                         <innova.smsgps.views.EditTextListener

@@ -150,7 +150,10 @@
         <!-- actividad menu principal iris-->
         <activity android:name=".activities.ActivityMenuPrincipal"
             android:configChanges="orientation|screenSize">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <!-- actividad lista dispositivos iris-->
         <activity android:name=".activities.ActivityListaDispositivos"
@@ -160,10 +163,7 @@
         <activity android:name=".activities.ActivityProfile"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
 
         <activity android:name=".ActivityBienvenidaInfoAplicativo"/>

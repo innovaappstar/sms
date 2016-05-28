@@ -59,6 +59,8 @@
         <item name="android:layout_marginLeft">35dp</item>
         <item name="android:layout_marginRight">35dp</item>
         <item name="android:textColorHint">@color/white</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/shape_et_linea_bottom2</item>
     </style>
 
     <style name="WidgetEdittextCuenta">
@@ -88,9 +90,11 @@
     <style name="StyleEdittextCuentaPerfil" parent="WidgetEdittextCuenta">
         <item name="android:layout_marginLeft">35dp</item>
         <item name="android:layout_marginRight">35dp</item>
+        <item name="android:padding">10dp</item>
         <item name="android:textColorHint">@color/secondary_text</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:enabled">true</item> 
+        <item name="android:enabled">true</item>
+        <item name="android:background">@drawable/shape_et_linea_bottom</item>
         <!--APLICAMOS UN PARENT LEFT PARA NO REUTILIZAR ESTE ESTILO CON SU PADRE-->
         <item name="android:layout_alignParentLeft">true</item>
     </style>
