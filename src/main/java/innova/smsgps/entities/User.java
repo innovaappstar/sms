@@ -1,5 +1,8 @@
 package innova.smsgps.entities;
 
+import innova.smsgps.application.Globals;
+import innova.smsgps.enums.IDSP2;
+
 /**
  * Created by USUARIO on 19/05/2016.
  * Entidad User - Login Facebook
@@ -120,8 +123,13 @@ public class User
         this.ACTION_LOGIN = MANUAL; // login sin facebook
     }
 
+    /**
+     * login, update profile, facebook account
+     * @return
+     */
     public String getIdFacebook() {
-        return idFacebook;
+//        return idFacebook;
+        return Globals.getInfoMovil().getSPF2(IDSP2.IDFACEBOOK);
     }
 
     public String getFirstName() {
@@ -176,6 +184,15 @@ public class User
     public String getACTION_LOGIN() {
         return ACTION_LOGIN;
     }
+
+    /**
+     * seteado solo cuando el servidor nos devuelve los datos
+     * registrados anteriormente... login's y registros..
+     * @param
+     */
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
     public String getPassword()
     {
         if (this.password.length() == 0)

@@ -8,7 +8,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -20,7 +19,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -44,6 +42,7 @@ import java.util.Locale;
 
 import innova.smsgps.CircleImageView;
 import innova.smsgps.R;
+import innova.smsgps.application.Globals;
 import innova.smsgps.base.adapters.SpinnerAdapter;
 import innova.smsgps.base.adapters.SpinnerGenderAdapter;
 import innova.smsgps.constantes.CONSTANT;
@@ -55,6 +54,7 @@ import innova.smsgps.entities.Gender;
 import innova.smsgps.entities.Idioma;
 import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
+import innova.smsgps.enums.IDSP1;
 import innova.smsgps.enums.IDSP2;
 import innova.smsgps.task.UpdateProfileUserAsyncTask;
 import innova.smsgps.utils.Utils;
@@ -72,8 +72,6 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
     User user       = new User();
     // http library org apache
     HttpEntity resEntity;
-    private Handler mHandler    = new Handler();
-
     private static final int REQUEST_CODE_GALERY = 100;
     private static String URI = "";
 
@@ -88,7 +86,7 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
     TextView tvProfileNombre, tvProfileDetalle, tvActionRetroceder;
     EditTextListener etEmail, etPassword, etRepeatPassword, etFirstName, etLastName, etBirthDay, etCountry;
     String idFacebook = "";
-
+    private static String PATHPHOTO = "";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +118,7 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
         if (managerUtils.isExisteFile(this, managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE)))
         {
             imageLoader.displayImage(managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE), ivProfile);
+            PATHPHOTO = managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE);
         }
 
         //region cargar spinner
@@ -235,6 +234,24 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
                 user    = new User(this.idFacebook, firstName, email, lastName, gender, password, languaje, birthDay, country);
                 new UpdateProfileUserAsyncTask(this, user).execute();
 
+                // comprobamos si se cambio de img..
+                if (!(managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE).equals(PATHPHOTO)))
+                {
+                    Thread thread=new Thread(new Runnable(){
+                        public void run()
+                        {
+                            postFotoProfile();
+                            runOnUiThread(new Runnable(){
+                                public void run()
+                                {
+//                                    managerUtils.imprimirToast(ActivityProfile.this, "postDenuncia finish..");
+                                }
+                            });
+                        }
+                    });
+                    thread.start();
+                    Utils.LOG("subiendo img...");
+                }
                 break;
             case R.id.tvActionRetroceder:
                 startActivity(new Intent(this, ActivityMenuPrincipal.class));
@@ -269,27 +286,6 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
                     URI = uriPhoto.toString();
                     managerInfoMovil.setSpf2(IDSP2.URIFOTOPROFILE, URI);    // almacenamos el spf uri
                     imageLoader.displayImage(URI, ivProfile);
-                    Thread thread=new Thread(new Runnable(){
-                        public void run()
-                        {
-                            postFotoProfile(etEmail.getText().toString());
-                            runOnUiThread(new Runnable(){
-                                public void run()
-                                {
-//                                    managerUtils.imprimirToast(ActivityProfile.this, "postDenuncia finish..");
-                                }
-                            });
-                        }
-                    });
-                    thread.start();
-
-
-                    /*
-                    if (managerUtils.isExisteFile(ActivityProfile.this, uriPhoto.toString()))
-                        Utils.LOG("si existe el archivo");
-                    else
-                        Utils.LOG("NO existe el archivo");
-                    */
                 }
         }
     }
@@ -385,22 +381,22 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
         return data;
     }
 
-    private void postFotoProfile(String nickUsuario)
+    private void postFotoProfile()
     {
         String URL = CONSTANT.PATH_WS + CONSTANT.WS_UPDATE_PROFILE_PHOTO_USUARIO;
         try
         {
-            String fileNameSegments[]   = URI.split("/");
-            String nombreArchivo        = fileNameSegments[fileNameSegments.length - 1] + ".jpg";
+            String idUsuario            = String.valueOf(Globals.getInfoMovil().getSPF1(IDSP1.IDUSUARIO));
+            String nombreArchivo        = idUsuario + ".jpg"; // 5.jpg
             ByteArrayBody bab = new ByteArrayBody(getImagenComprimida(imageLoader.loadImageSync(URI)), nombreArchivo);
 
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(URL);
             MultipartEntity reqEntity = new MultipartEntity();
-            reqEntity.addPart("uploadedfile1"   , bab);
-            reqEntity.addPart("nickUsuario"     , new StringBody(nickUsuario));
-            reqEntity.addPart("imgPath"         , new StringBody(nombreArchivo));
-
+            reqEntity.addPart("photoUsuario"    , bab);
+            reqEntity.addPart("idUsuario"       , new StringBody(idUsuario));
+            reqEntity.addPart("photoPath"       , new StringBody(nombreArchivo));
+            Utils.LOG(nombreArchivo);
             post.setEntity(reqEntity);
             HttpResponse response = client.execute(post);
             resEntity = response.getEntity();
@@ -415,18 +411,15 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
                         try {
                             JSONArray jdata = new JSONArray(response_str);
                             JSONObject jsonData =   jdata.getJSONObject(0); //leemos el primer segmento en nuestro caso el unico
-                            String result = "";
+
+                            String result = jsonData.getString("description");
                             if (jsonData.getInt("status") == Constantes.RESULT_OK)
                             {
-                                result = "Subida de archivo exitosa.";
-                                // ACTUALIZAMOS FLAG DE TBDENUNCIAS
-                                managerSqlite.ejecutarConsulta(23 , null, null, null);
-                            }else
-                            {
-                                result = "Ocurrio un error al subir el archivo.";
+                                managerUtils.imprimirToast(ActivityProfile.this, result);
+                                PATHPHOTO = managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE); // flag de nueva subida..
                             }
-                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
-//                            finish();
+                            else
+                                managerUtils.imprimirToast(ActivityProfile.this, result);
                         } catch (JSONException e)
                         {
                             managerUtils.imprimirToast(getApplicationContext(), e.getMessage());

@@ -8,6 +8,21 @@ public class LoginUser
     private int status  = 0;
     private String description = "";
 
+
+
+    private User user = new User();
+
+    /**
+     * @param status int
+     * @param description String
+     * @param user User
+     */
+    public LoginUser(int status, String description, User user) {
+        this.status = status;
+        this.description = description;
+        this.user = user;
+    }
+
     /**
      * @param status int
      * @param description String
@@ -36,5 +51,9 @@ public class LoginUser
     }
     public String getDescription() {
         return description;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

@@ -74,6 +74,8 @@ public class UpdateProfileUserAsyncTask extends AsyncTask< String, Integer, Inte
         nameValuePairs.add(new BasicNameValuePair("ciudadUsuario"       ,user.getCountryEdit()));
         nameValuePairs.add(new BasicNameValuePair("birthDay"            ,user.getBirthDayEdit()));
 
+        nameValuePairs.add(new BasicNameValuePair("idFacebook"          ,user.getIdFacebook()));
+
         JSONArray jsonArray =   httppostaux.getserverdata(nameValuePairs, URL);
         if (jsonArray != null && jsonArray.length() > 0)
         {

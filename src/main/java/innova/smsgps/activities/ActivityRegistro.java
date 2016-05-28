@@ -206,7 +206,7 @@ public class ActivityRegistro extends BaseActivity implements EditTextListener.E
             {
                 // registramos o actualizamos nuevo usuario...
                 UserDAO userDAO = new UserDAO();
-                userDAO.insertUser(this, this.user);
+                userDAO.insertUser(this, loginUser.getUser());
                 // grabamos código idioma
                 managerInfoMovil.setSpf1(IDSP1.IDIOMA, ((Idioma) spIdiomas.getAdapter().getItem(spIdiomas.getSelectedItemPosition())).getCodigo());
                 managerUtils.imprimirToast(this, loginUser.getDescription());

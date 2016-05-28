@@ -28,6 +28,7 @@ public enum IDSP1
 
 
     IDIOMA      (30),
+    IDUSUARIO   (31),
     SINVALOR    (99);
 
     private int n;

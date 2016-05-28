@@ -14,9 +14,11 @@ import com.facebook.widget.LoginButton;
 import java.sql.SQLException;
 
 import innova.smsgps.R;
+import innova.smsgps.application.Globals;
 import innova.smsgps.dao.UserDAO;
 import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
+import innova.smsgps.enums.IDSP2;
 import innova.smsgps.task.LoginUserAsyncTask;
 
 
@@ -101,7 +103,7 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
             String updatedTime  = (String) graphUser.getProperty("updated_time");
 
             user    = new User(idFacebook, firstName, timeZone, email, verified, name, locale, link, lastName, gender, updatedTime);
-
+            Globals.getInfoMovil().setSpf2(IDSP2.IDFACEBOOK, idFacebook);
             new LoginUserAsyncTask(this, user).execute();
 
 //            String sDatosUsuario = String.format("Se obtuvieron los siguientes datos %s\n%s\n%s\n%s" , user.getIdFacebook(), user.getFirstName(), user.getLastName(), user.getEmail());
@@ -156,7 +158,7 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
                 // login por facebook (insert/update)
                 // login manual (sin un registro previo-reinstalación del aplicativo) user-email...
                 UserDAO userDAO = new UserDAO();
-                userDAO.insertUser(this, user);
+                userDAO.insertUser(this, loginUser.getUser());
             } catch (SQLException e)
             {
                 managerUtils.imprimirToast(this, e.getMessage());

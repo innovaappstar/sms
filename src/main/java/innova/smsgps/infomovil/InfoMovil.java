@@ -55,6 +55,9 @@ public class InfoMovil implements IInfoMovil
             case IDIOMA:
                 editorspf.putInt("IDIOMA", i);
                 break;
+            case IDUSUARIO:
+                editorspf.putInt("IDUSUARIO", i);
+                break;
 //            case NUMERO01:
 //                editorspf.putInt("NUMERO01", i);
 //                break;
@@ -96,7 +99,8 @@ public class InfoMovil implements IInfoMovil
 
             case IDIOMA:
                 return spf.getInt("IDIOMA", Idioma.ESPANIOL_id);
-
+            case IDUSUARIO:
+                return spf.getInt("IDUSUARIO", 0);
 //            case NUMERO01:
 //                return spf.getInt("NUMERO01", 0);
 //            case NUMERO02:
@@ -185,7 +189,7 @@ public class InfoMovil implements IInfoMovil
             case NUMERO04:
                 return spf.getString("NUMERO04", "");
             case IDFACEBOOK:
-                return spf.getString("IDFACEBOOK", "12345678910112");
+                return spf.getString("IDFACEBOOK", "");
             case IDREGISTROALERTASMOVIL:
                 return spf.getString("IDREGISTROALERTASMOVIL", "");
             case IDREGISTRODENUNCIAMOVIL:
