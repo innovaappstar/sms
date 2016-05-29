@@ -53,51 +53,26 @@
             <TextView
                 style="@style/StyleTextIndicadoresMenuOpciones"
                 android:id="@+id/lblAccountFacebook"
-                android:text="Facebook Account"
+                android:text="@string/account_facebook"
                 android:textColor="@color/black"
                 android:layout_below="@+id/view_medio"/>
 
             <com.facebook.widget.ProfilePictureView
-                android:id="@+id/profilePictureUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/ivPictureFacebook"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true">
 
             </com.facebook.widget.ProfilePictureView>
             <TextView
                 style="@style/StyleTextIndicadoresMenuOpciones"
-                android:id="@+id/lblProfileNameUser"
+                android:id="@+id/tvNombreUser"
                 android:text=""
                 android:textColor="@color/black"
                 android:gravity="center"
-                android:layout_below="@+id/profilePictureUser"/>
-
-
-            <!--BOTON ACEPTAR-->
-            <Button
-                style="@style/StyleButtonAceptarGeneral"
-                android:id="@+id/btnAceptar"
-                android:text="Save"
-                android:visibility="gone"
-                />
+                android:layout_below="@+id/ivPictureFacebook"/>
         </RelativeLayout>
 
     </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </RelativeLayout>

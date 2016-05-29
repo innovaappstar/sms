@@ -55,5 +55,6 @@
 
     <string name="action_comprobar">Comprobar email</string>
     <string name="action_delete">Borrar</string>
-
+    <!-- xml activity facebook account -->
+    <string name="account_facebook">Facebook Account</string>
 </resources>

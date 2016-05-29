@@ -54,5 +54,8 @@
     <string name="phone_contact">Telephone of your contact</string>
     <string name="action_delete">Delete</string>
     <string name="action_comprobar">Check Email</string>
+    <!-- xml activity facebook account -->
+    <string name="account_facebook">Cuenta de Facebook</string>
+
 
 </resources>

@@ -39,6 +39,9 @@ public class ActivityFuncionesLocation extends BaseActivity
             case R.id.rlContactos:
                 startActivity(new Intent(ActivityFuncionesLocation.this, ActivityContactos.class));
                 break;
+            case R.id.rlAddAccountFacebook:
+                startActivity(new Intent(ActivityFuncionesLocation.this, ActivityAddAccountFacebook.class));
+                break;
         }
     }
 

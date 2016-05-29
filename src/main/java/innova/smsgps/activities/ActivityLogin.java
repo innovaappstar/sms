@@ -105,7 +105,6 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
             user    = new User(idFacebook, firstName, timeZone, email, verified, name, locale, link, lastName, gender, updatedTime);
             Globals.getInfoMovil().setSpf2(IDSP2.IDFACEBOOK, idFacebook);
             new LoginUserAsyncTask(this, user).execute();
-
 //            String sDatosUsuario = String.format("Se obtuvieron los siguientes datos %s\n%s\n%s\n%s" , user.getIdFacebook(), user.getFirstName(), user.getLastName(), user.getEmail());
 //            managerUtils.imprimirLog(graphUser.toString());
         }else

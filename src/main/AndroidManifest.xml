@@ -163,13 +163,8 @@
 
         </activity>
 
-        <!-- actividad profile iris-->
+        <!-- actividad funciones location-->
         <activity android:name=".activities.ActivityFuncionesLocation"
-            android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
-        <!-- actividad contactos-->
-        <activity android:name=".activities.ActivityContactos"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
@@ -177,8 +172,20 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- actividad contactos-->
+        <activity android:name=".activities.ActivityContactos"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
         <!-- actividad contacto-->
         <activity android:name=".activities.ActivityContacto"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
+        <!-- actividad add account facebook-->
+        <activity android:name=".activities.ActivityAddAccountFacebook"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateAlwaysHidden">
 
