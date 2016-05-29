@@ -36,4 +36,23 @@
 
     <string name="item_male">Male</string>
     <string name="item_female">Female</string>
+    <!-- xml activity funciones location -->
+    <string name="funciones_location_click">1 click   : Share location\n2 clicks : Tracking with GPS\nHold : Cancel Alert</string>
+    <string name="contactos_numeros">Contacts(Phone Numbers)</string>
+    <string name="agregar_cuenta_fb">Add your facebook account</string>
+    <string name="seguimiento_mapa">Tracking map</string>
+    <string name="historial_locaciones">Location History</string>
+    <!-- xml activity contactos -->
+    <string name="listado_contactos">Contact list</string>
+    <string name="contacto01">Contact 01</string>
+    <string name="contacto02">Contact 02</string>
+    <string name="contacto03">Contact 03</string>
+    <string name="contacto04">Contact 04</string>
+
+    <!-- xml activity contacto -->
+    <string name="email_contact">Email of your contact</string>
+    <string name="phone_contact">Telephone of your contact</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_comprobar">Check Email</string>
+
 </resources>

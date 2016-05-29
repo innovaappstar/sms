@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import innova.smsgps.datacontractenum.ContactoDataContract;
 import innova.smsgps.datacontractenum.UserDataContract;
 import innova.smsgps.enums.SqliteEnum;
 
@@ -29,6 +30,14 @@ public class DBHelper extends SQLiteOpenHelper
 			+ UserDataContract.ID_FACEBOOK.getValue()  	+ " TEXT DEFAULT ''"
 			+ ")";
 
+	private String sCrearTablaContactos	= "CREATE TABLE " + ContactoDataContract.TABLA.getValue() + "("
+			+ ContactoDataContract.ID.getValue()    		+ " INTEGER PRIMARY KEY,"
+			+ ContactoDataContract.TELEFONO.getValue()     	+ " TEXT DEFAULT '',"
+			+ ContactoDataContract.NOMBRE.getValue() 		+ " TEXT DEFAULT '',"
+			+ ContactoDataContract.EMAIL.getValue() 		+ " TEXT DEFAULT '',"
+			+ ContactoDataContract.CODCONTACTO.getValue()  	+ " TEXT DEFAULT ''"
+			+ ")";
+
 	//endregion
 
 	public DBHelper(Context context)
@@ -43,6 +52,7 @@ public class DBHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db)
 	{
 		db.execSQL(sCrearTablaUser);
+		db.execSQL(sCrearTablaContactos);
 	}
 
 	/**

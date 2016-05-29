@@ -16,6 +16,8 @@ public class CONSTANT
     public  static String WS_UPDATE_PROFILE_DATOS_USUARIO   = "ws_update_profile.php";
     public  static String WS_UPDATE_PROFILE_PHOTO_USUARIO   = "ws_upload_foto.php";
 
+    public  static String WS_UPDATE_CONTACTO        = "ws_update_contacto.php";
+
     public  static String WS_REGISTRO_ALERTA        = "ws_registro_alerta.php";
     public  static String WS_LISTAR_ALERTAS         = "ws_listar_registros.php";
     public  static String WS_REGISTRO_DENUNCIA      = "ws_upload_img.php";

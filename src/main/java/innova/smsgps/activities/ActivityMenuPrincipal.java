@@ -54,7 +54,9 @@ public class ActivityMenuPrincipal extends BaseActivity
             case R.id.tvAcionContactMail:
 //                startActivity(new Intent(this, ActivityOthers.class));
                 break;
-
+            case R.id.rlLocation:
+                startActivity(new Intent(this, ActivityFuncionesLocation.class));
+                break;
             default:
                 break;
         }

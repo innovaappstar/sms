@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/celeste_background">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="5.5">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:layout_weight="2.5">
+            <RelativeLayout
+                style="@style/StyleContenedorMenuBotones"
+                android:id="@+id/rlLocation"
+                android:layout_marginTop="20dp" >
+                <ImageView
+                    style="@style/StyleImgMenuBotones"
+                    android:id="@+id/ivLocation"
+                    android:clickable="true"
+                    android:onClick="onClick"
+                    android:src="@drawable/ic_gps_button"/>
+            </RelativeLayout>
+            <TextView
+                style="@style/StyleTextIndicadoresMenuOpciones"
+                android:id="@+id/txtInfoClick"
+                android:text="@string/funciones_location_click"
+                android:layout_below="@+id/rlLocation"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:background="@color/white">
+            <TextView
+                android:id="@+id/tvNumeroContacto"
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contacto01"
+                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+                <innova.smsgps.views.EditTextListener
+                    style="@style/StyleViewContactoEdit"
+                    android:paddingBottom="10dp"
+                    android:id="@+id/etEmail"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/email_contact"/>
+                <innova.smsgps.views.EditTextListener
+                    style="@style/StyleViewContactoEdit"
+                    android:id="@+id/etTelefono"
+                    android:inputType="phone"
+                    android:visibility="visible"
+                    android:hint="@string/phone_contact"/>
+                <Button
+                    android:layout_marginTop="40dp"
+                    style="@style/StyleButtonContactoEdit"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/btGuardarContacto"
+                    android:text="@string/guardar_profile"
+                    android:visibility="visible"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llFuncionesActionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:background="@color/gris_claro_card_view"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:visibility="gone"
+        android:weightSum="2">
+        <TextView
+            android:id="@+id/tvComprobarEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center|left|start"
+            android:textSize="16sp"
+            android:textColor="@color/action_text_color"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="@string/action_comprobar" />
+        <TextView
+            android:id="@+id/tvDelete"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center|left|start"
+            android:textSize="16sp"
+            android:textColor="@color/action_text_color"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="@string/action_delete" />
+    </LinearLayout>
+
+</RelativeLayout>

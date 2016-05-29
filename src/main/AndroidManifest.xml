@@ -150,10 +150,7 @@
         <!-- actividad menu principal iris-->
         <activity android:name=".activities.ActivityMenuPrincipal"
             android:configChanges="orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
         <!-- actividad lista dispositivos iris-->
         <activity android:name=".activities.ActivityListaDispositivos"
@@ -165,6 +162,28 @@
             android:windowSoftInputMode="stateAlwaysHidden">
 
         </activity>
+
+        <!-- actividad profile iris-->
+        <activity android:name=".activities.ActivityFuncionesLocation"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+        <!-- actividad contactos-->
+        <activity android:name=".activities.ActivityContactos"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- actividad contacto-->
+        <activity android:name=".activities.ActivityContacto"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
+
 
         <activity android:name=".ActivityBienvenidaInfoAplicativo"/>
         <activity android:name=".ActivityBienvenidaInfoGps"/>

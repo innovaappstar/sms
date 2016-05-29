@@ -42,14 +42,7 @@
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/white">
-            <TextView
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/listado_contactos"
-                android:textColor="@color/black"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@+id/scrollView"/>
+
             <ScrollView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -82,12 +75,12 @@
                                     >
                                     <TextView
                                         style="@style/StyleTextCardTextoOpciones"
-                                        android:text="@string/contacto01"/>
+                                        android:text="@string/contactos_numeros"/>
 
                                 </RelativeLayout>
                             </android.support.v7.widget.CardView>
                             <RelativeLayout
-                                android:id="@+id/rlContacto01"
+                                android:id="@+id/rlContactos"
                                 style="@style/StyleContenedorBotonFlotante"
                                 >
                                 <ImageView
@@ -112,12 +105,12 @@
                                     <TextView
                                         style="@style/StyleTextCardTextoOpciones"
                                         android:id="@+id/lblAccountFacebook"
-                                        android:text="@string/contacto02"/>
+                                        android:text="@string/agregar_cuenta_fb"/>
 
                                 </RelativeLayout>
                             </android.support.v7.widget.CardView>
                             <RelativeLayout
-                                android:id="@+id/rlContacto02"
+                                android:id="@+id/contenedor_add_facebook"
                                 style="@style/StyleContenedorBotonFlotante"
                                 android:layout_alignParentBottom="true"
                                 >
@@ -144,12 +137,12 @@
                                     <TextView
                                         style="@style/StyleTextCardTextoOpciones"
                                         android:id="@+id/lblMapAlertas"
-                                        android:text="@string/contacto03"/>
+                                        android:text="@string/seguimiento_mapa"/>
 
                                 </RelativeLayout>
                             </android.support.v7.widget.CardView>
                             <RelativeLayout
-                                android:id="@+id/rlContacto03"
+                                android:id="@+id/contenedor_mapa_alertas"
                                 style="@style/StyleContenedorBotonFlotante"
                                 android:layout_alignParentBottom="true"
                                 >
@@ -177,12 +170,12 @@
                                     <TextView
                                         style="@style/StyleTextCardTextoOpciones"
                                         android:id="@+id/lblDenuncia"
-                                        android:text="@string/contacto04"/>
+                                        android:text="@string/historial_locaciones"/>
 
                                 </RelativeLayout>
                             </android.support.v7.widget.CardView>
                             <RelativeLayout
-                                android:id="@+id/rlContacto04"
+                                android:id="@+id/contenedor_denuncias"
                                 style="@style/StyleContenedorBotonFlotante"
                                 android:layout_alignParentBottom="true"
                                 >

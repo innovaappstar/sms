@@ -59,7 +59,8 @@
         <item name="android:layout_marginLeft">35dp</item>
         <item name="android:layout_marginRight">35dp</item>
         <item name="android:textColorHint">@color/white</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
         <item name="android:background">@drawable/shape_et_linea_bottom2</item>
     </style>
 
@@ -69,6 +70,14 @@
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_centerHorizontal">true</item>
     </style>
+
+    <!--ESTILO PARA EDITTEXT y BOTONES DE EDITAR CONTACTO-->
+    <style name="StyleButtonContactoEdit" parent="StyleButtonCuenta">
+        <item name="android:layout_marginLeft">65dp</item>
+        <item name="android:layout_marginRight">65dp</item>
+    </style>
+
+
     <!--01 ESTILO BUTTON LOGIN / REGISTRO-->
     <style name="StyleButtonCuenta" parent="WidgetButtonCuenta">
         <item name="android:layout_marginLeft">35dp</item>
@@ -86,11 +95,20 @@
         <item name="android:onClick">onClick</item>
         <item name="android:padding">10dp</item>
     </style>
+
+    <!--ESTILO PARA EDITTEXT  DE EDITAR CONTACTO-->
+    <style name="StyleViewContactoEdit" parent="StyleEdittextCuentaPerfil">
+        <item name="android:layout_marginLeft">65dp</item>
+        <item name="android:layout_marginRight">65dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
     <!--ESTILO PARA EDITTEXT PÉRFIL USUARIO-->
     <style name="StyleEdittextCuentaPerfil" parent="WidgetEdittextCuenta">
         <item name="android:layout_marginLeft">35dp</item>
         <item name="android:layout_marginRight">35dp</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
         <item name="android:textColorHint">@color/secondary_text</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:enabled">true</item>
