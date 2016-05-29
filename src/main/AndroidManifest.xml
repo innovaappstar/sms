@@ -167,10 +167,7 @@
         <activity android:name=".activities.ActivityFuncionesLocation"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
         <!-- actividad contactos-->
         <activity android:name=".activities.ActivityContactos"
@@ -191,6 +188,15 @@
 
         </activity>
 
+        <!-- actividad map track-->
+        <activity android:name=".activities.ActivityMapTrack"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
         <activity android:name=".ActivityBienvenidaInfoAplicativo"/>
         <activity android:name=".ActivityBienvenidaInfoGps"/>

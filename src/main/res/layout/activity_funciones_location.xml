@@ -142,7 +142,7 @@
                                 </RelativeLayout>
                             </android.support.v7.widget.CardView>
                             <RelativeLayout
-                                android:id="@+id/contenedor_mapa_alertas"
+                                android:id="@+id/rlMapTrack"
                                 style="@style/StyleContenedorBotonFlotante"
                                 android:layout_alignParentBottom="true"
                                 >

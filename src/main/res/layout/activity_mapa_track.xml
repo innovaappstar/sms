@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/celeste_oscuro_02">
+
+    <LinearLayout
+        android:id="@+id/contenedorPrincipalMapa"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="5">
+
+        <RelativeLayout
+            android:id="@+id/contenedorMapaView"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <fragment
+                    android:id="@+id/mapTrack"
+                    android:tag="Mapa Alertas"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    tools:layout="@layout/layout_map" />
+                <RelativeLayout
+                    android:id="@+id/rlOptionFlotante"
+                    style="@style/StyleContenedorBotonFlotante"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="invisible"
+                    android:layout_margin="20dp"
+                    >
+                    <ImageView
+                        style="@style/StyleImgBotonFlotante"
+                        android:id="@+id/ivOpcionTrack" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlFriends"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_above="@+id/rlOptionFlotante"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    android:background="@android:color/transparent">
+                    <ListView
+                        android:id="@+id/lvFriends"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        />
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFuncionesActionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:background="@color/gris_claro_card_view"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:visibility="gone"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/tvActionSincronizarContactos"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center|left|start"
+            android:textSize="16sp"
+            android:textColor="@color/action_text_color"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:text="@string/action_sincronizar_contactos" />
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

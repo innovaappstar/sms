@@ -15,7 +15,8 @@ public enum IDSP2
     NICKUSUARIO             (8),
     DIRECTORIOMUSIC         (9),
     MACADDRESS              (10),
-    URIFOTOPROFILE          (11);
+    URIFOTOPROFILE          (11),
+    EMAILUSUARIO            (12);
 
     private int n;
 

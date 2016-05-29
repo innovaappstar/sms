@@ -117,7 +117,7 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
 
         if (managerUtils.isExisteFile(this, managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE)))
         {
-            imageLoader.displayImage(managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE), ivProfile);
+            Globals.imageLoader.displayImage(managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE), ivProfile);
             PATHPHOTO = managerInfoMovil.getSPF2(IDSP2.URIFOTOPROFILE);
         }
 
@@ -285,7 +285,7 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
                     Uri uriPhoto = intent.getData();
                     URI = uriPhoto.toString();
                     managerInfoMovil.setSpf2(IDSP2.URIFOTOPROFILE, URI);    // almacenamos el spf uri
-                    imageLoader.displayImage(URI, ivProfile);
+                    Globals.imageLoader.displayImage(URI, ivProfile);
                 }
         }
     }
@@ -388,7 +388,7 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
         {
             String idUsuario            = String.valueOf(Globals.getInfoMovil().getSPF1(IDSP1.IDUSUARIO));
             String nombreArchivo        = idUsuario + ".jpg"; // 5.jpg
-            ByteArrayBody bab = new ByteArrayBody(getImagenComprimida(imageLoader.loadImageSync(URI)), nombreArchivo);
+            ByteArrayBody bab = new ByteArrayBody(getImagenComprimida(Globals.imageLoader.loadImageSync(URI)), nombreArchivo);
 
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(URL);

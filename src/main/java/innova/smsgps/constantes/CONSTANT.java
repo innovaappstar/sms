@@ -10,11 +10,14 @@ public class CONSTANT
      **/
     private static String NOMBRE_SERVIDOR           = "http://apolomultimedia-server1.info";
     private static String FOLDER_ANDROID            = "android/ws_sms_gps";
+//    private static String FOLDER_IMAGES             = "images";
     public  static String PATH_WS                   =  NOMBRE_SERVIDOR + "/" + FOLDER_ANDROID + "/";
+    public  static String PATH_WS_IMAGES            = NOMBRE_SERVIDOR + "/" + FOLDER_ANDROID ;    // el servidor ya asigna al comienzo el caracter separador '/'
     public  static String WS_LOGIN_USUARIO          = "ws_login_usuario.php";
     public  static String WS_REGISTRO_USUARIO       = "ws_registro_usuario.php";
     public  static String WS_UPDATE_PROFILE_DATOS_USUARIO   = "ws_update_profile.php";
     public  static String WS_UPDATE_PROFILE_PHOTO_USUARIO   = "ws_upload_foto.php";
+    public  static String WS_TRACKER_MAP            = "ws_listar_track.php";
 
     public  static String WS_UPDATE_CONTACTO        = "ws_update_contacto.php";
 

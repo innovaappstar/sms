@@ -56,6 +56,7 @@
     <string name="action_comprobar">Check Email</string>
     <!-- xml activity facebook account -->
     <string name="account_facebook">Cuenta de Facebook</string>
-
+    <!-- xml activity map track -->
+    <string name="action_sincronizar_contactos">Sincronizar Contactos</string>
 
 </resources>

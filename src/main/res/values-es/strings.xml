@@ -57,4 +57,7 @@
     <string name="action_delete">Borrar</string>
     <!-- xml activity facebook account -->
     <string name="account_facebook">Facebook Account</string>
+
+    <!-- xml activity map track -->
+    <string name="action_sincronizar_contactos">Sincronizar Contactos</string>
 </resources>

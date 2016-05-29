@@ -15,6 +15,7 @@ import innova.smsgps.constantes.CONSTANT;
 import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
 import innova.smsgps.enums.IDSP1;
+import innova.smsgps.enums.IDSP2;
 import innova.smsgps.managerhttp.Httppostaux;
 
 /**
@@ -101,6 +102,7 @@ public class RegistroUserAsyncTask extends AsyncTask< String, Integer, Integer >
                     user = new User(idFacebook, nombreUsuario, nickUsuario, apellidosUsuario, generoUsuario, passwordUsuario, lenguajeUsuario, onomasticoUsuario, ciudadUsuario);
 //                    idUsuario =  idUsuario.replaceAll("\\s","");
                     Globals.getInfoMovil().setSpf1(IDSP1.IDUSUARIO, Integer.valueOf(idUsuario));
+                    Globals.getInfoMovil().setSpf2(IDSP2.EMAILUSUARIO, nickUsuario);
                 }
 
             } catch (JSONException e)

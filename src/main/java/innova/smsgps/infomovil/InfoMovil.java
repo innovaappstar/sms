@@ -158,6 +158,9 @@ public class InfoMovil implements IInfoMovil
             case URIFOTOPROFILE:
                 editorspf.putString("URIFOTOPROFILE", s);
                 break;
+            case EMAILUSUARIO:
+                editorspf.putString("EMAILUSUARIO", s);
+                break;
 
 
 
@@ -202,6 +205,8 @@ public class InfoMovil implements IInfoMovil
                 return spf.getString("MACADDRESS", "");
             case URIFOTOPROFILE:
                 return spf.getString("URIFOTOPROFILE", "");
+            case EMAILUSUARIO:
+                return spf.getString("EMAILUSUARIO", "");
 
             default:
                 return "";

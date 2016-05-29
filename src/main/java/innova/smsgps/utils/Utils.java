@@ -22,6 +22,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import innova.smsgps.ActivityFacebookAccount;
@@ -219,6 +221,43 @@ public class Utils implements IUtils {
             (idutils == IDUTILS.DDHHMMSS) ? "dd/MM/yyyy HH:mm:ss" : "dd/MM/yyyy HH:mm:ss.SSS";
 
         return new SimpleDateFormat(mFecha).format(Calendar.getInstance().getTime());
+    }
+
+    /**
+     * fecha en formato date mysql
+     * @param day int dias agregados
+     * @return
+     */
+    public static String getFechaHora(int day)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, day);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        String mFecha =  "yyyy-MM-dd HH:mm:ss";
+        return new SimpleDateFormat(mFecha, Locale.getDefault()).format(cal.getTime());
+    }
+
+
+    /**
+     * @param activity ActivityMapTrack
+     * @param view View
+     * @return
+     */
+    public static Bitmap getConvertirInView(Activity activity, View view)
+    {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        return bitmap;
     }
 
     /**

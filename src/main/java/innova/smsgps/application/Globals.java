@@ -9,6 +9,10 @@ import android.widget.Toast;
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import innova.smsgps.ServicioSms;
 import innova.smsgps.beans.Coordenada;
@@ -29,6 +33,7 @@ public class Globals extends Application {
 
     private static ManagerInfoMovil managerInfoMovil ;
 
+    public static final ImageLoader imageLoader = ImageLoader.getInstance();
     @Override
     public void onCreate()
     {
@@ -38,6 +43,16 @@ public class Globals extends Application {
         managerInfoMovil = new ManagerInfoMovil(mAppContext);
         // INICIAR SERVICIO
         iniciarServicio();
+
+        //region inicializamos el imageLoader
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(mAppContext)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
+                .denyCacheImageMultipleSizesInMemory()
+                .discCacheFileNameGenerator(new Md5FileNameGenerator())
+                .tasksProcessingOrder(QueueProcessingType.LIFO)
+                .build();
+        imageLoader.init(config);
+        //endregion
      }
     /**
      * Iniciar Servicio de Geolocalización en segundo plano...

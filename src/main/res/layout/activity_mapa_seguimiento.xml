@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/celeste_oscuro_02">
+
+    <LinearLayout
+        android:id="@+id/contenedorPrincipalMapa"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="5">
+
+        <RelativeLayout
+            android:id="@+id/contenedorMapaView"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <fragment
+                    android:id="@+id/mapTrack"
+                    android:tag="Mapa Alertas"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    tools:layout="@layout/layout_map" />
+                <RelativeLayout
+                    android:id="@+id/contenedorExpandir"
+                    style="@style/StyleContenedorBotonFlotante"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="20dp"
+                    >
+                    <ImageView
+                        style="@style/StyleImgBotonFlotante"
+                        android:id="@+id/ivOpcionTrack" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+</RelativeLayout>

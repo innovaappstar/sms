@@ -62,6 +62,9 @@
     <!-- xml activity facebook account -->
     <string name="account_facebook">Cuenta de Facebook</string>
 
+    <!-- xml activity map track -->
+    <string name="action_sincronizar_contactos">Sincronizar Contactos</string>
+
 
 
     <string name="cancelled">Cancelled</string>
