@@ -48,4 +48,6 @@ public interface IUtils {
 
      void deslizadoVertical(View view,  Context context , boolean isMostrar);
      boolean isExisteFile(Context context, String uri);
+
+     int getBateria(Context context);
 }

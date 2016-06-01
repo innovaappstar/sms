@@ -136,7 +136,10 @@
         <!-- actividad splash screen iris-->
         <activity android:name=".activities.ActivitySplash"
             android:configChanges="orientation|screenSize">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <!-- actividad login iris-->
         <activity android:name=".activities.ActivityLogin"
@@ -192,11 +195,26 @@
         <activity android:name=".activities.ActivityMapTrack"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
+        <!-- actividad lista track-->
+        <activity android:name=".activities.ActivityListaTrack"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
+
+        <!-- actividad map track historial-->
+        <activity android:name=".activities.ActivityMapTrackHistorial"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="stateAlwaysHidden">
+
+        </activity>
+
+        <service
+            android:name=".IMServicio"
+            android:exported="true"/>
+
 
         <activity android:name=".ActivityBienvenidaInfoAplicativo"/>
         <activity android:name=".ActivityBienvenidaInfoGps"/>

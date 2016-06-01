@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import innova.smsgps.IMServicio;
 import innova.smsgps.ServicioSms;
 import innova.smsgps.beans.Coordenada;
 import innova.smsgps.infomovil.ManagerInfoMovil;
@@ -62,7 +63,7 @@ public class Globals extends Application {
     private void iniciarServicio()
     {
         if(!ServicioSms.isRunning())
-            startService(new Intent(this, ServicioSms.class));
+            startService(new Intent(this, IMServicio.class));
     }
     /**
      * get/set Session facebook

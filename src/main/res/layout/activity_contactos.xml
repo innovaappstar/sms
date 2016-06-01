@@ -25,7 +25,7 @@
                 <ImageView
                     style="@style/StyleImgMenuBotones"
                     android:id="@+id/img_gps"
-                    android:src="@drawable/ic_gps_button"/>
+                    android:src="@drawable/ic_location_menu"/>
             </RelativeLayout>
 
             <!--REUTILIZANDO ESTILO DE ACTIVITY PÈRFIL-->

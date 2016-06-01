@@ -10,7 +10,7 @@ public class Session
     }
 
     public void setSession(com.facebook.Session session) {
-        this.session = session;
+        Session.session = session;
     }
 
     static com.facebook.Session session;

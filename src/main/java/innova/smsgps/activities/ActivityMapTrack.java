@@ -161,8 +161,8 @@ public class ActivityMapTrack extends BaseActivity implements TrackerAsyncTask.T
         {
             // tracking friend
             Friend friend = (Friend)parent.getItemAtPosition(position);
-            String fechaHoraInicio  =  Utils.getFechaHora(0);
-            String fechaHoraFin     =  Utils.getFechaHora(1);
+            String fechaHoraInicio  =  Utils.getFechaHora(0, false);
+            String fechaHoraFin     =  Utils.getFechaHora(1, false);
             tracker = new Tracker(Tracker.UBICACION, fechaHoraInicio, fechaHoraFin, friend.getIdUsuario());
             new TrackerAsyncTask(this, tracker).execute();
             // copiamos contenido bitmap

@@ -20,11 +20,22 @@
             <!--CONTENEDOR DEVICE - SUPERIOR-->
             <RelativeLayout
                 style="@style/StyleContenedorMenuBotones"
-                android:id="@+id/contenedor_gps"
+                android:id="@+id/rlLocation"
                 android:layout_marginTop="20dp" >
                 <ImageView
                     style="@style/StyleImgMenuBotones"
                     android:id="@+id/img_gps"
+                    android:src="@drawable/ic_location_menu"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/StyleContenedorMenuBotones"
+                android:id="@+id/rlLocation02"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_view_circle_press_02"
+                android:visibility="gone">
+                <ImageView
+                    style="@style/StyleImgMenuBotones"
                     android:src="@drawable/ic_location_menu"/>
             </RelativeLayout>
 
@@ -33,9 +44,12 @@
                 style="@style/StyleTextIndicadoresMenuOpciones"
                 android:id="@+id/txtInfoClick"
                 android:text="@string/funciones_location_click"
-                android:layout_below="@+id/contenedor_gps"/>
+                android:layout_below="@+id/rlLocation"/>
 
         </RelativeLayout>
+
+
+
         <!--CONTENEDOR DE DATOS DE PÉRFIL -->
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -175,7 +189,7 @@
                                 </RelativeLayout>
                             </android.support.v7.widget.CardView>
                             <RelativeLayout
-                                android:id="@+id/contenedor_denuncias"
+                                android:id="@+id/rlHistorialTrack"
                                 style="@style/StyleContenedorBotonFlotante"
                                 android:layout_alignParentBottom="true"
                                 >

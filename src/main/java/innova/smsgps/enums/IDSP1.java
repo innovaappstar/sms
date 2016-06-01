@@ -29,6 +29,8 @@ public enum IDSP1
 
     IDIOMA      (30),
     IDUSUARIO   (31),
+    TRACKING    (32),   // 3 ESTADOS (INACTIVO/ALERTA/SEGUIMIENTO)
+    LOGUEADO    (33),   // 2 ESTADOS (0/1)
     SINVALOR    (99);
 
     private int n;

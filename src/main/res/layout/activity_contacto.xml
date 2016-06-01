@@ -24,7 +24,7 @@
                     android:id="@+id/ivLocation"
                     android:clickable="true"
                     android:onClick="onClick"
-                    android:src="@drawable/ic_gps_button"/>
+                    android:src="@drawable/ic_location_menu"/>
             </RelativeLayout>
             <TextView
                 style="@style/StyleTextIndicadoresMenuOpciones"

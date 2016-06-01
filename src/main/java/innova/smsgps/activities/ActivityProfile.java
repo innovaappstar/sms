@@ -177,6 +177,8 @@ public class ActivityProfile extends BaseActivity implements  OnDateSetListener,
 //                etGender.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.GENDER.getValue())));
                 etBirthDay.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.BIRTHDAY.getValue())));
                 etCountry.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.COUNTRY.getValue())));
+                if(etCountry.getText().toString().equals("es_ES"))
+                    etCountry.setText("");
 //                etEmail.setText(cursorUser.getString(cursorUser.getColumnIndexOrThrow(UserDataContract.ID_FACEBOOK.getValue())));
             }
         } catch (SQLException e)

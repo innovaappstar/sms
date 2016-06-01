@@ -110,4 +110,9 @@ public class ManagerUtils implements IUtils {
         return iUtils.isExisteFile(context, uri);
     }
 
+    @Override
+    public int getBateria(Context context) {
+        return iUtils.getBateria(context);
+    }
+
 }

@@ -58,6 +58,12 @@ public class InfoMovil implements IInfoMovil
             case IDUSUARIO:
                 editorspf.putInt("IDUSUARIO", i);
                 break;
+            case TRACKING:
+                editorspf.putInt("TRACKING", i);
+                break;
+            case LOGUEADO:
+                editorspf.putInt("LOGUEADO", i);
+                break;
 //            case NUMERO01:
 //                editorspf.putInt("NUMERO01", i);
 //                break;
@@ -101,6 +107,10 @@ public class InfoMovil implements IInfoMovil
                 return spf.getInt("IDIOMA", Idioma.ESPANIOL_id);
             case IDUSUARIO:
                 return spf.getInt("IDUSUARIO", 0);
+            case TRACKING:
+                return spf.getInt("TRACKING", 0);
+            case LOGUEADO:
+                return spf.getInt("LOGUEADO", 0);
 //            case NUMERO01:
 //                return spf.getInt("NUMERO01", 0);
 //            case NUMERO02:

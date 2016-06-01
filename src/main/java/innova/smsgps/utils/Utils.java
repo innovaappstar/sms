@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -33,9 +35,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import innova.smsgps.ActivityFacebookAccount;
 import innova.smsgps.ActivityMediaOpciones;
 import innova.smsgps.R;
+import innova.smsgps.activities.ActivityAddAccountFacebook;
 import innova.smsgps.anim.AnimViews;
 import innova.smsgps.application.Globals;
 import innova.smsgps.enums.IDSP2;
@@ -57,7 +59,7 @@ public class Utils implements IUtils {
     @Override
     public void showNotificacionSimple(Context context)
     {
-        showNotificacion(context, R.drawable.img_notification_facebook_session, "Session perdida", "Restaura tu sesión", ActivityFacebookAccount.class);
+        showNotificacion(context, R.drawable.img_notification_facebook_session, "Session perdida", "Restaura tu sesión", ActivityAddAccountFacebook.class);
     }
 
     @Override
@@ -80,6 +82,17 @@ public class Utils implements IUtils {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, notification);
 
+    }
+
+    /**
+     * Retorna el estado de la bateria..
+     * @return int nivel de bateria
+     */
+    @Override
+    public int getBateria(Context context){
+        IntentFilter batIntentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent battery = context.registerReceiver(null, batIntentFilter);
+        return battery.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
     }
 
 
@@ -228,13 +241,17 @@ public class Utils implements IUtils {
      * @param day int dias agregados
      * @return
      */
-    public static String getFechaHora(int day)
+    public static String getFechaHora(int day , boolean isTimeNow)
     {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.DATE, day);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
+        if (!isTimeNow)
+        {
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+        }
+
         String mFecha =  "yyyy-MM-dd HH:mm:ss";
         return new SimpleDateFormat(mFecha, Locale.getDefault()).format(cal.getTime());
     }

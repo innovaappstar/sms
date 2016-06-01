@@ -24,6 +24,10 @@ import innova.smsgps.utils.ManagerUtils;
 public class UpAlerta extends AsyncTask< String, String, String > {
 
     /**
+     * ($nickUsuario, $lat, $lng, $fechaHora)
+     */
+
+    /**
      * URL WS
      **/
     String URL = CONSTANT.PATH_WS + CONSTANT.WS_REGISTRO_ALERTA;

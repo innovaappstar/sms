@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import innova.smsgps.datacontractenum.ContactoDataContract;
+import innova.smsgps.datacontractenum.RegistroTrackDataContract;
 import innova.smsgps.datacontractenum.UserDataContract;
 import innova.smsgps.enums.SqliteEnum;
 
@@ -38,6 +39,17 @@ public class DBHelper extends SQLiteOpenHelper
 			+ ContactoDataContract.CODCONTACTO.getValue()  	+ " TEXT DEFAULT ''"
 			+ ")";
 
+	private String sCrearTablaRegistroTrack	= "CREATE TABLE " + RegistroTrackDataContract.TABLA.getValue() + "("
+			+ RegistroTrackDataContract.ID.getValue()    		+ " INTEGER PRIMARY KEY,"
+			+ RegistroTrackDataContract.LATITUD.getValue()     	+ " TEXT DEFAULT '0.0',"
+			+ RegistroTrackDataContract.LONGITUD.getValue() 	+ " TEXT DEFAULT '0.0',"
+			+ RegistroTrackDataContract.VELOCIDAD.getValue() 	+ " TEXT DEFAULT '0.0',"
+			+ RegistroTrackDataContract.BATERIA.getValue() 		+ " TEXT DEFAULT '0.0',"
+			+ RegistroTrackDataContract.FECHAHORA.getValue() 	+ " TEXT DEFAULT '',"
+			+ RegistroTrackDataContract.IDUSUARIO.getValue() 	+ " TEXT DEFAULT '',"
+			+ RegistroTrackDataContract.TIPOTRACK.getValue() 	+ " TEXT DEFAULT '0'"
+			+ ")";
+
 	//endregion
 
 	public DBHelper(Context context)
@@ -53,6 +65,7 @@ public class DBHelper extends SQLiteOpenHelper
 	{
 		db.execSQL(sCrearTablaUser);
 		db.execSQL(sCrearTablaContactos);
+		db.execSQL(sCrearTablaRegistroTrack);
 	}
 
 	/**

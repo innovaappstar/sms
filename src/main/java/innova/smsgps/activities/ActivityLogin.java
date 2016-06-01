@@ -15,9 +15,11 @@ import java.sql.SQLException;
 
 import innova.smsgps.R;
 import innova.smsgps.application.Globals;
+import innova.smsgps.constantes.Constantes;
 import innova.smsgps.dao.UserDAO;
 import innova.smsgps.entities.LoginUser;
 import innova.smsgps.entities.User;
+import innova.smsgps.enums.IDSP1;
 import innova.smsgps.enums.IDSP2;
 import innova.smsgps.task.LoginUserAsyncTask;
 
@@ -48,7 +50,11 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
         etEmail     = (EditText)findViewById(R.id.etEmail);
         etPassword  = (EditText)findViewById(R.id.etPassword);
 
-
+        if (Globals.getInfoMovil().getSPF1(IDSP1.LOGUEADO) == Constantes.RESULT_OK)
+        {
+            startActivity(new Intent(this, ActivityMenuPrincipal.class));
+            finish();
+        }
         ((LoginButton) findViewById(R.id.lbIniciarSesionFacebook)).setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
             @Override
             public void onUserInfoFetched(GraphUser graphUser) {
@@ -162,7 +168,7 @@ public class ActivityLogin extends BaseActivity implements LoginUserAsyncTask.Lo
             {
                 managerUtils.imprimirToast(this, e.getMessage());
             }
-
+            Globals.getInfoMovil().setSpf1(IDSP1.LOGUEADO, Constantes.RESULT_OK);
             managerUtils.imprimirToast(this, loginUser.getDescription());
             startActivity(new Intent(this, ActivityMenuPrincipal.class));
             finish();

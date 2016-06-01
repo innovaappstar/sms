@@ -10,6 +10,7 @@ import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 
+import innova.smsgps.IMServicio;
 import innova.smsgps.ServicioSms;
 import innova.smsgps.interfaces.IBridgeIPC;
 
@@ -33,9 +34,6 @@ public class BridgeIPC implements IBridgeIPC
     // INDICES RECURSIVOS PARA LOCALIZACIÓN
     public static final int INDICE_DENUNCIA_ANDROID     = 8;
     public static final int INDICE_CONECTARSE_BLUETOOTH = 9;
-
-    public static final String SUB_INDICE_WEBSOCKET_TRANSACCION_BOLETO      = "1";
-    public static final String SUB_INDICE_WEBSOCKET_TRANSACCION_ELECTRONICO = "2";
 
     public static final String NOMBRE_BUNDLE = "DATA";
 
@@ -90,7 +88,7 @@ public class BridgeIPC implements IBridgeIPC
      */
     private void ConectarnosAlServicio()
     {
-        context.bindService(new Intent(context, ServicioSms.class), mServiceConnection, Context.BIND_AUTO_CREATE);
+        context.bindService(new Intent(context, IMServicio.class), mServiceConnection, Context.BIND_AUTO_CREATE);
     }
 
     /**
